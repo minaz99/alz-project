@@ -23,6 +23,11 @@ public class PatientController {
         return patientService.getPatients();
     }
 
+    @GetMapping(path = "{id}")
+    public Patient getPatient(@PathVariable("id") Long id){
+        return patientService.getPatient(id);
+    }
+
     @PostMapping
     public void registerPatient(@RequestBody Patient patient){
         patientService.registerPatient(patient);
@@ -39,5 +44,22 @@ public class PatientController {
                               @RequestParam(required = false) String lastName,
                               @RequestParam(required = false) String email){
         patientService.updatePatient(id, firstName,lastName, email);
+    }
+
+    @GetMapping(path = "{patientId}/caregivers")
+    public List<Long> getCaregivers(@PathVariable("patientId") Long patientId){
+        return patientService.getCaregivers(patientId);
+    }
+
+    @PutMapping(path = "{patientId}/caregivers")
+    public void addCaregivers(@PathVariable("patientId") Long patientId,
+                              @RequestParam Long caregiverId){
+        patientService.addCaregivers(patientId, caregiverId);
+    }
+
+    @PutMapping(path = "{patientId}/caregivers/{caregiverId}")
+    public void deleteCaregivers(@PathVariable("patientId") Long patientId,
+                                 @PathVariable("caregiverId") Long caregiverId){
+        patientService.deleteCaregivers(patientId, caregiverId);
     }
 }
