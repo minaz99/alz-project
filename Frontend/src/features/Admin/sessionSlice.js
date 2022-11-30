@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const loginUser = createAsyncThunk(
-  "users/login",
+  "/login",
   async ({ email, password }, thunkAPI) => {
     try {
       const response = await fetch("https://reqres.in/api/login", {
@@ -27,7 +27,8 @@ export const loginUser = createAsyncThunk(
       });
       let data = await response.json();
       //email = data;
-      //console.log("response", data);
+      // console.log("response", data);
+
       if (response.status === 200)
         return { ...data, email: email }; //console.log(data.token);
       else {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-function PatientForm() {
+function PatientForm(props) {
   const [birthdayClicked, setBirthdayClicked] = useState(false);
   return (
     <div>
@@ -26,6 +26,9 @@ function PatientForm() {
               placeholder="First Name"
               className="rounded-md bg-violet-200/40 p-2 "
               required
+              onChange={(e) => {
+                props.setFirstname(e.target.value);
+              }}
             />
             <input
               name="lname"
@@ -33,6 +36,9 @@ function PatientForm() {
               placeholder="Last Name"
               className="rounded-md bg-violet-200/40 p-2 "
               required
+              onChange={(e) => {
+                props.setLastname(e.target.value);
+              }}
             />
           </div>
           <div className="space-x-2 p-2f flex justify-center">
@@ -49,15 +55,21 @@ function PatientForm() {
                 setBirthdayClicked(true);
               }}
               required
+              onChange={(e) => {
+                props.setDateOfBirth(e.target.value);
+              }}
             />
             <select
               name="gender"
               className="rounded-md bg-violet-200/40 p-2 pl-8 pr-12 text-gray-400"
               required
+              onChange={(e) => {
+                props.setGender("MALE");
+              }}
             >
               <option value="none">Select gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+              <option value="male">MALE</option>
+              <option value="female">FEMALE</option>
             </select>
           </div>
 
@@ -68,6 +80,9 @@ function PatientForm() {
               placeholder="Address"
               className="rounded-md bg-violet-200/40 p-2"
               required
+              onChange={(e) => {
+                props.setAddressId(e.target.value);
+              }}
             />
             <input
               name="number"
@@ -84,6 +99,19 @@ function PatientForm() {
               placeholder="Email"
               className="rounded-md bg-violet-200/40 p-2"
               required
+              onChange={(e) => {
+                props.setEmail(e.target.value);
+              }}
+            />
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              className="rounded-md bg-violet-200/40 p-2"
+              required
+              onChange={(e) => {
+                props.setPassword(e.target.value);
+              }}
             />
           </div>
         </form>

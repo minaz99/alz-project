@@ -1,6 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import getUsersReducer from "./features/Users/getUsersSlice";
+import userRequestsSlice from "./features/Admin/userRequestsSlice";
 import sessionReducer from "./features/Admin/sessionSlice";
+import patientRegisterSlice from "./features/Admin/PatientRegisterSlice";
 export const store = configureStore({
-  reducer: { getUsers: getUsersReducer, session: sessionReducer },
+  reducer: {
+    patientRegister: patientRegisterSlice,
+    userRequest: userRequestsSlice,
+    session: sessionReducer,
+  },
 });

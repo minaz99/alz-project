@@ -7,7 +7,13 @@ import {
 function UserCard(props) {
   //Main div is the layout for the card first div tells info about the type of user, second div has all the info about the user inside the second div we will have inner divs together
   return (
-    <div className="bg-violet-300 rounded-lg cursor-pointer text-violet-900/80 p-4 h-56 w-56">
+    <div className="bg-orange-50 rounded-md flex-col cursor-pointer text-violet-900/80 p-4 w-full">
+      <div className="text-center text-2xl ">Patient</div>
+      <div className="text-xl">First name: {props.firstName}</div>
+      <div className="text-xl">Last name: {props.lastName}</div>
+      <div>Date of birth: {props.dateOfBirth}</div>
+    </div>
+    /*<div className="bg-orange-50 rounded-lg cursor-pointer text-violet-900/80 p-4 h-50 w-50">
       <div className="text-center">{props.role}</div>
       <hr class="my-3 h-px bg-violet-400 border-0 dark:bg-gray-700"></hr>
       <div className="space-y-4 p-2">
@@ -28,7 +34,7 @@ function UserCard(props) {
           />
         </div>
       </div>
-    </div>
+  </div>*/
   );
 }
 
