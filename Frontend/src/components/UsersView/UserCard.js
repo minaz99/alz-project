@@ -11,7 +11,7 @@ function UserCard(props) {
       <div className="text-center text-2xl ">Patient</div>
       <div className="text-xl">First name: {props.firstName}</div>
       <div className="text-xl">Last name: {props.lastName}</div>
-      <div>Date of birth: {props.dateOfBirth}</div>
+      <div className="text-xl">Email: {props.email}</div>
     </div>
     /*<div className="bg-orange-50 rounded-lg cursor-pointer text-violet-900/80 p-4 h-50 w-50">
       <div className="text-center">{props.role}</div>

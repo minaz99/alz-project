@@ -11,6 +11,7 @@ const initialState = {
   errorMsg: "",
 };
 const url = `https://cors-anywhere.herokuapp.com/https://alz-project.herokuapp.com/patient`;
+const url2 = `https://dummyjson.com/users`;
 export const getPatients = createAsyncThunk("/", async (thunkAPI) => {
   try {
     const response = await fetch(url, {
@@ -22,7 +23,13 @@ export const getPatients = createAsyncThunk("/", async (thunkAPI) => {
       },
     });
     let data = await response.json();
-
+    // alert(data.users);
+    //for (const [key, value] of Object.entries(data.users)) {
+    //alert(data.users[key].firstName);
+    //const { id, firstName, lastName, email } = payload[key];
+    //state.users.push({ id, firstName, lastName, email });
+    // thunkAPI.totalUsers++;
+    //}
     if (response.status === 200) return { ...data }; //console.log(data.token);
     else {
       return thunkAPI.rejectWithValue(data);
@@ -39,14 +46,14 @@ const userRequestsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getPatients.fulfilled]: (state, { payload }) => {
-      //{state.users} = payload.data;
-
-      for (const [key, value] of Object.entries(payload)) {
-        //alert(`${key}: ${value}`);
-        const { id, firstName, lastName, dateOfBirth } = payload[key];
-        state.users.push({ id, firstName, lastName, dateOfBirth });
-        // thunkAPI.totalUsers++;
-      }
+      state.users = payload.users;
+      state.totalUsers = state.users.length;
+      //for (const [key, value] of Object.entries(payload)) {
+      //alert(`${key}: ${value}`);
+      //const { id, firstName, lastName, email } = payload[key];
+      //state.users.push({ id, firstName, lastName, email });
+      // thunkAPI.totalUsers++;
+      //}*/
 
       //console.log(state.email);
       state.isFetching = false;

@@ -11,26 +11,27 @@ function CardsHolder() {
   //  const { totalUsers } = useSelector((store) => store.getUsers);
   // const navigate = useNavigation();
   const dispatch = useDispatch();
-  const { isLoggedIn, isError } = useSelector((store) => store.session);
   const { users } = useSelector((store) => store.userRequest);
+  const [use, setUsers] = useState([]);
   /*useEffect(() => {
     if (isLoggedIn !== true || isError !== false) navigate("/");
   }, [isLoggedIn, isError]);*/
 
   useEffect(() => {
+    //if(use.length !=== 0)
     dispatch(getPatients());
-  }, [users]);
+  }, [use]);
 
   return (
-    <div className="h-full">
-      <div className="p-4 relative  ">
+    <div>
+      <div className="p-4 relative ">
         <input
           type="text"
           placeholder="Search by name.."
           className="rounded-md bg-violet-900/10 text-black "
         ></input>
       </div>
-      <div className="flex-col space-x space-y-3 p-4  rounded-lg overflow-scroll-y">
+      <div className="flex-col space-x space-y-3 p-4  rounded-lg">
         {/*<div className="flex ">
           <div className="flex-1 ">
            <ArrowLeftIcon
@@ -45,17 +46,19 @@ function CardsHolder() {
             />
   </div>
   </div>*/}
-        {users.map((p) => {
-          return (
-            <div key={p.id}>
-              <UserCard
-                firstName={p.firstName}
-                lastName={p.lastName}
-                dateOfBirth={p.dateOfBirth}
-              ></UserCard>
-            </div>
-          );
-        })}
+        <div className="space-y-3">
+          {users.map((p) => {
+            return (
+              <div key={p.id}>
+                <UserCard
+                  firstName={p.firstName}
+                  lastName={p.lastName}
+                  email={p.email}
+                ></UserCard>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

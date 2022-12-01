@@ -8,7 +8,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import PatientForm from "./components/PatientForm/PatientForm";
 function App() {
   return (
-    <div className="bg-violet-400/40 h-screen items-center p-4 overflow-hidden ">
+    <div className="bg-violet-400/40 h-full items-center p-4 ">
       <Router>
         <Routes>
           <Route exact path="/" element={<Login />} />
