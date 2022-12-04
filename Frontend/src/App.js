@@ -8,12 +8,11 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import PatientForm from "./components/PatientForm/PatientForm";
 function App() {
   return (
-    <div className="bg-violet-400/40 h-full items-center p-4 ">
+    <div className="bg-violet-400/40 h-screen overflow-y-auto items-center p-4 ">
       <Router>
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
-
           {/*<FormCard />*/}
           <Route exact path="/users" element={<CardsHolder />} />
           <Route exact path="/addpatient" element={<FormCard />} />
