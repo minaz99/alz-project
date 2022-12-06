@@ -21,13 +21,13 @@ function FormCard() {
   const [password, setPassword] = useState("");
 
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
+  const [age, setAge] = useState("38");
+  const [gender, setGender] = useState("MALE");
   const [addressId, setAddressId] = useState("");
   const [illnessType, setIllnessType] = useState("");
   const [conditionDescription, setConditionDescription] = useState("");
   const [registeredBy, setRegisteredBy] = useState("Admin");
-  const [caregivers, setPatientCaregivers] = useState("");
+  const [caregivers, setPatientCaregivers] = useState("1,5,7");
 
   return (
     <div className=" p-4 text-center mx-auto justify-evenly items-center h-full ">

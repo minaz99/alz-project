@@ -34,7 +34,10 @@ function UserCardDetails(props) {
   }, []);
   const userType = "Patient";
   return (
-    <div className="bg-violet-300/80 mx-auto p-4 text-xl justify-center left-1/4 rounded-lg pointer-events-auto absolute ">
+    <div
+      id="patientCard"
+      className=" bg-violet-300/80 mx-auto p-4 text-xl justify-center left-1/4 rounded-lg pointer-events-auto absolute "
+    >
       <XCircleIcon
         className="h-12 w-12 float-right cursor-pointer"
         color="#8b5cf6"
@@ -45,7 +48,9 @@ function UserCardDetails(props) {
       />
       {isFetching === false ? (
         <div className="p-6 flex-col space-y-2">
-          <div className="text-center text-violet-600">{userType}</div>
+          <div id="a1" className="text-center text-violet-600">
+            {userType}
+          </div>
           <div className="text-neutral-600">
             Name: {firstName} {lastName}
           </div>

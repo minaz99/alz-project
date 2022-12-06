@@ -50,8 +50,10 @@ const userRequestsSlice = createSlice({
       //alert(state.users);
       // alert(typeof state.users);
       //state.totalUsers = state.users.length;
+      state.users = [];
       for (const [key, value] of Object.entries(payload)) {
         //alert(`${key}: ${value}`);
+
         const {
           id,
           firstName,
@@ -66,6 +68,7 @@ const userRequestsSlice = createSlice({
           caregivers,
           registeredBy,
         } = payload[key];
+
         state.users.push({
           id,
           firstName,

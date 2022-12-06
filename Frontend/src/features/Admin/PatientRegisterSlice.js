@@ -38,7 +38,7 @@ export const registerPatient = createAsyncThunk(
       illnessType,
       conditionDescription,
       caregivers,
-      regsiteredBy,
+      registeredBy,
     },
     thunkAPI
   ) => {
@@ -62,7 +62,7 @@ export const registerPatient = createAsyncThunk(
           illnessType,
           conditionDescription,
           caregivers,
-          regsiteredBy,
+          registeredBy,
         }),
       });
       let data = await response.json();
@@ -87,11 +87,10 @@ const patientRegisterSlice = createSlice({
   extraReducers: {
     [registerPatient.fulfilled]: (state, { payload }) => {
       //{state.users} = payload.data;
-
       //console.log(state.email);
       state.isFetching = false;
       state.isSuccess = true;
-      state.isLoggedIn = true;
+      //state.isLoggedIn = true;
       return state;
     },
     [registerPatient.rejected]: (state, { payload }) => {
