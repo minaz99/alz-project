@@ -2,10 +2,15 @@ package com.alzproject.alzproject.patient;
 
 import com.alzproject.alzproject.patient.Patient;
 import com.alzproject.alzproject.patient.PatientService;
+import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.registration.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/patient")
@@ -42,8 +47,19 @@ public class PatientController {
     public void updatePatient(@PathVariable("id") Long id,
                               @RequestParam(required = false) String firstName,
                               @RequestParam(required = false) String lastName,
-                              @RequestParam(required = false) String email){
-        patientService.updatePatient(id, firstName,lastName, email);
+                              @RequestParam(required = false) String email,
+                              @RequestParam(required = false) String password,
+                              @RequestParam(required = false)
+                                  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
+                              @RequestParam(required = false) Gender gender,
+                              @RequestParam(required = false) String addressId,
+                              @RequestParam(required = false) String illnessType,
+                              @RequestParam(required = false) String conditionDescription,
+                              @RequestParam(required = false) String caregivers,
+                              @RequestParam(required = false) String registeredBy,
+                              @RequestParam(required = false) UserType userType){
+        patientService.updatePatient(id, firstName,lastName, email, password, dateOfBirth,
+                gender, addressId, illnessType, conditionDescription, caregivers, registeredBy, userType);
     }
 
     @GetMapping(path = "{patientId}/caregivers")

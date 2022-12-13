@@ -1,13 +1,13 @@
 package com.alzproject.alzproject.patient;
 
+import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.registration.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class PatientService{
@@ -24,9 +24,8 @@ public class PatientService{
     }
 
     public Patient getPatient(Long id) {
-        Patient patient = patientRepository.findById(id)
+        return patientRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Non-existing id"));
-        return patient;
     }
 
     public void registerPatient(Patient patient) {
@@ -51,26 +50,83 @@ public class PatientService{
     }
 
     @Transactional
-    public void updatePatient(Long id, String firstName, String lastName, String email) {
+    public void updatePatient(Long id,
+                              String firstName,
+                              String lastName,
+                              String email,
+                              String password,
+                              LocalDate dateOfBirth,
+                              Gender gender,
+                              String addressId,
+                              String illnessType,
+                              String conditionDescription,
+                              String caregivers,
+                              String registeredBy,
+                              UserType userType) {
 
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Non-existing id"));
 
-        if(firstName.length() > 0 &&
+        if(firstName != null && !firstName.isEmpty() &&
                 !Objects.equals(patient.getFirstName(), firstName)){
             patient.setFirstName(firstName);
         }
 
-        if(lastName.length() > 0 &&
+        if(lastName != null && !lastName.isEmpty() &&
                 !Objects.equals(patient.getLastName(), lastName)){
             patient.setLastName(lastName);
         }
 
         boolean emailExists = patientRepository.findPatientByEmail(email).isPresent();
 
-        if(email.length() > 0 &&
+        if(email != null && !email.isEmpty() &&
                 !Objects.equals(patient.getEmail(), email) && !emailExists){
             patient.setEmail(email);
+        }
+
+        if(password != null && !password.isEmpty() &&
+                !Objects.equals(patient.getPassword(), password)){
+            patient.setPassword(password);
+        }
+
+        if(dateOfBirth != null &&
+                !Objects.equals(patient.getDateOfBirth(), dateOfBirth)){
+            patient.setDateOfBirth(dateOfBirth);
+        }
+
+        if(gender != null &&
+                !Objects.equals(patient.getGender(), gender)){
+            patient.setGender(gender);
+        }
+
+        if(addressId != null && !addressId.isEmpty() &&
+                !Objects.equals(patient.getAddressId(), addressId)){
+            patient.setAddressId(addressId);
+        }
+
+        if(illnessType != null && !illnessType.isEmpty() &&
+                !Objects.equals(patient.getIllnessType(), illnessType)){
+            patient.setIllnessType(illnessType);
+        }
+
+        if(conditionDescription != null && !conditionDescription.isEmpty() &&
+                !Objects.equals(patient.getConditionDescription(), conditionDescription)){
+            patient.setConditionDescription(conditionDescription);
+        }
+
+        if(caregivers != null && !caregivers.isEmpty() &&
+                !Objects.equals(patient.getCaregivers(), caregivers)){
+            patient.setCaregivers(caregivers);
+        }
+
+        if(registeredBy != null && !registeredBy.isEmpty() &&
+                !Objects.equals(patient.getRegisteredBy(), registeredBy)){
+            patient.setRegisteredBy(registeredBy);
+        }
+
+        if(userType != null &&
+                !Objects.equals(patient.getUserType(), userType)){
+            patient.setUserType(userType);
         }
     }
 
@@ -98,7 +154,7 @@ public class PatientService{
                 .orElseThrow(() -> new IllegalStateException("Non-existing id"));
 
         //check if the caregiver exists
-        //check if the list is empty
+        //check if the list is empty - done
 
         List<String> caregivers = Arrays.asList((patient.getCaregivers()).split("[,]", 0));
 
@@ -128,7 +184,7 @@ public class PatientService{
                 .orElseThrow(() -> new IllegalStateException("Non-existing id"));
 
         //check if the caregiver exists
-        //check if the list is empty
+        //check if the list is empty - done
 
         List<String> caregivers = Arrays.asList((patient.getCaregivers()).split("[,]", 0));
 

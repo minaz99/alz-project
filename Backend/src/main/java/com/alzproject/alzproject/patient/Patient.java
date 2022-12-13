@@ -1,10 +1,12 @@
 package com.alzproject.alzproject.patient;
 
 import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.registration.UserType;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table
@@ -18,6 +20,7 @@ public class Patient {
     private String email;
     private String password;
     private LocalDate dateOfBirth;
+    @Transient
     private Integer age;
     private Gender gender;
     private String addressId;
@@ -25,6 +28,7 @@ public class Patient {
     private String conditionDescription;
     private String caregivers;
     private String registeredBy;
+    private UserType userType;
 
     public Patient(Long id,
                    String firstName,
@@ -38,7 +42,8 @@ public class Patient {
                    String illnessType,
                    String conditionDescription,
                    String caregivers,
-                   String registeredBy) {
+                   String registeredBy,
+                   UserType userType) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,6 +57,7 @@ public class Patient {
         this.conditionDescription = conditionDescription;
         this.caregivers = caregivers;
         this.registeredBy = registeredBy;
+        this.userType = userType;
     }
 
     public Long getId() {
@@ -103,7 +109,7 @@ public class Patient {
     }
 
     public Integer getAge() {
-        return age;
+        return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {
@@ -158,6 +164,14 @@ public class Patient {
         this.registeredBy = registeredBy;
     }
 
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
@@ -169,11 +183,12 @@ public class Patient {
                 ", dateOfBirth=" + dateOfBirth +
                 ", age=" + age +
                 ", gender=" + gender +
-                ", addressId=" + addressId +
+                ", addressId='" + addressId + '\'' +
                 ", illnessType='" + illnessType + '\'' +
-                ", conditionDesctiption='" + conditionDescription + '\'' +
+                ", conditionDescription='" + conditionDescription + '\'' +
                 ", caregivers='" + caregivers + '\'' +
                 ", registeredBy='" + registeredBy + '\'' +
+                ", userType='" + userType + '\'' +
                 '}';
     }
 }
