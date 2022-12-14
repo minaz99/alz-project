@@ -21,7 +21,7 @@ const initialState = {
   isError: false,
   errorMsg: "",
 };
-const url = `https://cors-anywhere.herokuapp.com/https://alz-project.herokuapp.com/patient`;
+const url = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`;
 export const registerPatient = createAsyncThunk(
   "/register",
   async (
@@ -65,14 +65,14 @@ export const registerPatient = createAsyncThunk(
           registeredBy,
         }),
       });
-      let data = await response.json();
+      let data = await response.status;
 
-      if (response.status === 200)
-        //return { ...data };
-        alert("perfect"); //console.log(data.token);
-      else {
-        return thunkAPI.rejectWithValue(data);
-      }
+      //if (response.status === 200)
+      //return { ...data };
+      //alert("perfect"); //console.log(data.token);
+      //else {
+      // return thunkAPI.rejectWithValue(data);
+      // }
     } catch (e) {
       //console.log("Error", e.response.data);
       thunkAPI.rejectWithValue(e.response.data);

@@ -9,7 +9,7 @@ const PatientFamilyForm = (props) => {
         initial={{ opacity: 0, x: -150 }}
         transition={{ duration: 1 }}
         whileInView={{ opacity: 1, x: 0 }}
-        className="tracking-wider text-2xl pt-10 text-purple-600/60"
+        className="tracking-wider text-2xl  text-purple-600/60"
       >
         Illness Form
       </motion.h1>
@@ -38,11 +38,11 @@ const PatientFamilyForm = (props) => {
             </select>
           </div>
           <div className="space-x-2 p-2f flex justify-center">
-            <input
+            <textarea
               name="Current condition description"
               type="text"
               placeholder="Description of current condition....."
-              className="rounded-md bg-violet-200/40 p-2 w-full h-44 "
+              className="rounded-md bg-violet-200/40 p-2 w-9/12 h-44 "
               required
               onChange={(e) => {
                 props.setConditionDescription(e.target.value);

@@ -21,7 +21,7 @@ const initialState = {
   errorMsg: "",
 };
 const url2 = `https://dummyjson.com/users/`;
-const url1 = `https://cors-anywhere.herokuapp.com/https://alz-project.herokuapp.com/patient/`;
+const url1 = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`;
 export const getPatientInfo = createAsyncThunk(
   "/patient/",
   async (id, thunkAPI) => {
@@ -109,7 +109,7 @@ const userRequestInfoSlice = createSlice({
       //console.log(state.email);
       state.isFetching = false;
       state.isSuccess = true;
-      state.isLoggedIn = true;
+      //state.isLoggedIn = true;
       return state;
     },
     [getPatientInfo.rejected]: (state, { payload }) => {

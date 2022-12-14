@@ -10,9 +10,11 @@ import {
 import {
   getPatients,
   setOneUser,
+  deleteOneUser,
 } from "../../features/Admin/userRequestsSlice";
 import { useEffect } from "react";
 import { XCircleIcon } from "@heroicons/react/24/outline";
+import { deletePatient } from "../../features/Admin/deletePatientSlice";
 function UserCardDetails(props) {
   const {
     firstName,
@@ -28,6 +30,7 @@ function UserCardDetails(props) {
     registeredBy,
     isFetching,
   } = useSelector((store) => store.userRequestInfo);
+  const { fetching } = useSelector((store) => store.deletePatient);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPatientInfo(props.id));
@@ -36,13 +39,14 @@ function UserCardDetails(props) {
   return (
     <div
       id="patientCard"
-      className=" bg-violet-300/80 mx-auto p-4 text-xl justify-center left-1/4 rounded-lg pointer-events-auto absolute "
+      className=" bg-violet-300/80 mx-auto p-4 text-xl justify-center right-1/4 left-1/4 rounded-lg pointer-events-auto absolute "
     >
       <XCircleIcon
         className="h-12 w-12 float-right cursor-pointer"
         color="#8b5cf6"
         onClick={() => {
           props.setShowUserDetails("false");
+          // props.setUpdate(!props.update);
           dispatch(clearCard());
         }}
       />
@@ -71,6 +75,17 @@ function UserCardDetails(props) {
           ) : (
             <SocialWorkerExtras />
           )}
+          <button
+            onClick={() => {
+              props.setShowUserDetails("false");
+              //props.setUpdate(!props.update);
+              dispatch(deletePatient(props.id));
+              dispatch(deleteOneUser());
+            }}
+            className="bg-black font-semibold text-violet-500 rounded-md p-2 float-right"
+          >
+            Delete
+          </button>
         </div>
       ) : (
         <div>Loading...</div>

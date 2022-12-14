@@ -5,14 +5,10 @@ import Navigation from "./Navigation";
 import PatientsWithoutCaregiver from "./Stats/PatientsWithoutCaregiver";
 import DivisionOfUsers from "./Stats/DivisionOfUsers";
 import UserCount from "./Stats/UserCount";
-import {
-  userSelector,
-  fetchUserBytoken,
-  clearState,
-  logOut,
-} from "../../features/Admin/sessionSlice";
+
 //import Loader from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
+import { getPatients } from "../../features/Admin/userRequestsSlice";
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,22 +18,20 @@ const Dashboard = () => {
   }, []);*/
   const { username, email, isLoggedIn } = useSelector((store) => store.session);
   const uname = email.slice(0, 3);
+  const { totalUsers } = useSelector((store) => store.userRequest);
   useEffect(() => {
-    if (isError || isLoggedIn === false) {
-      //dispatch(clearState());
-      navigate("/");
-    }
+    dispatch(getPatients());
   }, [isError, isLoggedIn]);
 
   return (
     <div className="container mx-auto ">
-      <div className="bg-violet-400/80 mx-48 items-center justify-center rounded-md">
-        <Navigation username={uname} />
-        <div className="flex p-14 space-x-24 mx-auto items-center justify-center">
+      <div className="bg-violet-400/80 mx-48 items-center h-full  p-2 justify-center rounded-md">
+        <Navigation />
+        <div className="flex p-14 space-x-24 mx-auto items-center -my-8 justify-center">
           <PatientsWithoutCaregiver />
-          <DivisionOfUsers />
+          <DivisionOfUsers patients={totalUsers} />
         </div>
-        <div className="flex p-4 -my-6 mx-auto items-center justify-center space-x-12">
+        <div className="flex p-4 -my-6 mx-auto items-center py-9  justify-center space-x-12">
           <UserCount
             user="Users"
             count="105"
@@ -46,7 +40,7 @@ const Dashboard = () => {
           />
           <UserCount
             user="Patients"
-            count="48"
+            count={totalUsers}
             color={"rgb(141 242 168)"}
             shadow="0 4px 6px -1px rgb(141 242 168), 0 2px 4px -2px rgb(141 242 168 )"
           />

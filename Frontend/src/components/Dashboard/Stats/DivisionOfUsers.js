@@ -1,8 +1,8 @@
 import React from "react";
 import { VictoryPie } from "victory";
-function DivisionOfUsers() {
+function DivisionOfUsers(props) {
   const data = [
-    { x: "Patients", y: 32 },
+    { x: "Patients", y: props.patients },
     { x: "Caregivers", y: 18 },
     { x: "Social workers", y: 8 },
   ];

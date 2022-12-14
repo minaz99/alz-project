@@ -1,3 +1,4 @@
+import { UsersIcon } from "@heroicons/react/24/outline";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { data } from "autoprefixer";
 import axios from "../../api/axios";
@@ -12,7 +13,7 @@ const initialState = {
   //url: `https://cors-anywhere.herokuapp.com/https://alz-project.herokuapp.com/patient`,
   //  url2: `https://dummyjson.com/users`,
 };
-const url = `https://cors-anywhere.herokuapp.com/https://alz-project.herokuapp.com/patient`;
+const url = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`;
 export const getPatients = createAsyncThunk("/patient", async (thunkAPI) => {
   try {
     const response = await fetch(url, {
@@ -40,6 +41,9 @@ const userRequestsSlice = createSlice({
   reducers: {
     setOneUser: (state, action) => {
       state.oneUser = true;
+    },
+    deleteOneUser: (state, action) => {
+      state.totalUsers -= 1;
     },
   },
   extraReducers: {
@@ -89,6 +93,7 @@ const userRequestsSlice = createSlice({
       //console.log(state.email);
       state.isFetching = false;
       state.isSuccess = true;
+      state.totalUsers = state.users.length;
       return state;
     },
     [getPatients.rejected]: (state, { payload }) => {
@@ -102,5 +107,5 @@ const userRequestsSlice = createSlice({
     },
   },
 });
-export const { setOneUser } = userRequestsSlice.actions;
+export const { setOneUser, deleteOneUser } = userRequestsSlice.actions;
 export default userRequestsSlice.reducer;

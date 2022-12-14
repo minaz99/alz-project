@@ -6,6 +6,8 @@ import { data } from "./components/UsersView/patientsFakeData";
 import { BrowserRouter as Router, Routes, Route, Form } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
 import PatientForm from "./components/PatientForm/PatientForm";
+import OutlineCard from "./components/UsersViewNewDesign/OutlineCard";
+import { useState } from "react";
 function App() {
   return (
     <div className="bg-violet-400/40 h-screen overflow-y-auto items-center p-4 ">
@@ -16,6 +18,7 @@ function App() {
           {/*<FormCard />*/}
           <Route exact path="/users" element={<CardsHolder />} />
           <Route exact path="/addpatient" element={<FormCard />} />
+          <Route exact path="/users2" element={<OutlineCard />} />
         </Routes>
       </Router>
     </div>
