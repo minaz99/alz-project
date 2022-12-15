@@ -1,4 +1,4 @@
-package com.alzproject.alzproject.patient;
+package com.alzproject.alzproject.caregiver;
 
 import com.alzproject.alzproject.registration.Gender;
 import com.alzproject.alzproject.registration.UserType;
@@ -11,10 +11,10 @@ import java.time.Period;
 @Entity
 @Table
 @NoArgsConstructor
-public class Patient {
+public class Caregiver {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_generator")
-    @SequenceGenerator(name = "patient_generator", sequenceName = "patient_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "caregiver_generator")
+    @SequenceGenerator(name = "caregiver_generator", sequenceName = "caregiver_seq")
     private Long id;
     private String firstName;
     private String lastName;
@@ -25,25 +25,21 @@ public class Patient {
     private Integer age;
     private Gender gender;
     private String addressId;
-    private String illnessType;
-    private String conditionDescription;
-    private String caregivers;
-    private String registeredBy;
-    private final UserType userType = UserType.PATIENT;
+    private String needs;
+    private String patients;
+    private final UserType userType = UserType.CAREGIVER;
 
-    public Patient(Long id,
-                   String firstName,
-                   String lastName,
-                   String email,
-                   String password,
-                   LocalDate dateOfBirth,
-                   Integer age,
-                   Gender gender,
-                   String addressId,
-                   String illnessType,
-                   String conditionDescription,
-                   String caregivers,
-                   String registeredBy) {
+    public Caregiver(Long id,
+                     String firstName,
+                     String lastName,
+                     String email,
+                     String password,
+                     LocalDate dateOfBirth,
+                     Integer age,
+                     Gender gender,
+                     String addressId,
+                     String needs,
+                     String patients) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,10 +49,8 @@ public class Patient {
         this.age = age;
         this.gender = gender;
         this.addressId = addressId;
-        this.illnessType = illnessType;
-        this.conditionDescription = conditionDescription;
-        this.caregivers = caregivers;
-        this.registeredBy = registeredBy;
+        this.needs = needs;
+        this.patients = patients;
     }
 
     public Long getId() {
@@ -127,36 +121,20 @@ public class Patient {
         this.addressId = addressId;
     }
 
-    public String getIllnessType() {
-        return illnessType;
+    public String getNeeds() {
+        return needs;
     }
 
-    public void setIllnessType(String illnessType) {
-        this.illnessType = illnessType;
+    public void setNeeds(String needs) {
+        this.needs = needs;
     }
 
-    public String getConditionDescription() {
-        return conditionDescription;
+    public String getPatients() {
+        return patients;
     }
 
-    public void setConditionDescription(String conditionDescription) {
-        this.conditionDescription = conditionDescription;
-    }
-
-    public String getCaregivers() {
-        return caregivers;
-    }
-
-    public void setCaregivers(String caregivers) {
-        this.caregivers = caregivers;
-    }
-
-    public String getRegisteredBy() {
-        return registeredBy;
-    }
-
-    public void setRegisteredBy(String registeredBy) {
-        this.registeredBy = registeredBy;
+    public void setPatients(String patients) {
+        this.patients = patients;
     }
 
     public UserType getUserType() {
@@ -165,7 +143,7 @@ public class Patient {
 
     @Override
     public String toString() {
-        return "Patient{" +
+        return "Caregiver{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -175,11 +153,9 @@ public class Patient {
                 ", age=" + age +
                 ", gender=" + gender +
                 ", addressId='" + addressId + '\'' +
-                ", illnessType='" + illnessType + '\'' +
-                ", conditionDescription='" + conditionDescription + '\'' +
-                ", caregivers='" + caregivers + '\'' +
-                ", registeredBy='" + registeredBy + '\'' +
-                ", userType='" + userType + '\'' +
+                ", needs='" + needs + '\'' +
+                ", patients='" + patients + '\'' +
+                ", userType=" + userType +
                 '}';
     }
 }

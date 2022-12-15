@@ -1,16 +1,12 @@
 package com.alzproject.alzproject.patient;
 
-import com.alzproject.alzproject.patient.Patient;
-import com.alzproject.alzproject.patient.PatientService;
 import com.alzproject.alzproject.registration.Gender;
-import com.alzproject.alzproject.registration.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/patient")
@@ -56,10 +52,9 @@ public class PatientController {
                               @RequestParam(required = false) String illnessType,
                               @RequestParam(required = false) String conditionDescription,
                               @RequestParam(required = false) String caregivers,
-                              @RequestParam(required = false) String registeredBy,
-                              @RequestParam(required = false) UserType userType){
+                              @RequestParam(required = false) String registeredBy){
         patientService.updatePatient(id, firstName,lastName, email, password, dateOfBirth,
-                gender, addressId, illnessType, conditionDescription, caregivers, registeredBy, userType);
+                gender, addressId, illnessType, conditionDescription, caregivers, registeredBy);
     }
 
     @GetMapping(path = "{patientId}/caregivers")

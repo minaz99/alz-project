@@ -1,7 +1,6 @@
 package com.alzproject.alzproject.patient;
 
 import com.alzproject.alzproject.registration.Gender;
-import com.alzproject.alzproject.registration.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,13 +24,13 @@ public class PatientService{
 
     public Patient getPatient(Long id) {
         return patientRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("Non-existing id"));
+                .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
     }
 
     public void registerPatient(Patient patient) {
         boolean patientExists = patientRepository.findPatientByEmail(patient.getEmail()).isPresent();
         if(patientExists){
-            throw new IllegalStateException("Existing email");
+            throw new IllegalStateException("Existing patient");
         }
 //        String encodedPassword = bCryptPasswordEncoder
 //                .encode(patient.getPassword());
@@ -44,7 +43,7 @@ public class PatientService{
     public void deletePatient(Long id) {
         boolean idExists = patientRepository.findById(id).isPresent();
         if(!idExists){
-            throw new IllegalStateException("Non-existing id");
+            throw new IllegalStateException("Non-existing patient id");
         }
         patientRepository.deleteById(id);
     }
@@ -61,11 +60,10 @@ public class PatientService{
                               String illnessType,
                               String conditionDescription,
                               String caregivers,
-                              String registeredBy,
-                              UserType userType) {
+                              String registeredBy) {
 
         Patient patient = patientRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("Non-existing id"));
+                .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
         if(firstName != null && !firstName.isEmpty() &&
                 !Objects.equals(patient.getFirstName(), firstName)){
@@ -123,22 +121,17 @@ public class PatientService{
                 !Objects.equals(patient.getRegisteredBy(), registeredBy)){
             patient.setRegisteredBy(registeredBy);
         }
-
-        if(userType != null &&
-                !Objects.equals(patient.getUserType(), userType)){
-            patient.setUserType(userType);
-        }
     }
 
     public List<Long> getCaregivers(Long patientId) {
 
         Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new IllegalStateException("Non-existing id"));
+                .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
         List<String> caregivers = Arrays.asList((patient.getCaregivers()).split("[,]", 0));
 
         if(caregivers.size() == 0){
-            throw new IllegalStateException("No caregivers");
+            throw new IllegalStateException("No caregivers assigned");
         }
 
         List<Long> caregiverIds = new ArrayList<>();
@@ -151,16 +144,12 @@ public class PatientService{
     public void addCaregivers(Long patientId, Long caregiverId) {
 
         Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new IllegalStateException("Non-existing id"));
+                .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
         //check if the caregiver exists
         //check if the list is empty - done
 
         List<String> caregivers = Arrays.asList((patient.getCaregivers()).split("[,]", 0));
-
-        if(caregivers.size() == 0){
-            throw new IllegalStateException("No caregivers");
-        }
 
         List<Long> caregiverIds = new ArrayList<>();
         for(String s : caregivers) caregiverIds.add(Long.valueOf(s));
@@ -168,11 +157,11 @@ public class PatientService{
         if(!caregiverIds.contains(caregiverId)){
             caregiverIds.add(caregiverId);
         }else{
-            throw new IllegalStateException("Caregiver already added");
+            throw new IllegalStateException("Caregiver is already added for this patient");
         }
 
         String newCaregivers = "";
-        for(Long l : caregiverIds) newCaregivers = newCaregivers + l + ",";
+        for(Long l : caregiverIds) newCaregivers = newCaregivers.concat(l + ",");
 
         patient.setCaregivers(newCaregivers);
     }
@@ -181,7 +170,7 @@ public class PatientService{
     public void deleteCaregivers(Long patientId, Long caregiverId) {
 
         Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new IllegalStateException("Non-existing id"));
+                .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
         //check if the caregiver exists
         //check if the list is empty - done
@@ -196,13 +185,13 @@ public class PatientService{
         for(String s : caregivers) caregiverIds.add(Long.valueOf(s));
 
         if(caregiverIds.contains(caregiverId)){
-            caregiverIds.remove(caregiverIds.indexOf(caregiverId));
+            caregiverIds.remove(caregiverId);
         }else{
             throw new IllegalStateException("Non-existing caregiver for this patient");
         }
 
         String newCaregivers = "";
-        for(Long l : caregiverIds) newCaregivers = newCaregivers + l + ",";
+        for(Long l : caregiverIds) newCaregivers = newCaregivers.concat(l + ",");
 
         patient.setCaregivers(newCaregivers);
     }
