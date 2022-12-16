@@ -63,10 +63,13 @@ function PatientForm(props) {
               name="gender"
               className="rounded-md bg-violet-200/40 p-2 pl-8 pr-12 text-gray-400"
               required
+              onChange={(e) => {
+                props.setGender(e.target.value);
+              }}
             >
               <option value="none">Select gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
             </select>
           </div>
 

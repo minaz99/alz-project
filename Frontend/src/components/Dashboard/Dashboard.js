@@ -34,7 +34,7 @@ const Dashboard = () => {
         <div className="flex p-4 -my-6 mx-auto items-center py-9  justify-center space-x-12">
           <UserCount
             user="Users"
-            count="105"
+            count={totalUsers}
             color={"rgb(255 251 235)"}
             shadow="0 4px 6px -1px rgb(255 251 235), 0 2px 4px -2px rgb(255 251 235)"
           />

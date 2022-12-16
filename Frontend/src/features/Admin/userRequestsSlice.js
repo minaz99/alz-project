@@ -71,6 +71,7 @@ const userRequestsSlice = createSlice({
           conditionDescription,
           caregivers,
           registeredBy,
+          userType,
         } = payload[key];
 
         state.users.push({
@@ -86,6 +87,7 @@ const userRequestsSlice = createSlice({
           conditionDescription,
           caregivers,
           registeredBy,
+          userType,
         });
         // thunkAPI.totalUsers++;
       }

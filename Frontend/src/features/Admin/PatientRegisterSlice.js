@@ -16,6 +16,7 @@ const initialState = {
   conditionDescription: "",
   caregivers: "",
   regsiteredBy: "",
+  // userType: "",
   isFetching: false,
   isSuccess: false,
   isError: false,
@@ -31,7 +32,7 @@ export const registerPatient = createAsyncThunk(
       email,
       password,
       dateOfBirth,
-      age,
+      //age,
       gender,
       addressId,
       //phoneNumber,
@@ -39,6 +40,7 @@ export const registerPatient = createAsyncThunk(
       conditionDescription,
       caregivers,
       registeredBy,
+      //userType,
     },
     thunkAPI
   ) => {
@@ -56,13 +58,14 @@ export const registerPatient = createAsyncThunk(
           email,
           password,
           dateOfBirth,
-          age,
+          //age,
           gender,
           addressId,
           illnessType,
           conditionDescription,
           caregivers,
           registeredBy,
+          // userType,
         }),
       });
       let data = await response.status;

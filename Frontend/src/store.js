@@ -4,6 +4,7 @@ import sessionReducer from "./features/Admin/sessionSlice";
 import patientRegisterSlice from "./features/Admin/PatientRegisterSlice";
 import userRequestInfoSlice from "./features/Admin/userRequestInfoSlice";
 import deletePatientSlice from "./features/Admin/deletePatientSlice";
+import updatePatientSlice from "./features/Admin/updatePatientSlice";
 export const store = configureStore({
   reducer: {
     patientRegister: patientRegisterSlice,
@@ -11,5 +12,6 @@ export const store = configureStore({
     session: sessionReducer,
     userRequestInfo: userRequestInfoSlice,
     deletePatient: deletePatientSlice,
+    updatePatient: updatePatientSlice,
   },
 });

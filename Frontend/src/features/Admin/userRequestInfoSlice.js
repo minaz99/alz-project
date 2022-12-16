@@ -15,6 +15,7 @@ const initialState = {
   conditionDescription: "",
   caregivers: "",
   registeredBy: "",
+  userType: "",
   isFetching: false,
   isSuccess: false,
   isError: false,
@@ -64,6 +65,7 @@ const userRequestInfoSlice = createSlice({
       state.conditionDescription = "";
       state.caregivers = "";
       state.registeredBy = "";
+      state.userType = "";
       state.isFetching = false;
       state.isSuccess = false;
       state.isError = false;
@@ -104,6 +106,7 @@ const userRequestInfoSlice = createSlice({
       state.conditionDescription = payload.conditionDescription;
       state.caregivers = payload.caregivers;
       state.registeredBy = payload.registeredBy;
+      state.userType = payload.userType;
       // thunkAPI.totalUsers++;
 
       //console.log(state.email);

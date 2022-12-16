@@ -20,10 +20,10 @@ function FormCard() {
   const [lastName, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  //const [userType, setUserType] = useState("PATIENT");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [age, setAge] = useState("38");
-  const [gender, setGender] = useState("MALE");
+  //const [age, setAge] = useState("38");
+  const [gender, setGender] = useState("");
   const [addressId, setAddressId] = useState("");
   const [illnessType, setIllnessType] = useState("");
   const [conditionDescription, setConditionDescription] = useState("");
@@ -45,7 +45,7 @@ function FormCard() {
               setFirstname={setFirstname}
               setLastname={setLastname}
               setDateOfBirth={setDateOfBirth}
-              setAge={setAge}
+              //setAge={setAge}
               setAddressId={setAddressId}
               setGender={setGender}
               setEmail={setEmail}
@@ -123,7 +123,7 @@ function FormCard() {
                     email,
                     password,
                     dateOfBirth,
-                    age,
+                    // age,
                     gender,
                     addressId,
                     illnessType,
