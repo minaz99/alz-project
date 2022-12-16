@@ -1,6 +1,7 @@
 package com.alzproject.alzproject.patient;
 
 import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.registration.RegisteredBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -48,29 +49,30 @@ public class PatientController {
                               @RequestParam(required = false)
                                   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
                               @RequestParam(required = false) Gender gender,
+                              @RequestParam(required = false) String phoneNumber,
                               @RequestParam(required = false) String addressId,
                               @RequestParam(required = false) String illnessType,
                               @RequestParam(required = false) String conditionDescription,
                               @RequestParam(required = false) String caregivers,
-                              @RequestParam(required = false) String registeredBy){
+                              @RequestParam(required = false) RegisteredBy registeredBy){
         patientService.updatePatient(id, firstName,lastName, email, password, dateOfBirth,
-                gender, addressId, illnessType, conditionDescription, caregivers, registeredBy);
+                gender, phoneNumber, addressId, illnessType, conditionDescription, caregivers, registeredBy);
     }
 
-    @GetMapping(path = "{patientId}/caregivers")
-    public List<Long> getCaregivers(@PathVariable("patientId") Long patientId){
-        return patientService.getCaregivers(patientId);
-    }
-
-    @PutMapping(path = "{patientId}/caregivers")
-    public void addCaregivers(@PathVariable("patientId") Long patientId,
-                              @RequestParam Long caregiverId){
-        patientService.addCaregivers(patientId, caregiverId);
-    }
-
-    @PutMapping(path = "{patientId}/caregivers/{caregiverId}")
-    public void deleteCaregivers(@PathVariable("patientId") Long patientId,
-                                 @PathVariable("caregiverId") Long caregiverId){
-        patientService.deleteCaregivers(patientId, caregiverId);
-    }
+//    @GetMapping(path = "{patientId}/caregivers")
+//    public List<Caregiver> getCaregivers(@PathVariable("patientId") Long patientId){
+//        return patientService.getCaregivers(patientId);
+//    }
+//
+//    @PutMapping(path = "{patientId}/caregivers")
+//    public void addCaregivers(@PathVariable("patientId") Long patientId,
+//                              @RequestParam Long caregiverId){
+//        patientService.addCaregivers(patientId, caregiverId);
+//    }
+//
+//    @PutMapping(path = "{patientId}/caregivers/{caregiverId}")
+//    public void deleteCaregivers(@PathVariable("patientId") Long patientId,
+//                                 @PathVariable("caregiverId") Long caregiverId){
+//        patientService.deleteCaregivers(patientId, caregiverId);
+//    }
 }

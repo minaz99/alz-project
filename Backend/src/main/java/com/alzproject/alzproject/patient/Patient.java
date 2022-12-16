@@ -1,6 +1,7 @@
 package com.alzproject.alzproject.patient;
 
 import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.registration.RegisteredBy;
 import com.alzproject.alzproject.registration.UserType;
 import lombok.NoArgsConstructor;
 
@@ -24,11 +25,12 @@ public class Patient {
     @Transient
     private Integer age;
     private Gender gender;
+    private String phoneNumber;
     private String addressId;
     private String illnessType;
     private String conditionDescription;
     private String caregivers;
-    private String registeredBy;
+    private RegisteredBy registeredBy;
     private final UserType userType = UserType.PATIENT;
 
     public Patient(Long id,
@@ -39,11 +41,12 @@ public class Patient {
                    LocalDate dateOfBirth,
                    Integer age,
                    Gender gender,
+                   String phoneNumber,
                    String addressId,
                    String illnessType,
                    String conditionDescription,
                    String caregivers,
-                   String registeredBy) {
+                   RegisteredBy registeredBy) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,6 +55,7 @@ public class Patient {
         this.dateOfBirth = dateOfBirth;
         this.age = age;
         this.gender = gender;
+        this.phoneNumber = phoneNumber;
         this.addressId = addressId;
         this.illnessType = illnessType;
         this.conditionDescription = conditionDescription;
@@ -119,6 +123,14 @@ public class Patient {
         this.gender = gender;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getAddressId() {
         return addressId;
     }
@@ -151,11 +163,11 @@ public class Patient {
         this.caregivers = caregivers;
     }
 
-    public String getRegisteredBy() {
+    public RegisteredBy getRegisteredBy() {
         return registeredBy;
     }
 
-    public void setRegisteredBy(String registeredBy) {
+    public void setRegisteredBy(RegisteredBy registeredBy) {
         this.registeredBy = registeredBy;
     }
 
@@ -174,12 +186,13 @@ public class Patient {
                 ", dateOfBirth=" + dateOfBirth +
                 ", age=" + age +
                 ", gender=" + gender +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", addressId='" + addressId + '\'' +
                 ", illnessType='" + illnessType + '\'' +
                 ", conditionDescription='" + conditionDescription + '\'' +
                 ", caregivers='" + caregivers + '\'' +
                 ", registeredBy='" + registeredBy + '\'' +
-                ", userType='" + userType + '\'' +
+                ", userType=" + userType +
                 '}';
     }
 }

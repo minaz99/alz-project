@@ -24,6 +24,7 @@ public class Caregiver {
     @Transient
     private Integer age;
     private Gender gender;
+    private String phoneNumber;
     private String addressId;
     private String needs;
     private String patients;
@@ -37,6 +38,7 @@ public class Caregiver {
                      LocalDate dateOfBirth,
                      Integer age,
                      Gender gender,
+                     String phoneNumber,
                      String addressId,
                      String needs,
                      String patients) {
@@ -48,6 +50,7 @@ public class Caregiver {
         this.dateOfBirth = dateOfBirth;
         this.age = age;
         this.gender = gender;
+        this.phoneNumber = phoneNumber;
         this.addressId = addressId;
         this.needs = needs;
         this.patients = patients;
@@ -113,6 +116,14 @@ public class Caregiver {
         this.gender = gender;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getAddressId() {
         return addressId;
     }
@@ -152,6 +163,7 @@ public class Caregiver {
                 ", dateOfBirth=" + dateOfBirth +
                 ", age=" + age +
                 ", gender=" + gender +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", addressId='" + addressId + '\'' +
                 ", needs='" + needs + '\'' +
                 ", patients='" + patients + '\'' +

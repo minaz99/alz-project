@@ -1,6 +1,7 @@
 package com.alzproject.alzproject.patient;
 
 import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.registration.RegisteredBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,11 +57,12 @@ public class PatientService{
                               String password,
                               LocalDate dateOfBirth,
                               Gender gender,
+                              String phoneNumber,
                               String addressId,
                               String illnessType,
                               String conditionDescription,
                               String caregivers,
-                              String registeredBy) {
+                              RegisteredBy registeredBy) {
 
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
@@ -97,6 +99,11 @@ public class PatientService{
             patient.setGender(gender);
         }
 
+        if(phoneNumber != null && !phoneNumber.isEmpty() &&
+                !Objects.equals(patient.getPhoneNumber(), phoneNumber)){
+            patient.setPhoneNumber(phoneNumber);
+        }
+
         if(addressId != null && !addressId.isEmpty() &&
                 !Objects.equals(patient.getAddressId(), addressId)){
             patient.setAddressId(addressId);
@@ -117,39 +124,36 @@ public class PatientService{
             patient.setCaregivers(caregivers);
         }
 
-        if(registeredBy != null && !registeredBy.isEmpty() &&
+        if(registeredBy != null &&
                 !Objects.equals(patient.getRegisteredBy(), registeredBy)){
             patient.setRegisteredBy(registeredBy);
         }
     }
 
-    public List<Long> getCaregivers(Long patientId) {
-
-        Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
-
-        List<String> caregivers = Arrays.asList((patient.getCaregivers()).split("[,]", 0));
-
-        if(caregivers.size() == 0){
-            throw new IllegalStateException("No caregivers assigned");
-        }
-
-        List<Long> caregiverIds = new ArrayList<>();
-        for(String s : caregivers) caregiverIds.add(Long.valueOf(s));
-
-        return caregiverIds;
-    }
-
-    @Transactional
+//    public List<Caregiver> getCaregivers(Long patientId) {
+//
+//        Patient patient = patientRepository.findById(patientId)
+//                .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
+//
+//        List<String> caregivers = Arrays.asList((patient.getCaregivers()).split("[,]", 0));
+//
+//        if(caregivers.size() == 0){
+//            throw new IllegalStateException("No caregivers assigned");
+//        }
+//
+//        List<Caregiver> caregiverIds = new ArrayList<>();
+//        //for(String s : caregivers) caregiverIds.add(caregiverService.getCaregiver(Long.valueOf(s)));
+//
+//        return caregiverIds;
+//    }
+//
+//    @Transactional
     public void addCaregivers(Long patientId, Long caregiverId) {
 
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
-        //check if the caregiver exists
-        //check if the list is empty - done
-
-        List<String> caregivers = Arrays.asList((patient.getCaregivers()).split("[,]", 0));
+        String[] caregivers = patient.getCaregivers().split(",",0);
 
         List<Long> caregiverIds = new ArrayList<>();
         for(String s : caregivers) caregiverIds.add(Long.valueOf(s));
@@ -163,36 +167,35 @@ public class PatientService{
         String newCaregivers = "";
         for(Long l : caregiverIds) newCaregivers = newCaregivers.concat(l + ",");
 
+        //caregiverService.addPatients(caregiverId, patientId);
         patient.setCaregivers(newCaregivers);
     }
-
-    @Transactional
-    public void deleteCaregivers(Long patientId, Long caregiverId) {
-
-        Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
-
-        //check if the caregiver exists
-        //check if the list is empty - done
-
-        List<String> caregivers = Arrays.asList((patient.getCaregivers()).split("[,]", 0));
-
-        if(caregivers.size() == 0){
-            throw new IllegalStateException("No caregivers");
-        }
-
-        List<Long> caregiverIds = new ArrayList<>();
-        for(String s : caregivers) caregiverIds.add(Long.valueOf(s));
-
-        if(caregiverIds.contains(caregiverId)){
-            caregiverIds.remove(caregiverId);
-        }else{
-            throw new IllegalStateException("Non-existing caregiver for this patient");
-        }
-
-        String newCaregivers = "";
-        for(Long l : caregiverIds) newCaregivers = newCaregivers.concat(l + ",");
-
-        patient.setCaregivers(newCaregivers);
-    }
+//
+//    @Transactional
+//    public void deleteCaregivers(Long patientId, Long caregiverId) {
+//
+//        Patient patient = patientRepository.findById(patientId)
+//                .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
+//
+//        List<String> caregivers = Arrays.asList((patient.getCaregivers()).split("[,]", 0));
+//
+//        if(caregivers.size() == 0){
+//            throw new IllegalStateException("No caregivers");
+//        }
+//
+//        List<Long> caregiverIds = new ArrayList<>();
+//        for(String s : caregivers) caregiverIds.add(Long.valueOf(s));
+//
+//        if(caregiverIds.contains(caregiverId)){
+//            caregiverIds.remove(caregiverId);
+//        }else{
+//            throw new IllegalStateException("Non-existing caregiver for this patient");
+//        }
+//
+//        String newCaregivers = "";
+//        for(Long l : caregiverIds) newCaregivers = newCaregivers.concat(l + ",");
+//
+//        //caregiverService.deletePatients(caregiverId, patientId);
+//        patient.setCaregivers(newCaregivers);
+//    }
 }
