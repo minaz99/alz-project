@@ -1,6 +1,5 @@
 package com.alzproject.alzproject.caregiver;
 
-import com.alzproject.alzproject.registration.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -47,29 +46,10 @@ public class CaregiverController {
                                 @RequestParam(required = false) String password,
                                 @RequestParam(required = false)
                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
-                                @RequestParam(required = false) Gender gender,
                                 @RequestParam(required = false) String phoneNumber,
                                 @RequestParam(required = false) String addressId,
-                                @RequestParam(required = false) String needs,
-                                @RequestParam(required = false) String patients){
+                                @RequestParam(required = false) String needs){
         caregiverService.updateCaregiver(id, firstName,lastName, email, password, dateOfBirth,
-                gender, phoneNumber, addressId, needs, patients);
+                phoneNumber, addressId, needs);
     }
-
-//    @GetMapping(path = "{caregiverId}/patients")
-//    public List<Patient> getPatients(@PathVariable("caregiverId") Long caregiverId){
-//        return caregiverService.getPatients(caregiverId);
-//    }
-//
-//    @PutMapping(path = "{caregiverId}/patients")
-//    public void addPatients(@PathVariable("caregiverId") Long caregiverId,
-//                            @RequestParam Long patientId){
-//        caregiverService.addPatients(caregiverId, patientId);
-//    }
-//
-//    @PutMapping(path = "{caregiverId}/patients/{patientId}")
-//    public void deletePatients(@PathVariable("caregiverId") Long caregiverId,
-//                               @PathVariable("patientId") Long patientId){
-//        caregiverService.deletePatients(caregiverId, patientId);
-//    }
 }
