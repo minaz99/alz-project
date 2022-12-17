@@ -1,5 +1,7 @@
 package com.alzproject.alzproject.user;
 
+import com.alzproject.alzproject.admin.AdminRepository;
+import com.alzproject.alzproject.admin.AdminService;
 import com.alzproject.alzproject.caregiver.Caregiver;
 import com.alzproject.alzproject.caregiver.CaregiverRepository;
 import com.alzproject.alzproject.caregiver.CaregiverService;
@@ -17,27 +19,36 @@ import java.util.List;
 @Service
 public class UserService {
 
-    public PatientService patientService;
-    public CaregiverService caregiverService;
+    private final PatientService patientService;
+    private final CaregiverService caregiverService;
+    private final AdminService adminService;
     private final PatientRepository patientRepository;
     private final CaregiverRepository caregiverRepository;
+    private final AdminRepository adminRepository;
 
     @Autowired
-    public UserService(PatientService patientService, CaregiverService caregiverService, PatientRepository patientRepository, CaregiverRepository caregiverRepository) {
+    public UserService(PatientService patientService,
+                       CaregiverService caregiverService,
+                       AdminService adminService,
+                       PatientRepository patientRepository,
+                       CaregiverRepository caregiverRepository,
+                       AdminRepository adminRepository) {
         this.patientService = patientService;
         this.caregiverService = caregiverService;
+        this.adminService = adminService;
         this.patientRepository = patientRepository;
         this.caregiverRepository = caregiverRepository;
+        this.adminRepository = adminRepository;
     }
 
     public List<Object> getAllUsers(){
 
-        List<Object> allUsers = new ArrayList<Object>();
+        List<Object> allUsers = new ArrayList<>();
 
         allUsers.addAll(patientService.getPatients());
         allUsers.addAll(caregiverService.getCaregivers());
+        allUsers.addAll(adminService.getAdmins());
 
-        //ben rana hilalimi cok seviyorum
         return allUsers;
     }
 
