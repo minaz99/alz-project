@@ -3,7 +3,7 @@ import { VictoryPie } from "victory";
 function DivisionOfUsers(props) {
   const data = [
     { x: "Patients", y: props.patients },
-    { x: "Caregivers", y: 18 },
+    { x: "Caregivers", y: props.caregivers },
     { x: "Social workers", y: 8 },
   ];
   return (

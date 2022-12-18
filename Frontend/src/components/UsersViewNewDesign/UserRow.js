@@ -1,20 +1,21 @@
 import React from "react";
 import { useState } from "react";
 import UserInfo from "./UserInfo";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {
+  setOneUser,
+  deleteOneUser,
+} from "../../features/Admin/userRequestsSlice";
+import { deletePatient } from "../../features/Admin/deletePatientSlice";
+import { useDispatch, useSelector } from "react-redux";
 function UserRow(props) {
+  const { urlPatient, urlCaregiver } = useSelector(
+    (store) => store.deletePatient
+  );
+  const dispatch = useDispatch();
   const [showUserDetails, setShowUserDetails] = useState("false");
   return showUserDetails === "false" ? (
-    <div
-      className="flex text-md cursor-pointer  "
-      key={props.id}
-      onClick={() => {
-        if (props.userDetailShown === "false") {
-          setShowUserDetails("true");
-          props.setUserDetailShown("true");
-        }
-      }}
-    >
+    <div className="flex text-md   " key={props.id}>
       <div className=" border-b w-48 px-2 border-slate-600 p-2">
         <div className="border rounded-md bg-amber-50 text-center text-slate-600 shadow-bg-300 shadow-md  ">
           {props.firstName} {props.lastName}
@@ -56,12 +57,36 @@ function UserRow(props) {
           </div>
         )}
       </div>{" "}
-      <ChevronDownIcon className="items-center my-auto h-8 w-8 p-1  float-right cursor-pointer " />
+      <ChevronDownIcon
+        onClick={() => {
+          if (props.userDetailShown === "false") {
+            setShowUserDetails("true");
+            props.setUserDetailShown("true");
+          }
+        }}
+        className="items-center my-auto h-8 w-8 p-1  float-right cursor-pointer "
+      />
+      <TrashIcon
+        onClick={() => {
+          // props.setShowUserDetails("false");
+          //props.setUpdate(!props.update);
+          if (props.userType === "PATIENT") {
+            dispatch(deletePatient(`${urlPatient}${props.id}`));
+            dispatch(deleteOneUser());
+          } else if (props.userType === "CAREGIVER") {
+            dispatch(deletePatient(`${urlCaregiver}${props.id}`));
+            dispatch(deleteOneUser());
+          }
+          //alert(props.id);
+        }}
+        className="items-center my-auto h-7 w-7 p-1  float-right cursor-pointer"
+      />
     </div>
   ) : (
     <div className="p-1">
       <UserInfo
         id={props.id}
+        userType={props.userType}
         setUserDetailShown={props.setUserDetailShown}
         setShowUserDetails={setShowUserDetails}
       />

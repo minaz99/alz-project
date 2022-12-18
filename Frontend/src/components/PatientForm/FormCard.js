@@ -27,8 +27,9 @@ function FormCard() {
   const [addressId, setAddressId] = useState("");
   const [illnessType, setIllnessType] = useState("");
   const [conditionDescription, setConditionDescription] = useState("");
-  const [registeredBy, setRegisteredBy] = useState("Admin");
-  const [caregivers, setPatientCaregivers] = useState("1,5,7");
+  const [registeredBy, setRegisteredBy] = useState("ADMIN");
+  const [caregivers, setPatientCaregivers] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   return (
     <div className="container mx-auto   ">
@@ -50,6 +51,7 @@ function FormCard() {
               setGender={setGender}
               setEmail={setEmail}
               setPassword={setPassword}
+              setPhoneNumber={setPhoneNumber}
             />
           ) : (
             <PatientFamilyForm
@@ -130,6 +132,7 @@ function FormCard() {
                     conditionDescription,
                     caregivers,
                     registeredBy,
+                    phoneNumber,
                   })
                 );
               }

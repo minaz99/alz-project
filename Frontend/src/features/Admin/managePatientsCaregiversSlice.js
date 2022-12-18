@@ -12,34 +12,38 @@ const initialState = {
   isSuccess: false,
   isError: false,
   errorMsg: "",
-  patientUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`,
-  caregiverUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/caregiver`,
-  usersUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users`,
+  caregiversPatients: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users/caregiver/`,
+  patientsCaregivers: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users/patient/`,
+  //usersUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users`,
 };
 //const url = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`;
-export const getPatients = createAsyncThunk("/users", async (url, thunkAPI) => {
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-    let data = await response.json();
+export const getData = createAsyncThunk(
+  "/addtionalData",
+  async (url, thunkAPI) => {
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await response.json();
 
-    if (response.status === 200) return { ...data }; //console.log(data.token);
-    else {
-      return thunkAPI.rejectWithValue(data);
+      if (response.status === 200)
+        return { ...data }; //console.log(data.token);
+      else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (e) {
+      //console.log("Error", e.response.data);
+      thunkAPI.rejectWithValue(e.response.data);
     }
-  } catch (e) {
-    //console.log("Error", e.response.data);
-    thunkAPI.rejectWithValue(e.response.data);
   }
-});
+);
 
-const userRequestsSlice = createSlice({
-  name: "userRequest",
+const managePatientsCaregiversSlice = createSlice({
+  name: "managePatientsCaregivers",
   initialState,
   reducers: {
     setOneUser: (state, action) => {
@@ -66,7 +70,7 @@ const userRequestsSlice = createSlice({
     },
   },
   extraReducers: {
-    [getPatients.fulfilled]: (state, { payload }) => {
+    [getData.fulfilled]: (state, { payload }) => {
       state.users = [];
       for (const [key, value] of Object.entries(payload)) {
         //alert(`${key}: ${value}`);
@@ -117,22 +121,17 @@ const userRequestsSlice = createSlice({
       //state.allUsers = [...state.patients, ...state.caregivers];
       return state;
     },
-    [getPatients.rejected]: (state, { payload }) => {
+    [getData.rejected]: (state, { payload }) => {
       console.log("payload", payload);
       state.Fetching = false;
       state.isError = true;
+      state.users = [];
       //state.errorMsg = payload.message;
     },
-    [getPatients.pending]: (state) => {
+    [getData.pending]: (state) => {
       state.Fetching = true;
     },
   },
 });
-export const {
-  setOneUser,
-  deleteOneUser,
-  setUrlType,
-  getPatientsCount,
-  getCaregiversCount,
-} = userRequestsSlice.actions;
-export default userRequestsSlice.reducer;
+//export const {} = managePatientsCaregiversSlice.actions;
+export default managePatientsCaregiversSlice.reducer;

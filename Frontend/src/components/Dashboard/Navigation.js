@@ -53,7 +53,7 @@ function Navigation() {
           <button
             className="hover:text-slate-600 rounded-md h-10 w-24 text-white"
             onClick={() => {
-              navigate("/users");
+              navigate("/oldUsers");
             }}
           >
             User's view

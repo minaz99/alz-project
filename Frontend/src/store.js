@@ -5,6 +5,8 @@ import patientRegisterSlice from "./features/Admin/PatientRegisterSlice";
 import userRequestInfoSlice from "./features/Admin/userRequestInfoSlice";
 import deletePatientSlice from "./features/Admin/deletePatientSlice";
 import updatePatientSlice from "./features/Admin/updatePatientSlice";
+import managePatientsCaregiversSlice from "./features/Admin/managePatientsCaregiversSlice";
+import deletePCandCPSlice from "./features/Admin/deletePCandCPSlice";
 export const store = configureStore({
   reducer: {
     patientRegister: patientRegisterSlice,
@@ -13,5 +15,7 @@ export const store = configureStore({
     userRequestInfo: userRequestInfoSlice,
     deletePatient: deletePatientSlice,
     updatePatient: updatePatientSlice,
+    managePatientsCaregivers: managePatientsCaregiversSlice,
+    deletePCandCP: deletePCandCPSlice,
   },
 });

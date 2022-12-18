@@ -90,6 +90,9 @@ function PatientForm(props) {
               placeholder="Phone number"
               className="rounded-md bg-violet-200/40 p-2"
               required
+              onChange={(e) => {
+                props.setPhoneNumber(e.target.value);
+              }}
             />
           </div>
           <div className=" space-x-2 flex px-3">

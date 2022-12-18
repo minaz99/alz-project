@@ -11,6 +11,7 @@ import AddressData from "../UsersView/DifferentUsersExtras/AddressData";
 import { useState } from "react";
 import UpdateUser from "./UpdateUser";
 import PatientExtraData from "./updateUserExtras/PatientExtraData";
+import CaregiverExtras from "../UsersView/DifferentUsersExtras/CaregiverExtras";
 function UserInfo(props) {
   const [editUser, setEditUser] = useState("false");
   const {
@@ -27,11 +28,19 @@ function UserInfo(props) {
     caregivers,
     registeredBy,
     userType,
+    patients,
+    needs,
+    urlPatient,
+    urlCaregiver,
+    phoneNumber,
     isFetching,
   } = useSelector((store) => store.userRequestInfo);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getPatientInfo(props.id));
+    if (props.userType === "PATIENT")
+      dispatch(getPatientInfo(`${urlPatient}${props.id}`));
+    else if (props.userType === "CAREGIVER")
+      dispatch(getPatientInfo(`${urlCaregiver}${props.id}`));
   }, []);
   return (
     <div className="bg-amber-50 rounded-md   ">
@@ -84,6 +93,14 @@ function UserInfo(props) {
                 Date of birth{" "}
                 <div className="text-indigo-400 px-3">{dateOfBirth}</div>
               </div>
+              {userType === "PATIENT" ? (
+                <div className="text-gray-400 flex">
+                  Phone number
+                  <div className="text-indigo-400 px-3">{phoneNumber}</div>
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
             <div className="flex-col border-r-2 p-4 space-y-6 border-gray-200">
               <AddressData addressId={addressId} district="Śródmieście" />
@@ -105,13 +122,20 @@ function UserInfo(props) {
                 )}
               </div>
             </div>
-            {userType === "PATIENT" || userType === "CAREGIVER" ? (
+            {userType === "PATIENT" ? (
               <PatientExtras
-                userType={userType}
                 registeredBy={registeredBy}
                 illnessType={illnessType}
                 conditionDescription={conditionDescription}
                 caregivers={caregivers}
+                id={id}
+              />
+            ) : userType === "CAREGIVER" ? (
+              <CaregiverExtras
+                phoneNumber={phoneNumber}
+                needs={needs}
+                patients={patients}
+                id={id}
               />
             ) : (
               <div></div>
@@ -131,6 +155,10 @@ function UserInfo(props) {
             illnessType={illnessType}
             registeredBy={registeredBy}
             conditionDescription={conditionDescription}
+            needs={needs}
+            phoneNumber={phoneNumber}
+            caregivers={caregivers}
+            patients={patients}
           />
         )
       ) : (

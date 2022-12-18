@@ -14,20 +14,25 @@ const initialState = {
   illnessType: "",
   conditionDescription: "",
   caregivers: "",
+  needs: "",
+  patients: "",
   registeredBy: "",
   userType: "",
+  phoneNumber: "",
   isFetching: false,
   isSuccess: false,
   isError: false,
   errorMsg: "",
+  urlPatient: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`,
+  urlCaregiver: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/caregiver/`,
 };
-const url2 = `https://dummyjson.com/users/`;
-const url1 = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`;
+//const url2 = `https://dummyjson.com/users/`;
+//const url1 = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`;
 export const getPatientInfo = createAsyncThunk(
   "/patient/",
-  async (id, thunkAPI) => {
+  async (url, thunkAPI) => {
     try {
-      const response = await fetch(`${url1}${id}`, {
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -66,6 +71,9 @@ const userRequestInfoSlice = createSlice({
       state.caregivers = "";
       state.registeredBy = "";
       state.userType = "";
+      state.needs = "";
+      state.patients = "";
+      state.phoneNumber = "";
       state.isFetching = false;
       state.isSuccess = false;
       state.isError = false;
@@ -107,8 +115,10 @@ const userRequestInfoSlice = createSlice({
       state.caregivers = payload.caregivers;
       state.registeredBy = payload.registeredBy;
       state.userType = payload.userType;
+      state.needs = payload.needs;
+      state.patients = payload.patients;
       // thunkAPI.totalUsers++;
-
+      state.phoneNumber = payload.phoneNumber;
       //console.log(state.email);
       state.isFetching = false;
       state.isSuccess = true;

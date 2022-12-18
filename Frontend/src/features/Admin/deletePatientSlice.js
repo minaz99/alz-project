@@ -2,14 +2,20 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { data } from "autoprefixer";
 import axios from "../../api/axios";
 
-const initialState = { fetching: false, isSuccess: false, isError: false };
+const initialState = {
+  urlPatient: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`,
+  urlCaregiver: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/caregiver/`,
+  fetching: false,
+  isSuccess: false,
+  isError: false,
+};
 
-const url1 = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`;
+//const url1 = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`;
 export const deletePatient = createAsyncThunk(
   "/delete",
-  async (id, thunkAPI) => {
+  async (url, thunkAPI) => {
     try {
-      const response = await fetch(`${url1}${id}`, {
+      const response = await fetch(`${url}`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",

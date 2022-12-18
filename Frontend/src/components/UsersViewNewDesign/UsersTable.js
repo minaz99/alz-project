@@ -8,11 +8,13 @@ import UserRow from "./UserRow";
 function UsersTable() {
   const dispatch = useDispatch();
   const { isFetching } = useSelector((store) => store.updatePatient);
-  const { users, totalUsers } = useSelector((store) => store.userRequest);
+  const { Fetching, users, usersUrl, totalUsers } = useSelector(
+    (store) => store.userRequest
+  );
+
   const [userDetailShown, setUserDetailShown] = useState("false");
-  //const userType = "PATIENT";
   useEffect(() => {
-    dispatch(getPatients());
+    dispatch(getPatients(usersUrl));
   }, [totalUsers, isFetching]);
   return (
     <div className="bg-white rounded-md ">

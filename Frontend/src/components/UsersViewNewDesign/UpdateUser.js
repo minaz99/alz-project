@@ -4,12 +4,19 @@ import PatientExtraData from "./updateUserExtras/PatientExtraData";
 import { updatePatient } from "../../features/Admin/updatePatientSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCard } from "../../features/Admin/userRequestInfoSlice";
+import CaregiverExtras from "../UsersView/DifferentUsersExtras/CaregiverExtras";
+import CaregiverExtraData from "./updateUserExtras/CaregiverExtraData";
 function UpdateUser(props) {
-  const { isFetching } = useSelector((store) => store.updatePatient);
+  const { isFetching, urlPatient, urlCaregiver } = useSelector(
+    (store) => store.updatePatient
+  );
   const dispatch = useDispatch();
+  const urlType = props.userType === "PATIENT" ? urlPatient : urlCaregiver;
   const [firstName, setFirstname] = useState(props.firstName);
   const [lastName, setLastname] = useState(props.lastName);
   const [email, setEmail] = useState(props.email);
+  const [phoneNumber, setPhoneNumber] = useState(props.phoneNumber);
+  const [needs, setNeeds] = useState(props.needs);
   //const [dateOfBirth, setDateOfBirth] = useState(props.dateOfBirth);
   //const [gender, setGender] = useState(props.gender);
   const [addressId, setAddressId] = useState(props.addressId);
@@ -30,7 +37,7 @@ function UpdateUser(props) {
                 type="text"
                 value={firstName}
                 className=" rounded-md  text-violet-400/90 bg-violet-200/40 p-1 mx-2 w-7/12 "
-                required
+                //required
                 onChange={(e) => {
                   setFirstname(e.target.value);
                 }}
@@ -43,7 +50,7 @@ function UpdateUser(props) {
                 type="text"
                 value={lastName}
                 className="rounded-md text-violet-400/90 bg-violet-200/40 p-1 mx-2 w-7/12"
-                required
+                //  required
                 onChange={(e) => {
                   setLastname(e.target.value);
                 }}
@@ -56,7 +63,7 @@ function UpdateUser(props) {
                 type="email"
                 value={email}
                 className="rounded-md text-violet-400/90 bg-violet-200/40 p-1 mx-2  w-fit"
-                required
+                //required
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -72,6 +79,22 @@ function UpdateUser(props) {
                 disabled
               />
             </div>
+            {props.userType === "PATIENT" ? (
+              <div className="flex  text-gray-400 items-center">
+                Phone number
+                <input
+                  name="phoneNumber"
+                  type="text"
+                  value={phoneNumber}
+                  className="text-violet-400/90 rounded-md bg-violet-200/40 p-1 mx-2 w-fit"
+                  onChange={(e) => {
+                    setPhoneNumber(e.target.value);
+                  }}
+                />
+              </div>
+            ) : (
+              <div></div>
+            )}
           </div>
           <div className="flex-col border-r-2 p-4 space-y-5 border-gray-200">
             <div className="flex  text-gray-400 items-center">
@@ -81,7 +104,7 @@ function UpdateUser(props) {
                 type="text"
                 value={addressId}
                 className="rounded-md text-violet-400/90 bg-violet-200/40 p-1 mx-2 w-fit"
-                required
+                // required
                 onChange={(e) => {
                   setAddressId(e.target.value);
                 }}
@@ -119,18 +142,33 @@ function UpdateUser(props) {
               />
             </div>
           </div>
-
-          <PatientExtraData
-            illnessType={illnessType}
-            registeredBy={props.registeredBy}
-            conditionDescription={conditionDescription}
-            setIllnessType={setIllnessType}
-            setConditionDescription={setConditionDescription}
-          />
+          {props.userType === "PATIENT" ? (
+            <PatientExtraData
+              illnessType={illnessType}
+              registeredBy={props.registeredBy}
+              conditionDescription={conditionDescription}
+              setIllnessType={setIllnessType}
+              setConditionDescription={setConditionDescription}
+              caregivers={props.caregivers}
+              id={props.id}
+            />
+          ) : props.userType === "CAREGIVER" ? (
+            <CaregiverExtraData
+              setPhoneNumber={setPhoneNumber}
+              phoneNumber={phoneNumber}
+              needs={needs}
+              setNeeds={setNeeds}
+              patients={props.patients}
+              id={props.id}
+            />
+          ) : (
+            <div></div>
+          )}
           <button
             className="rounded-md my-auto   bg-violet-300/40 p-2 h-5/6 items-end"
             onClick={() => {
               const data = {
+                url: urlType,
                 id: props.id,
                 firstName: firstName,
                 lastName: lastName,
@@ -138,6 +176,8 @@ function UpdateUser(props) {
                 addressId: addressId,
                 illnessType: illnessType,
                 conditionDescription: conditionDescription,
+                needs: needs,
+                phoneNumber: phoneNumber,
               };
               dispatch(updatePatient(data));
             }}

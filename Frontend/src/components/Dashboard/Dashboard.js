@@ -8,7 +8,12 @@ import UserCount from "./Stats/UserCount";
 
 //import Loader from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
-import { getPatients } from "../../features/Admin/userRequestsSlice";
+import {
+  getPatients,
+  setUrlType,
+  getPatientsCount,
+  getCaregiversCount,
+} from "../../features/Admin/userRequestsSlice";
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,9 +23,13 @@ const Dashboard = () => {
   }, []);*/
   const { username, email, isLoggedIn } = useSelector((store) => store.session);
   const uname = email.slice(0, 3);
-  const { totalUsers } = useSelector((store) => store.userRequest);
+  const { totalUsers, usersUrl, patientsCount, caregiversCount } = useSelector(
+    (store) => store.userRequest
+  );
   useEffect(() => {
-    dispatch(getPatients());
+    dispatch(getPatients(usersUrl));
+    dispatch(getPatientsCount());
+    dispatch(getCaregiversCount());
   }, [isError, isLoggedIn]);
 
   return (
@@ -29,7 +38,7 @@ const Dashboard = () => {
         <Navigation />
         <div className="flex p-14 space-x-24 mx-auto items-center -my-8 justify-center">
           <PatientsWithoutCaregiver />
-          <DivisionOfUsers patients={totalUsers} />
+          <DivisionOfUsers patients="10" caregivers="10" />
         </div>
         <div className="flex p-4 -my-6 mx-auto items-center py-9  justify-center space-x-12">
           <UserCount
@@ -40,13 +49,13 @@ const Dashboard = () => {
           />
           <UserCount
             user="Patients"
-            count={totalUsers}
+            count={patientsCount}
             color={"rgb(141 242 168)"}
             shadow="0 4px 6px -1px rgb(141 242 168), 0 2px 4px -2px rgb(141 242 168 )"
           />
           <UserCount
             user="Caregivers"
-            count="55"
+            count={caregiversCount}
             color={"rgb(244 146 65)"}
             shadow="0 4px 6px -1px rgb(244 146 65), 0 2px 4px -2px rgb(244 146 65)"
           />

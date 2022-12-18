@@ -16,7 +16,7 @@ function App() {
           <Route exact path="/" element={<Login />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
           {/*<FormCard />*/}
-          <Route exact path="/users" element={<CardsHolder />} />
+          <Route exact path="/Oldusers" element={<CardsHolder />} />
           <Route exact path="/addpatient" element={<FormCard />} />
           <Route exact path="/users2" element={<OutlineCard />} />
         </Routes>

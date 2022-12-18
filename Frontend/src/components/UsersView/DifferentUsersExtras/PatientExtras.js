@@ -1,4 +1,5 @@
 import React from "react";
+import PatientsCaregivers from "../../UsersViewNewDesign/updateUserExtras/PatientsCaregivers";
 
 function PatientExtras(props) {
   return (
@@ -20,8 +21,7 @@ function PatientExtras(props) {
         </div>
       </div>
       <div className="text-gray-400 flex">
-        Caregivers{" "}
-        <div className="text-indigo-400 px-4">{props.caregivers}</div>
+        Caregivers <PatientsCaregivers id={props.id} />
       </div>
     </div>
   );

@@ -3,16 +3,19 @@ import { data } from "autoprefixer";
 import axios from "../../api/axios";
 
 const initialState = {
+  urlPatient: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`,
+  urlCaregiver: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/caregiver/`,
   isFetching: false,
   isSuccess: false,
   isError: false,
   errorMsg: "",
 };
-const url = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`;
+
 export const updatePatient = createAsyncThunk(
   "/update/patient",
   async (
     {
+      url,
       id,
       firstName,
       lastName,
@@ -22,9 +25,10 @@ export const updatePatient = createAsyncThunk(
       //age,
       //   gender,
       addressId,
-      //phoneNumber,
+      phoneNumber,
       illnessType,
       conditionDescription,
+      needs,
       //caregivers,
       //  registeredBy,
       //userType,
@@ -33,7 +37,7 @@ export const updatePatient = createAsyncThunk(
   ) => {
     try {
       const response = await fetch(
-        `${url}${id}?firstName=${firstName}&lastName=${lastName}&email=${email}&addressId=${addressId}&illnessType=${illnessType}&conditionDescription=${conditionDescription}`,
+        `${url}${id}?firstName=${firstName}&lastName=${lastName}&email=${email}&addressId=${addressId}&illnessType=${illnessType}&conditionDescription=${conditionDescription}&phoneNumber=${phoneNumber}&needs=${needs}`,
         {
           method: "PUT",
 
@@ -52,6 +56,8 @@ export const updatePatient = createAsyncThunk(
             addressId,
             illnessType,
             conditionDescription,
+            needs,
+            phoneNumber,
             //caregivers,
             // registeredBy,
             // userType,
