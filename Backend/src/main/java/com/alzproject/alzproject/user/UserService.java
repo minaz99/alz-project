@@ -1,13 +1,12 @@
 package com.alzproject.alzproject.user;
 
-import com.alzproject.alzproject.admin.AdminRepository;
-import com.alzproject.alzproject.admin.AdminService;
 import com.alzproject.alzproject.caregiver.Caregiver;
 import com.alzproject.alzproject.caregiver.CaregiverRepository;
 import com.alzproject.alzproject.caregiver.CaregiverService;
 import com.alzproject.alzproject.patient.Patient;
 import com.alzproject.alzproject.patient.PatientRepository;
 import com.alzproject.alzproject.patient.PatientService;
+import com.alzproject.alzproject.socialworker.SocialWorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,24 +20,21 @@ public class UserService {
 
     private final PatientService patientService;
     private final CaregiverService caregiverService;
-    private final AdminService adminService;
+    private final SocialWorkerService socialWorkerService;
     private final PatientRepository patientRepository;
     private final CaregiverRepository caregiverRepository;
-    private final AdminRepository adminRepository;
 
     @Autowired
     public UserService(PatientService patientService,
                        CaregiverService caregiverService,
-                       AdminService adminService,
+                       SocialWorkerService socialWorkerService,
                        PatientRepository patientRepository,
-                       CaregiverRepository caregiverRepository,
-                       AdminRepository adminRepository) {
+                       CaregiverRepository caregiverRepository) {
         this.patientService = patientService;
         this.caregiverService = caregiverService;
-        this.adminService = adminService;
+        this.socialWorkerService = socialWorkerService;
         this.patientRepository = patientRepository;
         this.caregiverRepository = caregiverRepository;
-        this.adminRepository = adminRepository;
     }
 
     public List<Object> getAllUsers(){
@@ -47,7 +43,37 @@ public class UserService {
 
         allUsers.addAll(patientService.getPatients());
         allUsers.addAll(caregiverService.getCaregivers());
-        allUsers.addAll(adminService.getAdmins());
+        allUsers.addAll(socialWorkerService.getActiveSocialWorkers());
+
+        return allUsers;
+    }
+
+    public List<Object> getPatientsAndCaregivers(){
+
+        List<Object> allUsers = new ArrayList<>();
+
+        allUsers.addAll(patientService.getPatients());
+        allUsers.addAll(caregiverService.getCaregivers());
+
+        return allUsers;
+    }
+
+    public List<Object> getPatientsAndSocialWorkers(){
+
+        List<Object> allUsers = new ArrayList<>();
+
+        allUsers.addAll(patientService.getPatients());
+        allUsers.addAll(socialWorkerService.getActiveSocialWorkers());
+
+        return allUsers;
+    }
+
+    public List<Object> getCaregiversAndSocialWorkers(){
+
+        List<Object> allUsers = new ArrayList<>();
+
+        allUsers.addAll(caregiverService.getCaregivers());
+        allUsers.addAll(socialWorkerService.getActiveSocialWorkers());
 
         return allUsers;
     }
@@ -188,4 +214,12 @@ public class UserService {
         //deleteCaregiversFromPatient(patientId, caregiverId);
         caregiver.setPatients(newPatients);
     }
+
+//    public boolean checkEmailExists(String email) {
+//        boolean patient = patientRepository.findPatientByEmail(email).isPresent();
+//        boolean caregiver = caregiverRepository.findCaregiverByEmail(email).isPresent();
+//        boolean socialWorker = socialWorkerRepository.findSocialWorkerByEmail(email).isPresent();
+//        boolean admin = adminRepository.findAdminByEmail(email).isPresent();
+//        return (patient & caregiver & socialWorker & admin);
+//    }
 }

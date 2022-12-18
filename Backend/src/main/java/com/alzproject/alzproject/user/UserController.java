@@ -23,6 +23,21 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping(path = "patients-caregivers")
+    public List<Object> getPatientsAndCaregivers(){
+        return userService.getPatientsAndCaregivers();
+    }
+
+    @GetMapping(path = "patients-social_workers")
+    public List<Object> getPatientsAndSocialWorkers(){
+        return userService.getPatientsAndSocialWorkers();
+    }
+
+    @GetMapping(path = "caregivers-social_workers")
+    public List<Object> getCaregiversAndSocialWorkers(){
+        return userService.getCaregiversAndSocialWorkers();
+    }
+
     @GetMapping(path = "patient/{patientId}/caregivers")
     public List<Caregiver> getCaregivers(@PathVariable("patientId") Long patientId){
         return userService.getCaregiversOfPatient(patientId);
