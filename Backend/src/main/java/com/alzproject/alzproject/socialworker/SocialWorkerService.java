@@ -26,7 +26,7 @@ public class SocialWorkerService {
 
     public List<SocialWorker> getNotActivatedSocialWorkers() {
         List<SocialWorker> all = socialWorkerRepository.findAll();
-        all.removeIf(s -> s.isActivated());
+        all.removeIf(SocialWorker::isActivated);
         return all;
     }
 

@@ -29,7 +29,7 @@ public class Patient {
     private String addressId;
     private String illnessType;
     private String conditionDescription;
-    private String caregivers;
+    private String caregivers = "";
     private RegisteredBy registeredBy;
     private final UserType userType = UserType.PATIENT;
 

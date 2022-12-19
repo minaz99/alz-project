@@ -27,7 +27,7 @@ public class Caregiver {
     private String phoneNumber;
     private String addressId;
     private String needs;
-    private String patients;
+    private String patients = "";
     private final UserType userType = UserType.CAREGIVER;
 
     public Caregiver(Long id,
