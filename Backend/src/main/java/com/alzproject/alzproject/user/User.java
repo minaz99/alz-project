@@ -17,6 +17,8 @@ import java.util.Collections;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
+@RestController
+@RequestMapping(path = "/login")
 public class User implements UserDetails {
 
 
