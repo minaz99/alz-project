@@ -237,6 +237,57 @@ public class UserService {
         patient.setCaregivers(newCaregivers);
     }
 
+    //Login security
+
+    private final static String USER_NOT_FOUND_MSG =
+            "user with email %s not found";
+
+    private final UserRepository UserRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ConfirmationTokenService confirmationTokenService;
+
+    @Override
+    public UserDetails loadUserByUsername(String email)
+            throws UsernameNotFoundException {
+        return UserRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(
+                                String.format(USER_NOT_FOUND_MSG, email)));
+    }
+
+    public String signUpUser(User User) {
+        boolean userExists = appUserRepository
+                .findByEmail(User.getEmail())
+                .isPresent();
+
+        if (userExists) {
+            throw new IllegalStateException("email already taken");
+        }
+
+        String encodedPassword = bCryptPasswordEncoder
+                .encode(User.getPassword());
+
+        User.setPassword(encodedPassword);
+
+        UserRepository.save(User);
+
+        String token = UUID.randomUUID().toString();
+
+        ConfirmationToken confirmationToken = new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                User
+        );
+
+        confirmationTokenService.saveConfirmationToken(
+                confirmationToken);
+        return token;
+    }
+    public int enableAppUser(String email) {
+        return appUserRepository.enableAppUser(email);
+    }
+
 
 //    public boolean checkEmailExists(String email) {
 //        boolean patient = patientRepository.findPatientByEmail(email).isPresent();
