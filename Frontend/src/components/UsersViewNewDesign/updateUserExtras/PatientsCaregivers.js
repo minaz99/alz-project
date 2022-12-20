@@ -12,7 +12,7 @@ function PatientsCaregivers(props) {
     (store) => store.managePatientsCaregivers
   );
   useEffect(() => {
-    dispatch(getData(`${patientsCaregivers}/${props.id}/caregivers`));
+    dispatch(getData(`${patientsCaregivers}${props.id}/caregivers`));
   }, []);
   return (
     <div className="flex">
@@ -29,8 +29,9 @@ function PatientsCaregivers(props) {
             {users.map((caregiver) => {
               return (
                 <li>
-                  <div className=" p-1 rounded-md shadow-amber-300 bg-amber-100 shadow-md text-amber-500 ">
-                    {caregiver.firstName} {caregiver.lastName}
+                  <div className=" p-1 rounded-md shadow-amber-300  bg-amber-100 shadow-md text-amber-500 ">
+                    {caregiver.firstName} {caregiver.lastName}{" "}
+                    <div> {caregiver.email} </div>
                   </div>
                 </li>
               );

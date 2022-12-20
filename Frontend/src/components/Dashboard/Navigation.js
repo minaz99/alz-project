@@ -13,6 +13,7 @@ import exit from "../../img/exit.png";
 import { clearState } from "../../features/Admin/sessionSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { BellIcon } from "@heroicons/react/24/solid";
 function Navigation() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ function Navigation() {
           <button
             className="hover:text-slate-600 rounded-md h-10 w-24 text-white"
             onClick={() => {
-              navigate("/oldUsers");
+              navigate("/users");
             }}
           >
             User's view
@@ -63,7 +64,7 @@ function Navigation() {
           <img src={mapView} className="h-9 w-9" />
           <button
             onClick={() => {
-              navigate("/users2");
+              navigate("/mapview");
             }}
             className="hover:text-slate-600 rounded-md h-10 w-24 text-white"
           >
@@ -79,6 +80,17 @@ function Navigation() {
             }}
           >
             Register users
+          </button>
+        </div>
+        <div className="flex  items-center -space-x-3">
+          <BellIcon className="h-8 w-8" color="#454545" />
+          <button
+            onClick={() => {
+              navigate("/userrequests");
+            }}
+            className="hover:text-slate-600  rounded-md h-10 w-24 text-white"
+          >
+            user Requests
           </button>
         </div>
         <div className="flex  items-center -space-x-3">

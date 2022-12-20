@@ -6,12 +6,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearCard } from "../../features/Admin/userRequestInfoSlice";
 import CaregiverExtras from "../UsersView/DifferentUsersExtras/CaregiverExtras";
 import CaregiverExtraData from "./updateUserExtras/CaregiverExtraData";
+import Card from "./Adding p to c and c to p/Card";
 function UpdateUser(props) {
-  const { isFetching, urlPatient, urlCaregiver } = useSelector(
+  const { isFetching, urlPatient, urlCaregiver, urlSocialworker } = useSelector(
     (store) => store.updatePatient
   );
   const dispatch = useDispatch();
-  const urlType = props.userType === "PATIENT" ? urlPatient : urlCaregiver;
+  const urlType =
+    props.userType === "PATIENT"
+      ? urlPatient
+      : props.userType === "CAREGIVER"
+      ? urlCaregiver
+      : urlSocialworker;
   const [firstName, setFirstname] = useState(props.firstName);
   const [lastName, setLastname] = useState(props.lastName);
   const [email, setEmail] = useState(props.email);
@@ -24,11 +30,12 @@ function UpdateUser(props) {
     props.conditionDescription
   );
   const [illnessType, setIllnessType] = useState(props.illnessType);
+  const [addCaregiver, setAddCaregiver] = useState("false");
 
   return (
     <div>
       {isFetching === false ? (
-        <div className="flex">
+        <div className="flex z-0">
           <div className="space-y-5 flex-col   border-r-2 p-4  border-gray-200">
             <div className="flex-row  text-gray-400 items-center break-keep">
               First name
@@ -50,7 +57,7 @@ function UpdateUser(props) {
                 type="text"
                 value={lastName}
                 className="rounded-md text-violet-400/90 bg-violet-200/40 p-1 mx-2 w-7/12"
-                //  required
+                //  requiredid
                 onChange={(e) => {
                   setLastname(e.target.value);
                 }}
@@ -151,6 +158,8 @@ function UpdateUser(props) {
               setConditionDescription={setConditionDescription}
               caregivers={props.caregivers}
               id={props.id}
+              addCaregiver={addCaregiver}
+              setAddCaregiver={setAddCaregiver}
             />
           ) : props.userType === "CAREGIVER" ? (
             <CaregiverExtraData
@@ -160,6 +169,8 @@ function UpdateUser(props) {
               setNeeds={setNeeds}
               patients={props.patients}
               id={props.id}
+              addCaregiver={addCaregiver}
+              setAddCaregiver={setAddCaregiver}
             />
           ) : (
             <div></div>
@@ -187,6 +198,19 @@ function UpdateUser(props) {
         </div>
       ) : (
         <div>Updating user...</div>
+      )}
+      {addCaregiver === "true" ? (
+        <div className="z-10 absolute inset-y-1/4 inset-x-5 ">
+          <Card
+            firstName={firstName}
+            lastName={lastName}
+            setAddCaregiver={setAddCaregiver}
+            userType={props.userType}
+            id={props.id}
+          />
+        </div>
+      ) : (
+        <div></div>
       )}
     </div>
   );

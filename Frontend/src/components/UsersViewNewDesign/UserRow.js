@@ -9,7 +9,7 @@ import {
 import { deletePatient } from "../../features/Admin/deletePatientSlice";
 import { useDispatch, useSelector } from "react-redux";
 function UserRow(props) {
-  const { urlPatient, urlCaregiver } = useSelector(
+  const { urlPatient, urlCaregiver, urlSocialworkers } = useSelector(
     (store) => store.deletePatient
   );
   const dispatch = useDispatch();
@@ -75,6 +75,9 @@ function UserRow(props) {
             dispatch(deleteOneUser());
           } else if (props.userType === "CAREGIVER") {
             dispatch(deletePatient(`${urlCaregiver}${props.id}`));
+            dispatch(deleteOneUser());
+          } else if (props.userType === "SOCIAL_WORKER") {
+            dispatch(deletePatient(`${urlSocialworkers}${props.id}`));
             dispatch(deleteOneUser());
           }
           //alert(props.id);

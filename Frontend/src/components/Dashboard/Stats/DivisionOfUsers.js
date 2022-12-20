@@ -4,7 +4,7 @@ function DivisionOfUsers(props) {
   const data = [
     { x: "Patients", y: props.patients },
     { x: "Caregivers", y: props.caregivers },
-    { x: "Social workers", y: 8 },
+    { x: "Social workers", y: props.socialworkers },
   ];
   return (
     <div className="bg-slate-700 rounded-lg h-80 w-96 p-4">

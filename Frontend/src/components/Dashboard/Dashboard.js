@@ -13,6 +13,7 @@ import {
   setUrlType,
   getPatientsCount,
   getCaregiversCount,
+  getSocialwokersCount,
 } from "../../features/Admin/userRequestsSlice";
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -23,13 +24,18 @@ const Dashboard = () => {
   }, []);*/
   const { username, email, isLoggedIn } = useSelector((store) => store.session);
   const uname = email.slice(0, 3);
-  const { totalUsers, usersUrl, patientsCount, caregiversCount } = useSelector(
-    (store) => store.userRequest
-  );
+  const {
+    totalUsers,
+    usersUrl,
+    patientsCount,
+    caregiversCount,
+    socialworkersCount,
+  } = useSelector((store) => store.userRequest);
   useEffect(() => {
     dispatch(getPatients(usersUrl));
     dispatch(getPatientsCount());
     dispatch(getCaregiversCount());
+    dispatch(getSocialwokersCount());
   }, [isError, isLoggedIn]);
 
   return (
@@ -38,7 +44,11 @@ const Dashboard = () => {
         <Navigation />
         <div className="flex p-14 space-x-24 mx-auto items-center -my-8 justify-center">
           <PatientsWithoutCaregiver />
-          <DivisionOfUsers patients="10" caregivers="10" />
+          <DivisionOfUsers
+            patients={patientsCount}
+            caregivers={caregiversCount}
+            socialworkers={socialworkersCount}
+          />
         </div>
         <div className="flex p-4 -my-6 mx-auto items-center py-9  justify-center space-x-12">
           <UserCount
@@ -61,7 +71,7 @@ const Dashboard = () => {
           />
           <UserCount
             user="Social workers"
-            count="2"
+            count={socialworkersCount}
             color={"rgb(73 119 245)"}
             shadow="0 4px 6px -1px rgb(73 119 245), 0 2px 4px -2px rgb(73 119 245)"
           />

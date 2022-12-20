@@ -5,9 +5,7 @@ import axios from "../../api/axios";
 
 const initialState = {
   users: [],
-  patients: [],
-  caregivers: [],
-  toFetch: "users",
+  //toFetch: "users",
   patientsCount: 0,
   caregiversCount: 0,
   socialworkersCount: 0,
@@ -18,33 +16,37 @@ const initialState = {
   errorMsg: "",
   patientUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`,
   caregiverUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/caregiver`,
-  socialworkerUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/social-worker/active`,
   usersUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users`,
+  socialworkersUrl: `https://alzcors.herokuapp.com/http://alz-project.herokuapp.com/social-worker/notActivated`,
 };
 //const url = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`;
-export const getPatients = createAsyncThunk("/users", async (url, thunkAPI) => {
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-    let data = await response.json();
+export const getOneTypeOfUsers = createAsyncThunk(
+  "/allUsersOfType",
+  async (url, thunkAPI) => {
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await response.json();
 
-    if (response.status === 200) return { ...data }; //console.log(data.token);
-    else {
-      return thunkAPI.rejectWithValue(data);
+      if (response.status === 200)
+        return { ...data }; //console.log(data.token);
+      else {
+        return thunkAPI.rejectWithValue(data);
+      }
+    } catch (e) {
+      //console.log("Error", e.response.data);
+      thunkAPI.rejectWithValue(e.response.data);
     }
-  } catch (e) {
-    //console.log("Error", e.response.data);
-    thunkAPI.rejectWithValue(e.response.data);
   }
-});
+);
 
-const userRequestsSlice = createSlice({
-  name: "userRequest",
+const patientsAndCaregiversSlice = createSlice({
+  name: "patientsAndCaregivers",
   initialState,
   reducers: {
     setOneUser: (state, action) => {
@@ -69,17 +71,17 @@ const userRequestsSlice = createSlice({
           : state.caregiversCount
       );
     },
-    getSocialwokersCount: (state, action) => {
+    getSocialworkersCount: (state, action) => {
       state.socialworkersCount = 0;
       state.users.forEach((user) =>
-        user.userType === "SOCIAL_WORKER"
+        user.userType === "SOCIAL-WORKER"
           ? state.socialworkersCount++
           : state.socialworkersCount
       );
     },
   },
   extraReducers: {
-    [getPatients.fulfilled]: (state, { payload }) => {
+    [getOneTypeOfUsers.fulfilled]: (state, { payload }) => {
       state.users = [];
       for (const [key, value] of Object.entries(payload)) {
         //alert(`${key}: ${value}`);
@@ -130,13 +132,13 @@ const userRequestsSlice = createSlice({
       //state.allUsers = [...state.patients, ...state.caregivers];
       return state;
     },
-    [getPatients.rejected]: (state, { payload }) => {
+    [getOneTypeOfUsers.rejected]: (state, { payload }) => {
       console.log("payload", payload);
       state.Fetching = false;
       state.isError = true;
       //state.errorMsg = payload.message;
     },
-    [getPatients.pending]: (state) => {
+    [getOneTypeOfUsers.pending]: (state) => {
       state.Fetching = true;
     },
   },
@@ -147,6 +149,5 @@ export const {
   setUrlType,
   getPatientsCount,
   getCaregiversCount,
-  getSocialwokersCount,
-} = userRequestsSlice.actions;
-export default userRequestsSlice.reducer;
+} = patientsAndCaregiversSlice.actions;
+export default patientsAndCaregiversSlice.reducer;

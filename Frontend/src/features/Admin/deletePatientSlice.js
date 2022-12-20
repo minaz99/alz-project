@@ -5,6 +5,7 @@ import axios from "../../api/axios";
 const initialState = {
   urlPatient: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`,
   urlCaregiver: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/caregiver/`,
+  urlSocialworkers: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/social-worker/`,
   fetching: false,
   isSuccess: false,
   isError: false,

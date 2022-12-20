@@ -32,6 +32,7 @@ function UserInfo(props) {
     needs,
     urlPatient,
     urlCaregiver,
+    urlSocialworker,
     phoneNumber,
     isFetching,
   } = useSelector((store) => store.userRequestInfo);
@@ -41,6 +42,8 @@ function UserInfo(props) {
       dispatch(getPatientInfo(`${urlPatient}${props.id}`));
     else if (props.userType === "CAREGIVER")
       dispatch(getPatientInfo(`${urlCaregiver}${props.id}`));
+    else if (props.userType === "SOCIAL_WORKER")
+      dispatch(getPatientInfo(`${urlSocialworker}${props.id}`));
   }, []);
   return (
     <div className="bg-amber-50 rounded-md   ">
@@ -93,7 +96,7 @@ function UserInfo(props) {
                 Date of birth{" "}
                 <div className="text-indigo-400 px-3">{dateOfBirth}</div>
               </div>
-              {userType === "PATIENT" ? (
+              {userType === "PATIENT" || "SOCIAL_WORKER" ? (
                 <div className="text-gray-400 flex">
                   Phone number
                   <div className="text-indigo-400 px-3">{phoneNumber}</div>

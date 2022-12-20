@@ -11,7 +11,7 @@ function CaregiverExtraData(props) {
   );
   const { Fetching } = useSelector((store) => store.deletePCandCP);
   useEffect(() => {
-    dispatch(getData(`${caregiversPatients}/${props.id}/patients`));
+    dispatch(getData(`${caregiversPatients}${props.id}/patients`));
   }, [Fetching]);
   return (
     <div className="space-y-2 flex-col p-4">
@@ -50,12 +50,13 @@ function CaregiverExtraData(props) {
                 <li>
                   <div
                     key={patient.id}
-                    className=" flex items-center p-1 rounded-md shadow-teal-300 bg-teal-100 shadow-md text-teal-600 "
+                    className="  items-center p-1 rounded-md shadow-teal-300 bg-teal-100 shadow-md text-teal-600 "
                   >
                     {patient.firstName} {patient.lastName}
-                    <div className="items-center">
+                    <div> {patient.email} </div>
+                    <div className="">
                       <MinusCircleIcon
-                        className="h-5 w-5 mx-1 cursor-pointer "
+                        className="h-5 w-5  mx-auto my-1 cursor-pointer "
                         onClick={() => {
                           dispatch(
                             deletePCandCP(
@@ -70,7 +71,13 @@ function CaregiverExtraData(props) {
               );
             })}
           </ul>
-          <PlusCircleIcon className="h-6 w-6 cursor-pointer mx-auto my-1" />
+          <PlusCircleIcon
+            onClick={() => {
+              props.setAddCaregiver("true");
+              //alert(props.addCaregiver);
+            }}
+            className="h-6 w-6 cursor-pointer mx-auto my-2"
+          />
         </div>
       </div>
     </div>

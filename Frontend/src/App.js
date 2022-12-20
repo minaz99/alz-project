@@ -8,6 +8,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import PatientForm from "./components/PatientForm/PatientForm";
 import OutlineCard from "./components/UsersViewNewDesign/OutlineCard";
 import { useState } from "react";
+import SocialWorkersRequests from "./components/Socialworkers/SocialWorkersRequests";
 function App() {
   return (
     <div className="bg-violet-400/40 h-screen overflow-y-auto items-center p-4 ">
@@ -16,9 +17,13 @@ function App() {
           <Route exact path="/" element={<Login />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
           {/*<FormCard />*/}
-          <Route exact path="/Oldusers" element={<CardsHolder />} />
           <Route exact path="/addpatient" element={<FormCard />} />
-          <Route exact path="/users2" element={<OutlineCard />} />
+          <Route exact path="/users" element={<OutlineCard />} />
+          <Route
+            exact
+            path="/userrequests"
+            element={<SocialWorkersRequests />}
+          />
         </Routes>
       </Router>
     </div>

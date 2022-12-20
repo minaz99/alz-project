@@ -25,6 +25,7 @@ const initialState = {
   errorMsg: "",
   urlPatient: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`,
   urlCaregiver: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/caregiver/`,
+  urlSocialworker: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/social-worker/`,
 };
 //const url2 = `https://dummyjson.com/users/`;
 //const url1 = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient/`;

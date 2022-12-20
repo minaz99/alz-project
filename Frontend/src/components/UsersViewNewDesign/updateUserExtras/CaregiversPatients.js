@@ -31,6 +31,7 @@ function CaregiversPatients(props) {
                 <li>
                   <div className=" p-1 rounded-md shadow-teal-300 bg-teal-100 shadow-md text-teal-600 ">
                     {patient.firstName} {patient.lastName}
+                    <div> {patient.email} </div>
                   </div>
                 </li>
               );
