@@ -1,4 +1,4 @@
-//package com.alzproject.alzproject.security.config;
+//package com.alzproject.alzproject.security;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;

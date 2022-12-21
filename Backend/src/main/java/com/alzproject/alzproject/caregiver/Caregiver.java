@@ -56,6 +56,26 @@ public class Caregiver {
         this.patients = patients;
     }
 
+    public Caregiver(String firstName,
+                     String lastName,
+                     String email,
+                     String password,
+                     LocalDate dateOfBirth,
+                     Gender gender,
+                     String phoneNumber,
+                     String addressId,
+                     String needs) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.addressId = addressId;
+        this.needs = needs;
+    }
+
     public Long getId() {
         return id;
     }

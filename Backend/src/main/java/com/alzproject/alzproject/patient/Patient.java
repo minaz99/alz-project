@@ -63,6 +63,30 @@ public class Patient {
         this.registeredBy = registeredBy;
     }
 
+    public Patient(String firstName,
+                   String lastName,
+                   String email,
+                   String password,
+                   LocalDate dateOfBirth,
+                   Gender gender,
+                   String phoneNumber,
+                   String addressId,
+                   String illnessType,
+                   String conditionDescription,
+                   RegisteredBy registeredBy) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.addressId = addressId;
+        this.illnessType = illnessType;
+        this.conditionDescription = conditionDescription;
+        this.registeredBy = registeredBy;
+    }
+
     public Long getId() {
         return id;
     }
