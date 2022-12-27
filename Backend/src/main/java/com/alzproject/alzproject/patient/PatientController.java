@@ -49,8 +49,9 @@ public class PatientController {
                               @RequestParam(required = false) String phoneNumber,
                               @RequestParam(required = false) String addressId,
                               @RequestParam(required = false) String illnessType,
-                              @RequestParam(required = false) String conditionDescription){
+                              @RequestParam(required = false) String conditionDescription,
+                              @RequestParam(required = false) String needs){
         patientService.updatePatient(id, firstName,lastName, email, password, dateOfBirth,
-                phoneNumber, addressId, illnessType, conditionDescription);
+                phoneNumber, addressId, illnessType, conditionDescription, needs);
     }
 }

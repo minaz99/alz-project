@@ -87,6 +87,7 @@ class PatientServiceTest {
                 "Pl. Politechniki 1, 00-661 Warszawa",
                 "Early-onset",
                 "Good",
+                "Some needs",
                 RegisteredBy.PATIENT);
         //when
         underTest.registerPatient(patient);

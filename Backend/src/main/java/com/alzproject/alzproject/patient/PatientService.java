@@ -57,7 +57,8 @@ public class PatientService{
                               String phoneNumber,
                               String addressId,
                               String illnessType,
-                              String conditionDescription) {
+                              String conditionDescription,
+                              String needs) {
 
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
@@ -107,6 +108,11 @@ public class PatientService{
         if(conditionDescription != null && !conditionDescription.isEmpty() &&
                 !Objects.equals(patient.getConditionDescription(), conditionDescription)){
             patient.setConditionDescription(conditionDescription);
+        }
+
+        if(needs != null && !needs.isEmpty() &&
+                !Objects.equals(patient.getNeeds(), needs)){
+            patient.setNeeds(needs);
         }
     }
 }

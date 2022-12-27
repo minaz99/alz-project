@@ -29,6 +29,7 @@ public class Patient {
     private String addressId;
     private String illnessType;
     private String conditionDescription;
+    private String needs;
     private String caregivers = "";
     private RegisteredBy registeredBy;
     private final UserType userType = UserType.PATIENT;
@@ -45,6 +46,7 @@ public class Patient {
                    String addressId,
                    String illnessType,
                    String conditionDescription,
+                   String needs,
                    String caregivers,
                    RegisteredBy registeredBy) {
         this.id = id;
@@ -59,6 +61,7 @@ public class Patient {
         this.addressId = addressId;
         this.illnessType = illnessType;
         this.conditionDescription = conditionDescription;
+        this.needs = needs;
         this.caregivers = caregivers;
         this.registeredBy = registeredBy;
     }
@@ -73,6 +76,7 @@ public class Patient {
                    String addressId,
                    String illnessType,
                    String conditionDescription,
+                   String needs,
                    RegisteredBy registeredBy) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -84,6 +88,7 @@ public class Patient {
         this.addressId = addressId;
         this.illnessType = illnessType;
         this.conditionDescription = conditionDescription;
+        this.needs = needs;
         this.registeredBy = registeredBy;
     }
 
@@ -179,6 +184,14 @@ public class Patient {
         this.conditionDescription = conditionDescription;
     }
 
+    public String getNeeds() {
+        return needs;
+    }
+
+    public void setNeeds(String needs) {
+        this.needs = needs;
+    }
+
     public String getCaregivers() {
         return caregivers;
     }
@@ -214,8 +227,9 @@ public class Patient {
                 ", addressId='" + addressId + '\'' +
                 ", illnessType='" + illnessType + '\'' +
                 ", conditionDescription='" + conditionDescription + '\'' +
+                ", needs='" + needs + '\'' +
                 ", caregivers='" + caregivers + '\'' +
-                ", registeredBy='" + registeredBy + '\'' +
+                ", registeredBy=" + registeredBy +
                 ", userType=" + userType +
                 '}';
     }

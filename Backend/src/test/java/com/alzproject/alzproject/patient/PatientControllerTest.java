@@ -41,6 +41,7 @@ class PatientControllerTest {
                 "Pl. Politechniki 1, 00-661 Warszawa",
                 "Early-onset",
                 "Good",
+                "Some needs",
                 RegisteredBy.PATIENT);
         patientService.registerPatient(patient);
         List<Patient> allPatients = Arrays.asList(patient);
@@ -132,6 +133,7 @@ class PatientControllerTest {
                 "Pl. Politechniki 1, 00-661 Warszawa",
                 "Early-onset",
                 "Good",
+                "Some needs",
                 RegisteredBy.PATIENT);
         patientService.registerPatient(patient);
 
@@ -164,6 +166,7 @@ class PatientControllerTest {
                 "Pl. Politechniki 1, 00-661 Warszawa",
                 "Early-onset",
                 "Good",
+                "Some needs",
                 RegisteredBy.PATIENT);
         patientService.registerPatient(patient);
 
@@ -190,6 +193,7 @@ class PatientControllerTest {
                 "Pl. Politechniki 1, 00-661 Warszawa",
                 "Early-onset",
                 "Good",
+                "Some needs",
                 RegisteredBy.PATIENT);
         patientService.registerPatient(patient);
 

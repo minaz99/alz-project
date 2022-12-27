@@ -37,6 +37,7 @@ class PatientRepositoryTest {
                 "Pl. Politechniki 1, 00-661 Warszawa",
                 "Early-onset",
                 "Good",
+                "Some needs",
                 RegisteredBy.PATIENT);
         underTest.save(patient);
         //when
@@ -70,6 +71,7 @@ class PatientRepositoryTest {
                 "Pl. Politechniki 1, 00-661 Warszawa",
                 "Early-onset",
                 "Good",
+                "Some needs",
                 RegisteredBy.PATIENT);
         underTest.save(patient);
         //when
