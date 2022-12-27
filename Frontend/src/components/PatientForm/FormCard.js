@@ -10,6 +10,7 @@ import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 import { useDispatch } from "react-redux";
 import { registerPatient } from "../../features/Admin/PatientRegisterSlice";
 import Navigation from "../Dashboard/Navigation";
+import { useNavigate } from "react-router-dom";
 function FormCard() {
   const [currentForm, setCurrentForm] = useState("Patient");
   const formSetter = () => {
@@ -22,7 +23,7 @@ function FormCard() {
   const [password, setPassword] = useState("");
   //const [userType, setUserType] = useState("PATIENT");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  //const [age, setAge] = useState("38");
+  const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [addressId, setAddressId] = useState("");
   const [illnessType, setIllnessType] = useState("");
@@ -30,7 +31,7 @@ function FormCard() {
   const [registeredBy, setRegisteredBy] = useState("ADMIN");
   const [caregivers, setPatientCaregivers] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-
+  const navigate = useNavigate();
   return (
     <div className="container mx-auto   ">
       <div className="bg-violet-400/80 p-2 mx-48 items-center h-screen justify-center rounded-md">
@@ -125,16 +126,17 @@ function FormCard() {
                     email,
                     password,
                     dateOfBirth,
-                    // age,
+                    age,
                     gender,
                     addressId,
                     illnessType,
                     conditionDescription,
-                    caregivers,
+                    // caregivers,
                     registeredBy,
                     phoneNumber,
                   })
                 );
+                navigate("/users");
               }
             }}
           >

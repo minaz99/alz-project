@@ -1,57 +1,65 @@
 import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import React, { useState } from "react";
+import { ChevronDownIcon } from "react-native-heroicons/outline";
 
 const PatientExtras = (props) => {
   const [displayIllnessList, setDisplayIllnessList] = useState(false);
   return (
-    <View>
+    <View className="p-6">
       <TouchableOpacity
+        className="flex-row items-center border-b-2 border-white"
         onPress={() => {
           setDisplayIllnessList(!displayIllnessList);
         }}
       >
-        <Text className="bg-violet-100 p-2 rounded-lg  text-gray-400">
-          Select Illness
+        <Text className="p-2 text-lg flex-1 text-gray-500  ">
+          {props.illnessType}
         </Text>
+        <ChevronDownIcon color={"white"} className="w-6 h-6" />
       </TouchableOpacity>
       {displayIllnessList === true ? (
-        <View className="flex-col rounded-lg bg-gray-200 p-2">
+        <View className="flex-col rounded-lg  bg-gray-200 p-2">
           <TouchableOpacity
             onPress={() => {
               props.setIllnessType("Vascular Dementia");
+              setDisplayIllnessList(!displayIllnessList);
             }}
           >
-            <Text className="text-violet-300">Vascular Dementia</Text>
+            <Text className="text-lg ">Vascular Dementia</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               props.setIllnessType("Mixed Dementia");
+              setDisplayIllnessList(!displayIllnessList);
             }}
           >
-            <Text className="text-violet-300">Mixed Dementia</Text>
+            <Text className="text-lg ">Mixed Dementia</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               props.setIllnessType("Parkinson Disease");
+              setDisplayIllnessList(!displayIllnessList);
             }}
           >
-            <Text className="text-violet-300">Parkinson Disease</Text>
+            <Text className="text-lg ">Parkinson Disease</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               props.setIllnessType("Other");
+              setDisplayIllnessList(!displayIllnessList);
             }}
           >
-            <Text className="text-violet-300">Other</Text>
+            <Text className="text-lg ">Other</Text>
           </TouchableOpacity>
         </View>
       ) : (
         <Text></Text>
       )}
       <TextInput
+        multiline={true}
         value={props.conditionDescription}
         onChangeText={props.setConditionDescription}
-        className="bg-violet-100 rounded-lg text-gray-400 p-2"
+        className=" bg-white rounded-md text-gray-500 text-lg  p-2"
         placeholder="Condition description"
       />
     </View>

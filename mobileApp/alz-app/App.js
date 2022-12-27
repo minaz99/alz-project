@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import PatientsOrCaregivers from "./screens/PatientsOrCaregivers";
 import Register from "./screens/Register";
+import Outline from "./screens/newRegister screens/Outline";
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
@@ -19,7 +20,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Home" component={Homepage} />
           <Stack.Screen name="Caree" component={PatientsOrCaregivers} />
-          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Register" component={Outline} />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>

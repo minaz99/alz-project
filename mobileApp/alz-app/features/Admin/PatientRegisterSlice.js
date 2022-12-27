@@ -21,13 +21,14 @@ const initialState = {
   errorMsg: "",
   patientUrl: `https://alz-project.herokuapp.com/patient`,
   caregiverUrl: `https://alz-project.herokuapp.com/caregiver`,
+  socialworkerUrl: `https://alz-project.herokuapp.com/social-worker`,
 };
 const url = `https://alz-project.herokuapp.com/patient`;
 export const registerPatient = createAsyncThunk(
   "/register",
   async (
     {
-      
+      url,
       firstName,
       lastName,
       email,
@@ -90,13 +91,18 @@ export const registerPatient = createAsyncThunk(
 const patientRegisterSlice = createSlice({
   name: "patientRegister",
   initialState,
-  reducers: {},
+  reducers: {
+    resetIsSuccess: (state) => {
+      state.isSuccess = false;
+    },
+  },
   extraReducers: {
     [registerPatient.fulfilled]: (state, { payload }) => {
       //{state.users} = payload.data;
       //console.log(state.email);
       state.isFetching = false;
       state.isSuccess = true;
+
       //state.isLoggedIn = true;
       return state;
     },
@@ -111,4 +117,5 @@ const patientRegisterSlice = createSlice({
     },
   },
 });
+export const { resetIsSuccess } = patientRegisterSlice.actions;
 export default patientRegisterSlice.reducer;

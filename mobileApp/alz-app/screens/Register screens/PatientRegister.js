@@ -42,6 +42,11 @@ const PatientRegister = (props) => {
   const [registeredBy, setRegisteredBy] = useState(
     props.userType === "Patient" ? "PATIENT" : "CAREGIVER"
   );
+  const correctDateFormat = (date) => {
+    const newDate = date.split("/");
+    setDateOfBirth(`${newDate[0]}-${newDate[1]}-${newDate[2]}`);
+    //`alert(dateOfBirth);
+  };
   return (
     <SafeAreaView>
       <Text className="text-lg mx-auto top-6">Register</Text>
@@ -88,8 +93,9 @@ const PatientRegister = (props) => {
 
             {displayCalender === true ? (
               <DatePicker
+                current="2022-12-25"
                 mode="calender"
-                onSelectedChange={(date) => setDateOfBirth(date)}
+                onSelectedChange={(date) => correctDateFormat(date)} //setDateOfBirth(date)}
               />
             ) : (
               <Text></Text>
@@ -156,6 +162,7 @@ const PatientRegister = (props) => {
           onPress={() => {
             dispatch(
               registerPatient({
+                url,
                 firstName,
                 lastName,
                 email,

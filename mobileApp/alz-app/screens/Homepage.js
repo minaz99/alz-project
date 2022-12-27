@@ -54,7 +54,7 @@ const Homepage = () => {
       dispatch(getPatientInfo(`${urlSocialworker}${id}`));
   }, []);
   return (
-    <SafeAreaView className="p-4 h-full">
+    <SafeAreaView className="p-4  h-full">
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("UserTypes");

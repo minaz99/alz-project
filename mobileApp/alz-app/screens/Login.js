@@ -18,15 +18,20 @@ const Login = () => {
     params: { userType },
   } = useRoute();
   const navigation = useNavigation();
-  const { patientUrl, caregiverUrl, socialworkerUrl, users } = useSelector(
-    (store) => store.userRequest
-  );
+  const {
+    patientUrl,
+    caregiverUrl,
+    socialworkerUrl,
+    notSocialworkerUrl,
+    users,
+  } = useSelector((store) => store.userRequest);
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [incorrect, setIncorrect] = useState("false");
+  const [errorMsg, setErrorMsg] = useState("Incorrect email or password");
   useEffect(() => {
     // alert(userType);
     if (userType === "Patient") dispatch(getPatients(patientUrl));
@@ -34,16 +39,35 @@ const Login = () => {
     if (userType === "Socialworker") dispatch(getPatients(socialworkerUrl));
   }, []);
 
-  const validateUser = (email) => {
-    let found = 0;
+  const validateSocialworker = (email) => {
     let id = -1;
     users.forEach((person) => {
       person.email === email ? (id = person.id) : id;
     });
-    if (id === -1) setIncorrect("true");
-    if (id > -1) {
+
+    if (id === -1) {
+      setIncorrect("true");
+      setErrorMsg("Account not yet activated");
+    } else if (id > -1) {
       setIncorrect("false");
       navigation.navigate("Home", { id: id, typeOfUser: userType });
+    }
+  };
+  const validateUser = (email) => {
+    if (userType !== "Socialworker") {
+      let found = 0;
+      let id = -1;
+      users.forEach((person) => {
+        person.email === email ? (id = person.id) : id;
+      });
+
+      if (id === -1) setIncorrect("true");
+      if (id > -1) {
+        setIncorrect("false");
+        navigation.navigate("Home", { id: id, typeOfUser: userType });
+      }
+    } else {
+      validateSocialworker(email);
     }
   };
 
@@ -62,7 +86,7 @@ const Login = () => {
         <TextInput
           className="rounded-md p-2 w-full text-lg bg-amber-50 "
           placeholder="Email"
-          keyboardType="default"
+          keyboardType="email-address"
           onChangeText={setEmail}
         ></TextInput>
         <TextInput
@@ -96,7 +120,7 @@ const Login = () => {
         </View>
         {incorrect === "true" ? (
           <Text className="font-bold text-xl text-center text-slate-500">
-            Incorrect email or password
+            {errorMsg}
           </Text>
         ) : (
           <Text></Text>

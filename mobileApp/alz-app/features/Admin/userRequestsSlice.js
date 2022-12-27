@@ -16,6 +16,7 @@ const initialState = {
   patientUrl: `https://alz-project.herokuapp.com/patient`,
   caregiverUrl: `https://alz-project.herokuapp.com/caregiver`,
   socialworkerUrl: `https://alz-project.herokuapp.com/social-worker/active`,
+  notSocialworkerUrl: `http://alz-project.herokuapp.com/social-worker/notActivated`,
   usersUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users`,
 };
 //const url = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`;
