@@ -1,21 +1,21 @@
 import {
   View,
   Text,
-  SafeAreaView,
   ScrollView,
+  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { getPatientInfo } from "../features/Admin/userRequestInfoSlice";
-import PatientExtraData from "./usersExtras/PatientExtraData";
-import CaregiverExtraData from "./usersExtras/CaregiverExtraData";
-import NavBar from "./NavBar";
-import PatientsOrCaregivers from "./PatientsOrCaregivers";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import NavbarForSocialworker from "./Socialworker views/NavbarForSocialworker";
+import UsersInDistrict from "./Socialworker views/UsersInDistrict";
 import { ArrowLeftOnRectangleIcon } from "react-native-heroicons/outline";
-const Homepage = () => {
+import CaregiverExtraData from "./usersExtras/CaregiverExtraData";
+
+const HomePageSocialworker = () => {
   const [activeView, setActiveView] = useState("pd");
   const dispatch = useDispatch();
   const {
@@ -30,29 +30,17 @@ const Homepage = () => {
     age,
     gender,
     addressId,
-    illnessType,
-    conditionDescription,
-    caregivers,
     needs,
-    patients,
-    registeredBy,
-    userType,
     phoneNumber,
-    urlPatient,
-    urlCaregiver,
+    isFetching,
     urlSocialworker,
   } = useSelector((store) => store.userRequestInfo);
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
   useEffect(() => {
-    if (typeOfUser === "Patient")
-      dispatch(getPatientInfo(`${urlPatient}${id}`));
-    if (typeOfUser === "Caregiver")
-      dispatch(getPatientInfo(`${urlCaregiver}${id}`));
-    if (typeOfUser === "Socialworker")
-      dispatch(getPatientInfo(`${urlSocialworker}${id}`));
-  }, []);
+    dispatch(getPatientInfo(`${urlSocialworker}${id}`));
+  }, [activeView]);
   return (
     <SafeAreaView className="p-4 h-full">
       <TouchableOpacity
@@ -63,7 +51,7 @@ const Homepage = () => {
       >
         <ArrowLeftOnRectangleIcon className="w-16 h-16" color="gray" />
       </TouchableOpacity>
-      <NavBar
+      <NavbarForSocialworker
         userType={typeOfUser}
         activeView={activeView}
         setActiveView={setActiveView}
@@ -114,22 +102,16 @@ const Homepage = () => {
             <Text className="text-lg text-violet-500">Phone number:</Text>
             <Text className="text-lg mx-2 my-2">+48 {phoneNumber}</Text>
           </View>
-          {typeOfUser === "Patient" ? (
-            <PatientExtraData
-              illnessType={illnessType}
-              conditionDescription={conditionDescription}
-            />
-          ) : typeOfUser === "Caregiver" ? (
-            <CaregiverExtraData needs={needs} />
-          ) : (
-            <Text></Text>
-          )}
+
+          <CaregiverExtraData needs={needs} />
         </ScrollView>
+      ) : activeView === "moreData" ? (
+        <UsersInDistrict id={id} typeOfUser={typeOfUser} />
       ) : (
-        <PatientsOrCaregivers typeOfUser={typeOfUser} id={id} />
+        <Text>Register patient</Text>
       )}
     </SafeAreaView>
   );
 };
 
-export default Homepage;
+export default HomePageSocialworker;

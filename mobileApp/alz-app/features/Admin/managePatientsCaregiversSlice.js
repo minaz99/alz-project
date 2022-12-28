@@ -130,5 +130,5 @@ const managePatientsCaregiversSlice = createSlice({
     },
   },
 });
-//export const {} = managePatientsCaregiversSlice.actions;
+export const { deleteOneUser } = managePatientsCaregiversSlice.actions;
 export default managePatientsCaregiversSlice.reducer;

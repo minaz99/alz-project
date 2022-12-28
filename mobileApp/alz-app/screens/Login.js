@@ -50,7 +50,7 @@ const Login = () => {
       setErrorMsg("Account not yet activated");
     } else if (id > -1) {
       setIncorrect("false");
-      navigation.navigate("Home", { id: id, typeOfUser: userType });
+      navigation.navigate("HomeSocialworker", { id: id, typeOfUser: userType });
     }
   };
   const validateUser = (email) => {
@@ -112,7 +112,11 @@ const Login = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Register", { userType: userType });
+              navigation.navigate("Register", {
+                userType: userType,
+                registerBy: userType,
+                id: "-1",
+              });
             }}
           >
             <Text className="text-sm">Create new account</Text>

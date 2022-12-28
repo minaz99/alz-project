@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
+import { MinusCircleIcon } from "react-native-heroicons/outline";
 
 const ResponsibleFor = (props) => {
   return (

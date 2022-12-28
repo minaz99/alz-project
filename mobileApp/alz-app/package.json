@@ -19,6 +19,7 @@
     "nativewind": "^2.0.11",
     "react": "18.1.0",
     "react-native": "0.70.5",
+    "react-native-bouncy-checkbox": "^3.0.6",
     "react-native-datepicker": "^1.7.2",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-heroicons": "^3.2.0",

@@ -1,14 +1,14 @@
 import {
   View,
   Text,
-  SafeAreaView,
   TouchableOpacity,
+  SafeAreaView,
   ScrollView,
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { ArrowLeftCircleIcon } from "react-native-heroicons/solid";
-const NavBar = (props) => {
+
+const NavbarForSocialworker = (props) => {
   const navigation = useNavigation();
   return (
     <SafeAreaView>
@@ -16,7 +16,7 @@ const NavBar = (props) => {
         horizontal={true}
         contentContainerStyle={{ paddingRight: 10 }}
       >
-        <View className="flex-row  space-x-2 p-4">
+        <View className="flex-row space-x-3 ">
           <TouchableOpacity
             className=" "
             onPress={() => {
@@ -41,43 +41,39 @@ const NavBar = (props) => {
           >
             {props.activeView === "pd" ? (
               <Text className="text-lg bg-violet-100 text-violet-500 rounded-md p-4">
-                {props.userType === "Patient" ? "Caregivers" : "Patients"}
+                Users
               </Text>
             ) : (
               <Text className="text-lg bg-violet-200 text-violet-500 rounded-md p-4">
-                {props.userType === "Patient" ? "Caregivers" : "Patients"}
+                Users
               </Text>
             )}
           </TouchableOpacity>
-          {props.userType !== "Patient" ? (
-            <TouchableOpacity
-              className=""
-              onPress={() => {
-                //props.setActiveView("register");
-                navigation.navigate("Register", {
-                  userType: "Patient",
-                  registerBy: "caregiver",
-                  id: props.id,
-                });
-              }}
-            >
-              {props.activeView !== "register" ? (
-                <Text className="text-lg bg-violet-100 text-violet-500 rounded-md p-4">
-                  Register patient
-                </Text>
-              ) : (
-                <Text className="text-lg bg-violet-200 text-violet-500 rounded-md p-4">
-                  Register patient
-                </Text>
-              )}
-            </TouchableOpacity>
-          ) : (
-            <Text></Text>
-          )}
+          <TouchableOpacity
+            className=""
+            onPress={() => {
+              //props.setActiveView("register");
+              navigation.navigate("Register", {
+                userType: "Patient",
+                registerBy: "Social worker",
+                id: props.id,
+              });
+            }}
+          >
+            {props.activeView !== "register" ? (
+              <Text className="text-lg bg-violet-100 text-violet-500 rounded-md p-4">
+                Register patient
+              </Text>
+            ) : (
+              <Text className="text-lg bg-violet-200 text-violet-500 rounded-md p-4">
+                Register patient
+              </Text>
+            )}
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default NavBar;
+export default NavbarForSocialworker;

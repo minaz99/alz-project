@@ -17,14 +17,14 @@ import {
   registerPatient,
   resetIsSuccess,
 } from "../../features/Admin/PatientRegisterSlice";
-
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 const Outline = (props) => {
   const dispatch = useDispatch();
   const { patientUrl, caregiverUrl, socialworkerUrl, isSuccess, isFetching } =
     useSelector((store) => store.patientRegister);
   const navigation = useNavigation();
   const {
-    params: { userType },
+    params: { userType, registerBy, id },
   } = useRoute();
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
@@ -52,7 +52,11 @@ const Outline = (props) => {
   const [needs, setNeeds] = useState("");
   const [age, setAge] = useState("");
   const [registeredBy, setRegisteredBy] = useState(
-    userType === "Patient" ? "PATIENT" : "CAREGIVER"
+    registerBy === "Patient"
+      ? "PATIENT"
+      : registerBy === "Caregiver"
+      ? "CAREGIVER"
+      : "SOCIAL_WORKER"
   );
 
   const correctAddress = (street, appNo, district) => {
@@ -60,12 +64,22 @@ const Outline = (props) => {
   };
 
   const registeredSuccessfully = () => {
-    navigation.navigate("Login", { userType: userType });
+    if (registerBy === "Patient") {
+      navigation.navigate("Login", { userType: userType });
+    } else {
+      if (registerBy === "caregiver")
+        navigation.navigate("Home", { id: id, typeOfUser: userType });
+      else
+        navigation.navigate("HomeSocialworker", {
+          id: id,
+          typeOfUser: userType,
+        });
+    }
     dispatch(resetIsSuccess());
   };
 
   return (
-    <SafeAreaView className="p-4">
+    <SafeAreaView className="p-4 mt-4">
       <View className="space-y-4">
         <Text className="mt-2 bg-blue-300 rounded-md p-4 text-lg text-center font-bold tracking-widest text-white">
           Register as {userType}
@@ -75,7 +89,17 @@ const Outline = (props) => {
             onPress={() => {
               activeView > 0
                 ? setActiveView(activeView - 1)
-                : navigation.navigate("Login", { userType: userType });
+                : id === "-1"
+                ? navigation.navigate("Login", { userType: userType })
+                : registerBy === "caregiver"
+                ? navigation.navigate("Home", {
+                    typeOfUser: "Caregiver",
+                    id: id,
+                  })
+                : navigation.navigate("HomeSocialworker", {
+                    typeOfUser: userType,
+                    id: id,
+                  });
             }}
             className="p-3"
           >
@@ -113,6 +137,7 @@ const Outline = (props) => {
           ) : (
             <Text></Text>
           )}
+
           {activeView < 2 ? (
             <TouchableOpacity
               onPress={() => {
@@ -158,6 +183,19 @@ const Outline = (props) => {
           )}
         </View>
       </View>
+      {userType === "Patient" ? (
+        <View className="flex-row items-center float-right">
+          <BouncyCheckbox
+            isChecked={false}
+            className="p-2"
+            text={`Registering by: ${registerBy}`}
+            disabled={true}
+          />
+        </View>
+      ) : (
+        <Text></Text>
+      )}
+
       {isFetching === true ? (
         <Text>Registering...</Text>
       ) : isSuccess === true ? (

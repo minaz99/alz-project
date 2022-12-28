@@ -9,8 +9,8 @@ const initialState = {
   isSuccess: false,
   isError: false,
   errorMsg: "",
-  caregiversPatients: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users/caregiver/`,
-  patientsCaregivers: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users/patient/`,
+  cp: `https://alz-project.herokuapp.com/users/caregiver/`,
+  pc: `https://alz-project.herokuapp.com/users/patient/`,
   //usersUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users`,
 };
 //const url = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`;
@@ -130,5 +130,5 @@ const deletePCandCPSlice = createSlice({
     },
   },
 });
-//export const {} = managePatientsCaregiversSlice.actions;
+export const { deleteOneUser } = deletePCandCPSlice.actions;
 export default deletePCandCPSlice.reducer;

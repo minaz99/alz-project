@@ -10,6 +10,7 @@ import { store } from "./store";
 import PatientsOrCaregivers from "./screens/PatientsOrCaregivers";
 import Register from "./screens/Register";
 import Outline from "./screens/newRegister screens/Outline";
+import HomePageSocialworker from "./screens/HomePageSocialworker";
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
@@ -18,9 +19,13 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="UserTypes" component={UserTypes} />
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Home" component={Homepage} />
+          {<Stack.Screen name="Home" component={Homepage} />}
           <Stack.Screen name="Caree" component={PatientsOrCaregivers} />
           <Stack.Screen name="Register" component={Outline} />
+          <Stack.Screen
+            name="HomeSocialworker"
+            component={HomePageSocialworker}
+          />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>

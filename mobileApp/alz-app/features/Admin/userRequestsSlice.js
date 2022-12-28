@@ -17,7 +17,8 @@ const initialState = {
   caregiverUrl: `https://alz-project.herokuapp.com/caregiver`,
   socialworkerUrl: `https://alz-project.herokuapp.com/social-worker/active`,
   notSocialworkerUrl: `http://alz-project.herokuapp.com/social-worker/notActivated`,
-  usersUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users`,
+  usersUrl: `https://alz-project.herokuapp.com/users`,
+  patientsCaregivers: `http://alz-project.herokuapp.com/users/patients-caregivers`,
 };
 //const url = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`;
 export const getPatients = createAsyncThunk("/users", async (url, thunkAPI) => {
