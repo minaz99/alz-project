@@ -42,7 +42,7 @@ function SocialworkerCard(props) {
           className="w-10 h-10 cursor-pointer"
           color="#059669"
           onClick={() => {
-            alert(`${activateSocialworkerUrl}${props.id}`);
+            //alert(`${activateSocialworkerUrl}${props.id}`);
             dispatch(
               activateSocialworker(`${activateSocialworkerUrl}${props.id}`)
             );
