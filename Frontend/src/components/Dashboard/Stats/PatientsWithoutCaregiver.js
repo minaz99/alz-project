@@ -1,6 +1,6 @@
 import React from "react";
 
-function PatientsWithoutCaregiver() {
+function PatientsWithoutCaregiver(props) {
   return (
     <div className="bg-slate-700 items-center rounded-lg h-72 w-64 p-4 space-y-2">
       <div className="p-4">
@@ -12,7 +12,7 @@ function PatientsWithoutCaregiver() {
         </h2>
       </div>
       <div className="p-6 py-12  bg-amber-50 text-slate-700 rounded-md h-32 w-32 mx-auto text-center font-bold text-3xl ">
-        32%
+        {props.count}%
       </div>
     </div>
   );

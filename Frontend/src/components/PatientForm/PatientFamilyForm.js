@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
+import { Style } from "victory";
+import { PencilSquareIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
+import IllnessList from "./IllnessList";
 const PatientFamilyForm = (props) => {
   const dispatch = useDispatch();
+  const [showIllnessList, setShowIllnessList] = useState(false);
   return (
     <div>
       <motion.h1
@@ -20,22 +24,25 @@ const PatientFamilyForm = (props) => {
         className="p-4"
       >
         <form className="space-y-4 ">
-          <div className="space-x-2 flex flex-row justify-center ">
-            {" "}
-            <select
-              name="Illness"
-              className="rounded-md bg-violet-200/40 p-2 pl-8 pr-12 text-gray-400"
-              required
-              onChange={(e) => {
-                props.setIllnessType(e.target.value);
-              }}
-            >
-              <option value="none">Select type of Illness</option>
-              <option value="Vascular Dementia">Vascular Dementia</option>
-              <option value="Mixed Dementia">Mixed Dementia</option>
-              <option value="Parkinson Disease">Parkison Disease</option>
-              <option value="Other">Other</option>
-            </select>
+          {" "}
+          <div className="space-y-2">
+            <div className="rounded-md flex items-center  w-fit mx-auto bg-violet-200/40 p-2 pl-8 pr-12 text-gray-400 space-x-2">
+              <div className="">Illnesses</div>
+              <div className="bg-white rounded-full w-6 h-6 items-center">
+                {props.illnessCount}
+              </div>
+              <PlusCircleIcon
+                onClick={() => setShowIllnessList(true)}
+                className="w-6 h-6 cursor-pointer "
+                color="gray"
+              />
+            </div>
+
+            {showIllnessList === true ? (
+              <IllnessList addDisease = {props.addDisease} setShowIllnessList={setShowIllnessList} />
+            ) : (
+              <div></div>
+            )}
           </div>
           <div className="space-x-2 p-2f flex justify-center">
             <textarea

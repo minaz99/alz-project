@@ -3,7 +3,8 @@ import React from "react";
 import MapCaregiverExtras from "./User extras/MapCaregiverExtras";
 import MapPatientExtras from "./User extras/MapPatientExtras";
 import MapSocialworkerExtras from "./User extras/MapSocialworkerExtras";
-
+import PatientExtras from "../UsersView/DifferentUsersExtras/PatientExtras";
+import CaregiverExtras from "../UsersView/DifferentUsersExtras/CaregiverExtras";
 function MapuserData(props) {
   return (
     <div className="bg-white w-fit rounded-lg   flex-col float-right h-screen p-2 items-start space-y-4">
@@ -52,16 +53,32 @@ function MapuserData(props) {
           <div className="text-white mx-1">{props.phoneNumber}</div>
         </div>
       </div>
-      {props.userType === "Patient" ? (
-        <MapPatientExtras
-          illnessType={props.illnessType}
-          conditionDescription={props.conditionDescription}
-        />
-      ) : props.userType === "Caregiver" ? (
-        <MapCaregiverExtras needs={props.needs} />
-      ) : (
-        <MapSocialworkerExtras needs={props.needs} />
-      )}
+      <div className="bg-violet-100 rounded-md  p-2">
+        {props.userType === "Patient" ? (
+          <div>
+            <PatientExtras
+              illnessType={props.illnessType}
+              conditionDescription={props.conditionDescription}
+              caregivers={props.caregivers}
+              id={props.id}
+            />
+
+            <div className="text-gray-400 mx-4 flex">
+              Registered by
+              <div className="text-indigo-400 px-4">{props.registeredBy}</div>
+            </div>
+          </div>
+        ) : props.userType === "Caregiver" ? (
+          <CaregiverExtras
+            needs={props.needs}
+            patients={props.patients}
+            id={props.id}
+            mapView={true}
+          />
+        ) : (
+          <MapSocialworkerExtras needs={props.needs} />
+        )}
+      </div>
     </div>
   );
 }

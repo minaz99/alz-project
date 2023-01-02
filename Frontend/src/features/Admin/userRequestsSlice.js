@@ -11,6 +11,7 @@ const initialState = {
   patientsCount: 0,
   caregiversCount: 0,
   socialworkersCount: 0,
+  patientsWithoutCaregiversCount: 0,
   totalUsers: 0,
   Fetching: false,
   isSuccess: false,
@@ -76,6 +77,15 @@ const userRequestsSlice = createSlice({
           ? state.socialworkersCount++
           : state.socialworkersCount
       );
+    },
+    getPatientsWithoutCaregiversCount: (state, action) => {
+      state.patientsWithoutCaregiversCount = 0;
+      let count = 0;
+      state.users.forEach((user) => {
+        if (user.userType === "PATIENT") if (user.caregivers === "") count++;
+      });
+      state.patientsWithoutCaregiversCount =
+        (count / state.patientsCount) * 100;
     },
   },
   extraReducers: {
@@ -148,5 +158,6 @@ export const {
   getPatientsCount,
   getCaregiversCount,
   getSocialwokersCount,
+  getPatientsWithoutCaregiversCount,
 } = userRequestsSlice.actions;
 export default userRequestsSlice.reducer;

@@ -31,7 +31,15 @@ function FormCard() {
   const [registeredBy, setRegisteredBy] = useState("ADMIN");
   const [caregivers, setPatientCaregivers] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [illnessCount, setIllnessCount] = useState(0);
   const navigate = useNavigate();
+  const addDisease = (disease) => {
+    let diseases = illnessType;
+    diseases += `${disease}-`;
+    setIllnessType(diseases);
+
+    setIllnessCount(illnessType.split("-").length);
+  };
   return (
     <div className="container mx-auto   ">
       <div className="bg-violet-400/80 p-2 mx-48 items-center h-screen justify-center rounded-md">
@@ -53,13 +61,15 @@ function FormCard() {
               setEmail={setEmail}
               setPassword={setPassword}
               setPhoneNumber={setPhoneNumber}
+              illnessType={illnessType}
             />
           ) : (
             <PatientFamilyForm
               setRegisteredBy={setRegisteredBy}
-              setIllnessType={setIllnessType}
+              addDisease={addDisease}
               setConditionDescription={setConditionDescription}
               setPatientCaregivers={setPatientCaregivers}
+              illnessCount={illnessCount}
             />
           )}
           <div className="flex p-8 items-center mx-auto justify-center ">

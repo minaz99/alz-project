@@ -30,6 +30,10 @@ function Mark(props) {
   const [illnessType, setIllnessType] = useState("");
   const [conditionDescription, setConditionDescription] = useState("");
   const [needs, setNeeds] = useState("");
+  const [id, setId] = useState("");
+  const [patients, setPatients] = useState("");
+  const [caregivers, setCaregivers] = useState("");
+  const [registeredBy, setRegisteredBy] = useState("");
   const userData = [
     {
       id: 0,
@@ -45,6 +49,8 @@ function Mark(props) {
       dateOfBirth: "1982-03-02",
       illnessType: "Early-onset",
       conditionDescription: "Good",
+      patients: "",
+      registeredBy: "",
     },
     {
       id: 1,
@@ -60,6 +66,8 @@ function Mark(props) {
       dateOfBirth: "1982-03-02",
       illnessType: "Early-onset",
       conditionDescription: "Good",
+      patients: "",
+      registeredBy: "",
     },
     {
       id: 2,
@@ -74,6 +82,7 @@ function Mark(props) {
       email: "naruto@gmail.com",
       dateOfBirth: "1982-03-02",
       needs: "Flexible time during the weekend",
+      caregivers: "",
     },
     {
       id: 3,
@@ -88,6 +97,7 @@ function Mark(props) {
       email: "hinata@gmail.com",
       dateOfBirth: "1982-03-02",
       needs: "Flexible time during the weekend",
+      caregivers: "",
     },
     {
       id: 4,
@@ -119,6 +129,7 @@ function Mark(props) {
     },
   ];
   const displayUserInfo = (
+    id,
     fn,
     ln,
     a,
@@ -130,8 +141,12 @@ function Mark(props) {
     dob,
     ill = "",
     condD = "",
-    ne = ""
+    ne = "",
+    patients = "",
+    caregivers = "",
+    registeredBy = ""
   ) => {
+    setId(id);
     setFirstName(fn);
     setLastName(ln);
     setAge(a);
@@ -144,6 +159,9 @@ function Mark(props) {
     setIllnessType(ill);
     setConditionDescription(condD);
     setNeeds(ne);
+    setPatients(patients);
+    setCaregivers(caregivers);
+    setRegisteredBy(registeredBy);
   };
 
   useEffect(() => {
@@ -168,6 +186,9 @@ function Mark(props) {
           illnessType={illnessType}
           conditionDescription={conditionDescription}
           needs={needs}
+          id={id}
+          patients={patients}
+          caregivers={caregivers}
         />
       ) : (
         <div></div>
@@ -189,6 +210,7 @@ function Mark(props) {
                 onClick={() => {
                   setShowData(true);
                   displayUserInfo(
+                    cord.id,
                     cord.firstName,
                     cord.lastName,
                     cord.age,
@@ -200,7 +222,10 @@ function Mark(props) {
                     cord.dateOfBirth,
                     cord.illnessType,
                     cord.conditionDescription,
-                    cord.needs
+                    cord.needs,
+                    cord.patients,
+                    cord.caregivers,
+                    cord.registeredBy
                   );
                 }}
               ></Marker>

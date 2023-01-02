@@ -124,14 +124,22 @@ function UserInfo(props) {
                   </div>
                 )}
               </div>
+              {userType === "PATIENT" ? (
+                <div className="text-gray-400 flex">
+                  Registered by
+                  <div className="text-indigo-400 px-4">{registeredBy}</div>
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
             {userType === "PATIENT" ? (
               <PatientExtras
-                registeredBy={registeredBy}
                 illnessType={illnessType}
                 conditionDescription={conditionDescription}
                 caregivers={caregivers}
                 id={id}
+                needs={needs}
               />
             ) : userType === "CAREGIVER" ? (
               <CaregiverExtras

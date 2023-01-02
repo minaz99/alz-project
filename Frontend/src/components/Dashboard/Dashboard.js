@@ -14,7 +14,9 @@ import {
   getPatientsCount,
   getCaregiversCount,
   getSocialwokersCount,
+  getPatientsWithoutCaregiversCount,
 } from "../../features/Admin/userRequestsSlice";
+import { useState } from "react";
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const Dashboard = () => {
     dispatch(fetchUserBytoken({ token: localStorage.getItem("token") }));
   }, []);*/
   const { username, email, isLoggedIn } = useSelector((store) => store.session);
+  const { patientsWithoutC, setPatientsWithoutC } = useState(0);
   const uname = email.slice(0, 3);
   const {
     totalUsers,
@@ -30,12 +33,14 @@ const Dashboard = () => {
     patientsCount,
     caregiversCount,
     socialworkersCount,
+    patientsWithoutCaregiversCount,
   } = useSelector((store) => store.userRequest);
   useEffect(() => {
     dispatch(getPatients(usersUrl));
     dispatch(getPatientsCount());
     dispatch(getCaregiversCount());
     dispatch(getSocialwokersCount());
+    dispatch(getPatientsWithoutCaregiversCount());
   }, [isError, isLoggedIn]);
 
   return (
@@ -43,7 +48,7 @@ const Dashboard = () => {
       <div className="bg-violet-400/80 mx-48 items-center h-full  p-2 justify-center rounded-md">
         <Navigation />
         <div className="flex p-14 space-x-24 mx-auto items-center -my-8 justify-center">
-          <PatientsWithoutCaregiver />
+          <PatientsWithoutCaregiver count={patientsWithoutCaregiversCount} />
           <DivisionOfUsers
             patients={patientsCount}
             caregivers={caregiversCount}
