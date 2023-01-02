@@ -153,6 +153,7 @@ const PatientRegister = (props) => {
             setIllnessType={setIllnessType}
             conditionDescription={conditionDescription}
             setConditionDescription={setConditionDescription}
+            needs = {needs} setNeeds={setNeeds}
           />
         ) : (
           <CaregiverExtras needs={needs} setNeeds={setNeeds} />

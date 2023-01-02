@@ -81,6 +81,13 @@ const PatientExtras = (props) => {
         className=" bg-white rounded-md text-gray-500 text-lg  p-2"
         placeholder="Condition description"
       />
+      <TextInput
+        multiline={true}
+        value={props.needs}
+        onChangeText={props.setNeeds}
+        className="bg-white text-gray-500 rounded-md p-4 text-lg "
+        placeholder="Enter your needs..."
+      />
     </View>
   );
 };

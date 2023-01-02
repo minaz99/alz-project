@@ -118,6 +118,7 @@ const Homepage = () => {
             <PatientExtraData
               illnessType={illnessType}
               conditionDescription={conditionDescription}
+              needs={needs}
             />
           ) : typeOfUser === "Caregiver" ? (
             <CaregiverExtraData needs={needs} />
