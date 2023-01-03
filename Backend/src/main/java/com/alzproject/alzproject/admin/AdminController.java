@@ -45,5 +45,4 @@ public class AdminController {
                               @RequestParam(required = false) String password){
         adminService.updateAdmin(id, firstName,lastName, email, password);
     }
-
 }
