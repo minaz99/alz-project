@@ -4,7 +4,11 @@ import { ChevronDownIcon } from "react-native-heroicons/outline";
 
 const PatientExtras = (props) => {
   const [displayIllnessList, setDisplayIllnessList] = useState(false);
-
+  const [disabled, setDisabled] = useState(false);
+  const [disabled1, setDisabled1] = useState(false);
+  const [disabled2, setDisabled2] = useState(false);
+  const [disabled3, setDisabled3] = useState(false);
+  const [disabled4, setDisabled4] = useState(false);
   const illnesses = [];
   const changeIllnessToString = (array) => {
     let ilnes = "";
@@ -36,8 +40,10 @@ const PatientExtras = (props) => {
       {displayIllnessList === true ? (
         <View className="flex-col rounded-lg  bg-gray-200 p-2">
           <TouchableOpacity
+            disabled={disabled}
             onPress={() => {
               illnesses.push("Vascular Dementia");
+              setDisabled(true);
               //props.setIllnessType("Vascular Dementia");
               //setDisplayIllnessList(!displayIllnessList);
             }}
@@ -45,8 +51,10 @@ const PatientExtras = (props) => {
             <Text className="text-lg ">Vascular Dementia</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            disabled={disabled1}
             onPress={() => {
               illnesses.push("Mixed Dementia");
+              setDisabled1(true);
               //props.setIllnessType("Mixed Dementia");
               //setDisplayIllnessList(!displayIllnessList);
             }}
@@ -54,8 +62,10 @@ const PatientExtras = (props) => {
             <Text className="text-lg ">Mixed Dementia</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            disabled={disabled2}
             onPress={() => {
               illnesses.push("Parkinson Disease");
+              setDisabled2(true);
               //props.setIllnessType("Parkinson Disease");
               //setDisplayIllnessList(!displayIllnessList);
             }}
@@ -63,12 +73,24 @@ const PatientExtras = (props) => {
             <Text className="text-lg ">Parkinson Disease</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            disabled={disabled3}
             onPress={() => {
-              props.setIllnessType("Other");
-              setDisplayIllnessList(!displayIllnessList);
+              props.setIllnessType("Vascular (Post Stroke)");
+              // setDisplayIllnessList(!displayIllnessList);
+              setDisabled3(true);
             }}
           >
-            <Text className="text-lg ">Other</Text>
+            <Text className="text-lg ">Vascular (Post Stroke)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            disabled={disabled4}
+            onPress={() => {
+              props.setIllnessType("Alzheimer");
+              // setDisplayIllnessList(!displayIllnessList);
+              setDisabled4(true);
+            }}
+          >
+            <Text className="text-lg ">Alzheimer</Text>
           </TouchableOpacity>
         </View>
       ) : (
