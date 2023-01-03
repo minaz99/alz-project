@@ -84,8 +84,9 @@ const userRequestsSlice = createSlice({
       state.users.forEach((user) => {
         if (user.userType === "PATIENT") if (user.caregivers === "") count++;
       });
-      state.patientsWithoutCaregiversCount =
-        (count / state.patientsCount) * 100;
+      state.patientsWithoutCaregiversCount = parseInt(
+        (count / state.patientsCount) * 100
+      );
     },
   },
   extraReducers: {

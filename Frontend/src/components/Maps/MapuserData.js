@@ -7,7 +7,7 @@ import PatientExtras from "../UsersView/DifferentUsersExtras/PatientExtras";
 import CaregiverExtras from "../UsersView/DifferentUsersExtras/CaregiverExtras";
 function MapuserData(props) {
   return (
-    <div className="bg-white w-fit rounded-lg   flex-col float-right h-screen p-2 items-start space-y-4">
+    <div className="bg-white  rounded-lg   flex-col float-right h-screen p-2 items-start space-y-4">
       <XCircleIcon
         className="w-6 h-6 float-right cursor-pointer"
         color={"violet"}
@@ -16,7 +16,7 @@ function MapuserData(props) {
       <div className="text-center text-violet-300 text-lg tracking-wider">
         {props.userType}
       </div>
-      <div className="text-white bg-indigo-400 rounded-md p-2">
+      <div className="text-white  bg-indigo-400 rounded-md p-2">
         <div className="flex text-gray-500">
           Name:
           <div className="mx-1 text-white">
@@ -28,7 +28,7 @@ function MapuserData(props) {
           <div className="text-white mx-1">{props.email}</div>
         </div>
       </div>
-      <div className="text-white bg-teal-400/80 rounded-md p-2">
+      <div className="text-white  bg-teal-400/80 rounded-md p-2">
         <div className="flex text-gray-500">
           Gender:
           <div className="mx-1 text-white"> {props.gender}</div>
@@ -43,7 +43,7 @@ function MapuserData(props) {
           <div className="mx-1 text-white">{props.age}</div>
         </div>
       </div>
-      <div className="text-white bg-amber-400 rounded-md  p-2">
+      <div className="text-white  bg-amber-400 rounded-md  p-2">
         <div className="flex text-gray-500">
           Address:
           <div className="text-white mx-1">{props.addressId}</div>
@@ -53,7 +53,7 @@ function MapuserData(props) {
           <div className="text-white mx-1">{props.phoneNumber}</div>
         </div>
       </div>
-      <div className="bg-violet-100  rounded-md  p-2">
+      <div className="bg-violet-100 rounded-md  p-2">
         {props.userType === "PATIENT" ? (
           <div>
             <PatientExtras
@@ -61,6 +61,7 @@ function MapuserData(props) {
               conditionDescription={props.conditionDescription}
               caregivers={props.caregivers}
               id={props.id}
+              needs={props.needs}
             />
 
             <div className="text-gray-400 mx-4 flex">
