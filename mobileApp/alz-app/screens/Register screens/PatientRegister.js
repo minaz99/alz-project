@@ -180,7 +180,6 @@ const PatientRegister = (props) => {
                 illnessType,
                 conditionDescription,
                 registeredBy,
-
                 needs,
                 coordinates,
               })

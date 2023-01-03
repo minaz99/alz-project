@@ -162,7 +162,13 @@ function Mark(props) {
     setNeeds(ne);
     setPatients(patients);
     setCaregivers(caregivers);
-    setRegisteredBy(registeredBy);
+    setRegisteredBy(
+      registeredBy === "PATIENT"
+        ? "Patient"
+        : registeredBy === "CAREGIVER"
+        ? "Caregiver"
+        : "Socialworker"
+    );
   };
 
   useEffect(() => {
@@ -190,6 +196,7 @@ function Mark(props) {
           id={id}
           patients={patients}
           caregivers={caregivers}
+          registeredBy={registeredBy}
         />
       ) : (
         <div></div>

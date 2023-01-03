@@ -73,16 +73,19 @@ const Outline = (props) => {
   };
 
   const registeredSuccessfully = () => {
-    if (registerBy === "Patient") {
-      navigation.navigate("Login", { userType: userType });
-    } else {
-      if (registerBy === "caregiver")
-        navigation.navigate("Home", { id: id, typeOfUser: userType });
-      else
-        navigation.navigate("HomeSocialworker", {
-          id: id,
-          typeOfUser: userType,
-        });
+    if (id < 0) navigation.navigate("Login", { userType: userType });
+    else {
+      if (registerBy === "Patient") {
+        navigation.navigate("Login", { userType: userType });
+      } else {
+        if (registerBy === "caregiver")
+          navigation.navigate("Home", { id: id, typeOfUser: userType });
+        else
+          navigation.navigate("HomeSocialworker", {
+            id: id,
+            typeOfUser: userType,
+          });
+      }
     }
     dispatch(resetIsSuccess());
   };
