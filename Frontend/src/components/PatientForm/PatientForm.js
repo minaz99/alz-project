@@ -8,7 +8,7 @@ function PatientForm(props) {
         initial={{ opacity: 0, y: -100 }}
         transition={{ duration: 1 }}
         whileInView={{ opacity: 1, y: 0 }}
-        className="tracking-wider text-2xl pt-10 text-purple-600/60"
+        className="tracking-wider p-4 text-2xl  text-purple-600/60"
       >
         Patient Personal Information
       </motion.h1>
@@ -63,10 +63,13 @@ function PatientForm(props) {
               name="gender"
               className="rounded-md bg-violet-200/40 p-2 pl-8 pr-12 text-gray-400"
               required
+              onChange={(e) => {
+                props.setGender(e.target.value);
+              }}
             >
               <option value="none">Select gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
             </select>
           </div>
 
@@ -87,9 +90,12 @@ function PatientForm(props) {
               placeholder="Phone number"
               className="rounded-md bg-violet-200/40 p-2"
               required
+              onChange={(e) => {
+                props.setPhoneNumber(e.target.value);
+              }}
             />
           </div>
-          <div className=" space-x-2 flex pl-6">
+          <div className=" space-x-2 flex px-3">
             <input
               name="email"
               type="email"

@@ -1,19 +1,29 @@
+import { UsersIcon } from "@heroicons/react/24/outline";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { data } from "autoprefixer";
 import axios from "../../api/axios";
 
 const initialState = {
   users: [],
+  patients: [],
+  caregivers: [],
+  toFetch: "users",
+  patientsCount: 0,
+  caregiversCount: 0,
+  socialworkersCount: 0,
+  patientsWithoutCaregiversCount: 0,
   totalUsers: 0,
-  isFetching: false,
+  Fetching: false,
   isSuccess: false,
   isError: false,
   errorMsg: "",
-  //url: `https://cors-anywhere.herokuapp.com/https://alz-project.herokuapp.com/patient`,
-  //  url2: `https://dummyjson.com/users`,
+  patientUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`,
+  caregiverUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/caregiver`,
+  socialworkerUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/social-worker/active`,
+  usersUrl: `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/users`,
 };
-const url = `https://cors-anywhere.herokuapp.com/https://alz-project.herokuapp.com/patient`;
-export const getPatients = createAsyncThunk("/patient", async (thunkAPI) => {
+//const url = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`;
+export const getPatients = createAsyncThunk("/users", async (url, thunkAPI) => {
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -41,19 +51,49 @@ const userRequestsSlice = createSlice({
     setOneUser: (state, action) => {
       state.oneUser = true;
     },
+    deleteOneUser: (state, action) => {
+      state.totalUsers -= 1;
+    },
+    getPatientsCount: (state, action) => {
+      state.patientsCount = 0;
+      state.users.forEach((user) =>
+        user.userType === "PATIENT"
+          ? state.patientsCount++
+          : state.patientsCount
+      );
+    },
+    getCaregiversCount: (state, action) => {
+      state.caregiversCount = 0;
+      state.users.forEach((user) =>
+        user.userType === "CAREGIVER"
+          ? state.caregiversCount++
+          : state.caregiversCount
+      );
+    },
+    getSocialwokersCount: (state, action) => {
+      state.socialworkersCount = 0;
+      state.users.forEach((user) =>
+        user.userType === "SOCIAL_WORKER"
+          ? state.socialworkersCount++
+          : state.socialworkersCount
+      );
+    },
+    getPatientsWithoutCaregiversCount: (state, action) => {
+      state.patientsWithoutCaregiversCount = 0;
+      let count = 0;
+      state.users.forEach((user) => {
+        if (user.userType === "PATIENT") if (user.caregivers === "") count++;
+      });
+      state.patientsWithoutCaregiversCount = parseInt(
+        (count / state.patientsCount) * 100
+      );
+    },
   },
   extraReducers: {
     [getPatients.fulfilled]: (state, { payload }) => {
-      //state.users = [];
-
-      //state.users = payload.users;
-      //alert(state.users);
-      // alert(typeof state.users);
-      //state.totalUsers = state.users.length;
       state.users = [];
       for (const [key, value] of Object.entries(payload)) {
         //alert(`${key}: ${value}`);
-
         const {
           id,
           firstName,
@@ -65,8 +105,13 @@ const userRequestsSlice = createSlice({
           addressId,
           illnessType,
           conditionDescription,
+          needs,
+          patients,
           caregivers,
           registeredBy,
+          userType,
+          phoneNumber,
+          coordinates,
         } = payload[key];
 
         state.users.push({
@@ -80,27 +125,42 @@ const userRequestsSlice = createSlice({
           addressId,
           illnessType,
           conditionDescription,
+          needs,
+          patients,
           caregivers,
           registeredBy,
+          userType,
+          phoneNumber,
+          coordinates,
         });
-        // thunkAPI.totalUsers++;
       }
 
       //console.log(state.email);
-      state.isFetching = false;
+      state.Fetching = false;
       state.isSuccess = true;
+      state.totalUsers = state.users.length; //state.patients.length + state.caregivers.length;
+      //state.allUsers = [];
+      //state.allUsers = [...state.patients, ...state.caregivers];
       return state;
     },
     [getPatients.rejected]: (state, { payload }) => {
       console.log("payload", payload);
-      state.isFetching = false;
+      state.Fetching = false;
       state.isError = true;
       //state.errorMsg = payload.message;
     },
     [getPatients.pending]: (state) => {
-      state.isFetching = true;
+      state.Fetching = true;
     },
   },
 });
-export const { setOneUser } = userRequestsSlice.actions;
+export const {
+  setOneUser,
+  deleteOneUser,
+  setUrlType,
+  getPatientsCount,
+  getCaregiversCount,
+  getSocialwokersCount,
+  getPatientsWithoutCaregiversCount,
+} = userRequestsSlice.actions;
 export default userRequestsSlice.reducer;

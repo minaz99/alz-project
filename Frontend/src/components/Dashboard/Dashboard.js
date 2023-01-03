@@ -5,14 +5,18 @@ import Navigation from "./Navigation";
 import PatientsWithoutCaregiver from "./Stats/PatientsWithoutCaregiver";
 import DivisionOfUsers from "./Stats/DivisionOfUsers";
 import UserCount from "./Stats/UserCount";
-import {
-  userSelector,
-  fetchUserBytoken,
-  clearState,
-  logOut,
-} from "../../features/Admin/sessionSlice";
+
 //import Loader from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
+import {
+  getPatients,
+  setUrlType,
+  getPatientsCount,
+  getCaregiversCount,
+  getSocialwokersCount,
+  getPatientsWithoutCaregiversCount,
+} from "../../features/Admin/userRequestsSlice";
+import { useState } from "react";
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,44 +25,58 @@ const Dashboard = () => {
     dispatch(fetchUserBytoken({ token: localStorage.getItem("token") }));
   }, []);*/
   const { username, email, isLoggedIn } = useSelector((store) => store.session);
+  const { patientsWithoutC, setPatientsWithoutC } = useState(0);
   const uname = email.slice(0, 3);
+  const {
+    totalUsers,
+    usersUrl,
+    patientsCount,
+    caregiversCount,
+    socialworkersCount,
+    patientsWithoutCaregiversCount,
+  } = useSelector((store) => store.userRequest);
   useEffect(() => {
-    if (isError || isLoggedIn === false) {
-      //dispatch(clearState());
-      navigate("/");
-    }
+    dispatch(getPatients(usersUrl));
+    dispatch(getPatientsCount());
+    dispatch(getCaregiversCount());
+    dispatch(getSocialwokersCount());
+    dispatch(getPatientsWithoutCaregiversCount());
   }, [isError, isLoggedIn]);
 
   return (
     <div className="container mx-auto ">
-      <div className="bg-violet-400/80 mx-48 items-center justify-center rounded-md">
-        <Navigation username={uname} />
-        <div className="flex p-14 space-x-24 mx-auto items-center justify-center">
-          <PatientsWithoutCaregiver />
-          <DivisionOfUsers />
+      <div className="bg-violet-400/80 mx-48 items-center h-full  p-2 justify-center rounded-md">
+        <Navigation />
+        <div className="flex p-14 space-x-24 mx-auto items-center -my-8 justify-center">
+          <PatientsWithoutCaregiver count={patientsWithoutCaregiversCount} />
+          <DivisionOfUsers
+            patients={patientsCount}
+            caregivers={caregiversCount}
+            socialworkers={socialworkersCount}
+          />
         </div>
-        <div className="flex p-4 -my-6 mx-auto items-center justify-center space-x-12">
+        <div className="flex p-4 -my-6 mx-auto items-center py-9  justify-center space-x-12">
           <UserCount
             user="Users"
-            count="105"
+            count={totalUsers}
             color={"rgb(255 251 235)"}
             shadow="0 4px 6px -1px rgb(255 251 235), 0 2px 4px -2px rgb(255 251 235)"
           />
           <UserCount
             user="Patients"
-            count="48"
+            count={patientsCount}
             color={"rgb(141 242 168)"}
             shadow="0 4px 6px -1px rgb(141 242 168), 0 2px 4px -2px rgb(141 242 168 )"
           />
           <UserCount
             user="Caregivers"
-            count="55"
+            count={caregiversCount}
             color={"rgb(244 146 65)"}
             shadow="0 4px 6px -1px rgb(244 146 65), 0 2px 4px -2px rgb(244 146 65)"
           />
           <UserCount
             user="Social workers"
-            count="2"
+            count={socialworkersCount}
             color={"rgb(73 119 245)"}
             shadow="0 4px 6px -1px rgb(73 119 245), 0 2px 4px -2px rgb(73 119 245)"
           />

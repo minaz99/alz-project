@@ -9,19 +9,20 @@ const initialState = {
   age: "",
   gender: "",
   addressId: "",
-  //phoneNumber: "",
+  phoneNumber: "",
   email: "",
   password: "",
   illnessType: "",
   conditionDescription: "",
-  caregivers: "",
+  //caregivers: "",
   regsiteredBy: "",
+  // userType: "",
   isFetching: false,
   isSuccess: false,
   isError: false,
   errorMsg: "",
 };
-const url = `https://cors-anywhere.herokuapp.com/https://alz-project.herokuapp.com/patient`;
+const url = `https://alzcors.herokuapp.com/https://alz-project.herokuapp.com/patient`;
 export const registerPatient = createAsyncThunk(
   "/register",
   async (
@@ -33,12 +34,13 @@ export const registerPatient = createAsyncThunk(
       dateOfBirth,
       age,
       gender,
+      phoneNumber,
       addressId,
-      //phoneNumber,
       illnessType,
       conditionDescription,
-      caregivers,
+      //caregivers,
       registeredBy,
+      //userType,
     },
     thunkAPI
   ) => {
@@ -58,21 +60,24 @@ export const registerPatient = createAsyncThunk(
           dateOfBirth,
           age,
           gender,
+          phoneNumber,
           addressId,
           illnessType,
           conditionDescription,
-          caregivers,
+          //caregivers,
           registeredBy,
+
+          // userType,
         }),
       });
-      let data = await response.json();
+      let data = await response.status;
 
-      if (response.status === 200)
-        //return { ...data };
-        alert("perfect"); //console.log(data.token);
-      else {
-        return thunkAPI.rejectWithValue(data);
-      }
+      //if (response.status === 200)
+      //return { ...data };
+      //alert("perfect"); //console.log(data.token);
+      //else {
+      // return thunkAPI.rejectWithValue(data);
+      // }
     } catch (e) {
       //console.log("Error", e.response.data);
       thunkAPI.rejectWithValue(e.response.data);
