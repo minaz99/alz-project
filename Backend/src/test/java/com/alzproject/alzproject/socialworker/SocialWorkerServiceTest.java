@@ -1,6 +1,7 @@
 package com.alzproject.alzproject.socialworker;
 
 import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -18,11 +19,13 @@ import static org.mockito.Mockito.verify;
 class SocialWorkerServiceTest {
     @Mock
     private SocialWorkerRepository socialWorkerRepository;
+    @Mock
+    private UserRepository userRepository;
     private SocialWorkerService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new SocialWorkerService(socialWorkerRepository);
+        underTest = new SocialWorkerService(socialWorkerRepository, userRepository);
     }
 
     @Test
@@ -52,7 +55,8 @@ class SocialWorkerServiceTest {
                 LocalDate.of(1982, 3, 2),
                 Gender.MALE,
                 "123456789",
-                "Pl. Politechniki 1, 00-661 Warszawa");
+                "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14");
         underTest.registerSocialWorker(socialWorker);
 
         ArgumentCaptor<SocialWorker> socialWorkerArgumentCaptor =

@@ -31,7 +31,8 @@ class SocialWorkerRepositoryTest {
                 LocalDate.of(1982, 3, 2),
                 Gender.MALE,
                 "123456789",
-                "Pl. Politechniki 1, 00-661 Warszawa");
+                "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14");
         underTest.save(socialWorker);
         //when
         boolean expected = underTest.findById(1L).isPresent();
@@ -61,10 +62,13 @@ class SocialWorkerRepositoryTest {
                 LocalDate.of(1982, 3, 2),
                 Gender.MALE,
                 "123456789",
-                "Pl. Politechniki 1, 00-661 Warszawa");
+                "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14");
         underTest.save(socialWorker);
         //when
-        boolean expected = underTest.findSocialWorkerByEmail(email).isPresent();
+        boolean expected = underTest.findUserByEmail(email)
+                .filter(obj -> obj instanceof SocialWorker)
+                .map(obj -> (SocialWorker) obj).isPresent();
         //then
         assertThat(expected).isTrue();
     }
@@ -74,7 +78,9 @@ class SocialWorkerRepositoryTest {
         //given
         String email = "johnsmith@gmail.com";
         //when
-        boolean expected = underTest.findSocialWorkerByEmail(email).isPresent();
+        boolean expected = underTest.findUserByEmail(email)
+                .filter(obj -> obj instanceof SocialWorker)
+                .map(obj -> (SocialWorker) obj).isPresent();
         //then
         assertThat(expected).isFalse();
     }

@@ -1,5 +1,6 @@
 package com.alzproject.alzproject.admin;
 
+import com.alzproject.alzproject.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class AdminController {
     }
 
     @GetMapping
-    public List<Admin> getAdmins(){
+    public List<User> getAdmins(){
         return adminService.getAdmins();
     }
 

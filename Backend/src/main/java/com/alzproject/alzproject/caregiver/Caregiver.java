@@ -2,6 +2,7 @@ package com.alzproject.alzproject.caregiver;
 
 import com.alzproject.alzproject.registration.Gender;
 import com.alzproject.alzproject.registration.UserType;
+import com.alzproject.alzproject.user.User;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -11,21 +12,14 @@ import java.time.Period;
 @Entity
 @Table
 @NoArgsConstructor
-public class Caregiver {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "caregiver_generator")
-    @SequenceGenerator(name = "caregiver_generator", sequenceName = "caregiver_seq")
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
+public class Caregiver extends User {
     private LocalDate dateOfBirth;
     @Transient
     private Integer age;
     private Gender gender;
     private String phoneNumber;
     private String addressId;
+    private String coordinates;
     private String needs;
     private String patients = "";
     private final UserType userType = UserType.CAREGIVER;
@@ -40,18 +34,16 @@ public class Caregiver {
                      Gender gender,
                      String phoneNumber,
                      String addressId,
+                     String coordinates,
                      String needs,
                      String patients) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
+        super(id, firstName, lastName, email, password);
         this.dateOfBirth = dateOfBirth;
         this.age = age;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.addressId = addressId;
+        this.coordinates = coordinates;
         this.needs = needs;
         this.patients = patients;
     }
@@ -64,56 +56,15 @@ public class Caregiver {
                      Gender gender,
                      String phoneNumber,
                      String addressId,
+                     String coordinates,
                      String needs) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
+        super(1L, firstName, lastName, email, password);
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.addressId = addressId;
+        this.coordinates = coordinates;
         this.needs = needs;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public LocalDate getDateOfBirth() {
@@ -152,6 +103,14 @@ public class Caregiver {
         this.addressId = addressId;
     }
 
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
+    }
+
     public String getNeeds() {
         return needs;
     }
@@ -175,16 +134,12 @@ public class Caregiver {
     @Override
     public String toString() {
         return "Caregiver{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
+                "dateOfBirth=" + dateOfBirth +
                 ", age=" + age +
                 ", gender=" + gender +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", addressId='" + addressId + '\'' +
+                ", coordinates='" + coordinates + '\'' +
                 ", needs='" + needs + '\'' +
                 ", patients='" + patients + '\'' +
                 ", userType=" + userType +

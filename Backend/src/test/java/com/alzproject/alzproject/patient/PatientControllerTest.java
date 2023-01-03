@@ -39,13 +39,13 @@ class PatientControllerTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "Early-onset",
                 "Good",
                 "Some needs",
                 RegisteredBy.PATIENT);
         patientService.registerPatient(patient);
-        List<Patient> allPatients = Arrays.asList(patient);
-        given(patientService.getPatients()).willReturn(allPatients);
+        given(patientService.getPatients()).willReturn(Arrays.asList(patient));
 
         mockMvc.perform(get("/patient")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -76,16 +76,18 @@ class PatientControllerTest {
                 .post("/patient")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
-                                "    \"firstName\" : \"john\",\n" +
-                                "    \"lastName\" : \"smith\",\n" +
-                                "    \"email\" : \"johnsmith@gmail.com\",\n" +
+                                "    \"firstName\" : \"Haku\",\n" +
+                                "    \"lastName\" : \"Mizou\",\n" +
+                                "    \"email\" : \"timbrown29@gmail.com\",\n" +
                                 "    \"password\" : \"password\",\n" +
                                 "    \"dateOfBirth\" : \"1982-03-02\",\n" +
-                                "    \"gender\" : \"MALE\",\n" +
+                                "    \"gender\" : \"FEMALE\",\n" +
                                 "    \"phoneNumber\" : \"123456789\",\n" +
-                                "    \"addressId\" : \"Pl. Politechniki 1, 00-661 Warszawa\",\n" +
+                                "    \"addressId\" : \"seton/1 - Bemowo\",\n" +
+                                "    \"coordinates\" : \"lat:23-lng:14\",\n" +
                                 "    \"illnessType\" : \"Early-onset\",\n" +
                                 "    \"conditionDescription\" : \"Good\",\n" +
+                                "    \"needs\" : \"Some needs\",\n" +
                                 "    \"registeredBy\" : \"PATIENT\"\n" +
                                 "}"))
                 .andDo(print())
@@ -131,6 +133,7 @@ class PatientControllerTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "Early-onset",
                 "Good",
                 "Some needs",
@@ -164,6 +167,7 @@ class PatientControllerTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "Early-onset",
                 "Good",
                 "Some needs",
@@ -191,6 +195,7 @@ class PatientControllerTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "Early-onset",
                 "Good",
                 "Some needs",

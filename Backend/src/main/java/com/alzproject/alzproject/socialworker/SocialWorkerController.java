@@ -57,9 +57,9 @@ public class SocialWorkerController {
                                 @RequestParam(required = false)
                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
                                 @RequestParam(required = false) String phoneNumber,
-                                @RequestParam(required = false) String addressId){
+                                @RequestParam(required = false) String addressId,
+                                @RequestParam(required = false) String coordinates){
         socialWorkerService.updateSocialWorker(id, firstName,lastName, email, password,
-                dateOfBirth, phoneNumber, addressId);
+                dateOfBirth, phoneNumber, addressId, coordinates);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.alzproject.alzproject.patient;
 
+import com.alzproject.alzproject.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,7 +20,7 @@ public class PatientController {
     }
 
     @GetMapping
-    public List<Patient> getPatients(){
+    public List<User> getPatients(){
         return patientService.getPatients();
     }
 
@@ -48,10 +49,11 @@ public class PatientController {
                                   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
                               @RequestParam(required = false) String phoneNumber,
                               @RequestParam(required = false) String addressId,
+                              @RequestParam(required = false) String coordinates,
                               @RequestParam(required = false) String illnessType,
                               @RequestParam(required = false) String conditionDescription,
                               @RequestParam(required = false) String needs){
         patientService.updatePatient(id, firstName,lastName, email, password, dateOfBirth,
-                phoneNumber, addressId, illnessType, conditionDescription, needs);
+                phoneNumber, addressId, coordinates, illnessType, conditionDescription, needs);
     }
 }

@@ -10,7 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
-
     private final UserService userService;
 
     @Autowired
@@ -19,22 +18,22 @@ public class UserController {
     }
 
     @GetMapping
-    public List<Object> getAllUsers(){
+    public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
 
     @GetMapping(path = "patients-caregivers")
-    public List<Object> getPatientsAndCaregivers(){
+    public List<User> getPatientsAndCaregivers(){
         return userService.getPatientsAndCaregivers();
     }
 
     @GetMapping(path = "patients-social_workers")
-    public List<Object> getPatientsAndSocialWorkers(){
+    public List<User> getPatientsAndSocialWorkers(){
         return userService.getPatientsAndSocialWorkers();
     }
 
     @GetMapping(path = "caregivers-social_workers")
-    public List<Object> getCaregiversAndSocialWorkers(){
+    public List<User> getCaregiversAndSocialWorkers(){
         return userService.getCaregiversAndSocialWorkers();
     }
 

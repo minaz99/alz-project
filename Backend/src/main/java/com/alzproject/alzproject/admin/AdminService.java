@@ -1,41 +1,54 @@
 package com.alzproject.alzproject.admin;
 
+import com.alzproject.alzproject.user.User;
+import com.alzproject.alzproject.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminService {
 
     private final AdminRepository adminRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AdminService(AdminRepository adminRepository) {
+    public AdminService(AdminRepository adminRepository, UserRepository userRepository) {
         this.adminRepository = adminRepository;
+        this.userRepository = userRepository;
     }
 
-    public List<Admin> getAdmins() {
-        return adminRepository.findAll();
+    public List<User> getAdmins() {
+        return adminRepository.findAll()
+                .stream()
+                .filter(obj -> obj instanceof Admin)
+                .map(obj -> (Admin) obj)
+                .collect(Collectors.toList());
     }
 
     public Admin getAdmin(Long id) {
         return adminRepository.findById(id)
+                .filter(obj -> obj instanceof Admin)
+                .map(obj -> (Admin) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing admin id"));
     }
 
     public void registerAdmin(Admin admin) {
-        boolean adminExists = adminRepository.findAdminByEmail(admin.getEmail()).isPresent();
+        boolean adminExists = userRepository.findUserByEmail(admin.getEmail()).isPresent();
         if(adminExists){
-            throw new IllegalStateException("Existing admin");
+            throw new IllegalStateException("Existing email. Cannot register admin!");
         }
         adminRepository.save(admin);
     }
 
     public void deleteAdmin(Long id) {
-        boolean idExists = adminRepository.findById(id).isPresent();
+        boolean idExists = adminRepository.findById(id)
+                .filter(obj -> obj instanceof Admin)
+                .map(obj -> (Admin) obj).isPresent();
         if(!idExists){
             throw new IllegalStateException("Non-existing admin id");
         }
@@ -50,6 +63,8 @@ public class AdminService {
                             String password) {
 
         Admin admin = adminRepository.findById(id)
+                .filter(obj -> obj instanceof Admin)
+                .map(obj -> (Admin) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing admin id"));
 
         if(firstName != null && !firstName.isEmpty() &&
@@ -62,7 +77,7 @@ public class AdminService {
             admin.setLastName(lastName);
         }
 
-        boolean emailExists = adminRepository.findAdminByEmail(email).isPresent();
+        boolean emailExists = userRepository.findUserByEmail(email).isPresent();
 
         if(email != null && !email.isEmpty() &&
                 !Objects.equals(admin.getEmail(), email) && !emailExists){

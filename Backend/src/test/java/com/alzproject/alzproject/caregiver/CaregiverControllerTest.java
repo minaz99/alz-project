@@ -36,10 +36,10 @@ class CaregiverControllerTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "personalNeed");
         caregiverService.registerCaregiver(caregiver);
-        List<Caregiver> allCaregivers = Arrays.asList(caregiver);
-        given(caregiverService.getCaregivers()).willReturn(allCaregivers);
+        given(caregiverService.getCaregivers()).willReturn(Arrays.asList(caregiver));
 
         mockMvc.perform(get("/caregiver")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -72,12 +72,13 @@ class CaregiverControllerTest {
                         .content("{\n" +
                                 "    \"firstName\" : \"tim\",\n" +
                                 "    \"lastName\" : \"brown\",\n" +
-                                "    \"email\" : \"timbrown1234@gmail.com\",\n" +
+                                "    \"email\" : \"timbrown2@gmail.com\",\n" +
                                 "    \"password\" : \"password\",\n" +
                                 "    \"dateOfBirth\" : \"1982-03-02\",\n" +
                                 "    \"gender\" : \"MALE\",\n" +
                                 "    \"phoneNumber\" : \"123456789\",\n" +
                                 "    \"addressId\" : \"Pl. Politechniki 1, 00-661 Warszawa\",\n" +
+                                "    \"coordinates\" : \"lat:23-lng:14\",\n" +
                                 "    \"needs\" : \"something\"\n" +
                                 "}"))
                 .andDo(print())
@@ -124,6 +125,7 @@ class CaregiverControllerTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "personalNeed");
         caregiverService.registerCaregiver(caregiver);
 
@@ -148,6 +150,7 @@ class CaregiverControllerTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "personalNeed");
         caregiverService.registerCaregiver(caregiver);
 
@@ -172,6 +175,7 @@ class CaregiverControllerTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "personalNeed");
         caregiverService.registerCaregiver(caregiver);
 

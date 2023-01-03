@@ -1,5 +1,6 @@
 package com.alzproject.alzproject.caregiver;
 
+import com.alzproject.alzproject.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class CaregiverController {
     }
 
     @GetMapping
-    public List<Caregiver> getCaregivers(){
+    public List<User> getCaregivers(){
         return caregiverService.getCaregivers();
     }
 
@@ -48,8 +49,9 @@ public class CaregiverController {
                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
                                 @RequestParam(required = false) String phoneNumber,
                                 @RequestParam(required = false) String addressId,
+                                @RequestParam(required = false) String coordinates,
                                 @RequestParam(required = false) String needs){
         caregiverService.updateCaregiver(id, firstName,lastName, email, password, dateOfBirth,
-                phoneNumber, addressId, needs);
+                phoneNumber, addressId, coordinates, needs);
     }
 }

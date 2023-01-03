@@ -37,8 +37,8 @@ public class UserService {
         this.caregiverRepository = caregiverRepository;
     }
 
-    public List<Object> getAllUsers(){
-        List<Object> allUsers = new ArrayList<>();
+    public List<User> getAllUsers(){
+        List<User> allUsers = new ArrayList<>();
 
         allUsers.addAll(patientService.getPatients());
         allUsers.addAll(caregiverService.getCaregivers());
@@ -47,8 +47,8 @@ public class UserService {
         return allUsers;
     }
 
-    public List<Object> getPatientsAndCaregivers(){
-        List<Object> allUsers = new ArrayList<>();
+    public List<User> getPatientsAndCaregivers(){
+        List<User> allUsers = new ArrayList<>();
 
         allUsers.addAll(patientService.getPatients());
         allUsers.addAll(caregiverService.getCaregivers());
@@ -56,8 +56,8 @@ public class UserService {
         return allUsers;
     }
 
-    public List<Object> getPatientsAndSocialWorkers(){
-        List<Object> allUsers = new ArrayList<>();
+    public List<User> getPatientsAndSocialWorkers(){
+        List<User> allUsers = new ArrayList<>();
 
         allUsers.addAll(patientService.getPatients());
         allUsers.addAll(socialWorkerService.getActiveSocialWorkers());
@@ -65,8 +65,8 @@ public class UserService {
         return allUsers;
     }
 
-    public List<Object> getCaregiversAndSocialWorkers(){
-        List<Object> allUsers = new ArrayList<>();
+    public List<User> getCaregiversAndSocialWorkers(){
+        List<User> allUsers = new ArrayList<>();
 
         allUsers.addAll(caregiverService.getCaregivers());
         allUsers.addAll(socialWorkerService.getActiveSocialWorkers());
@@ -76,6 +76,8 @@ public class UserService {
 
     public List<Caregiver> getCaregiversOfPatient(Long patientId) {
         Patient patient = patientRepository.findById(patientId)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
         if(Objects.equals(patient.getCaregivers(), "")){
@@ -93,9 +95,13 @@ public class UserService {
     @Transactional
     public void addCaregiversToPatient(Long patientId, Long caregiverId) {
         Patient patient = patientRepository.findById(patientId)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
         Caregiver caregiver = caregiverRepository.findById(caregiverId)
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing caregiver id"));
 
         if(!patient.getCaregivers().contains(caregiverId.toString())) {
@@ -113,6 +119,8 @@ public class UserService {
     @Transactional
     public void deleteCaregiversFromPatient(Long patientId, Long caregiverId) {
         Patient patient = patientRepository.findById(patientId)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
         if(Objects.equals(patient.getCaregivers(), "")){
@@ -120,6 +128,8 @@ public class UserService {
         }
 
         Caregiver caregiver = caregiverRepository.findById(caregiverId)
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing caregiver id"));
 
         String[] caregivers = (patient.getCaregivers()).split("[,]", 0);
@@ -158,6 +168,8 @@ public class UserService {
     public List<Patient> getPatientsOfCaregiver(Long caregiverId) {
 
         Caregiver caregiver = caregiverRepository.findById(caregiverId)
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing caregiver id"));
 
         if(Objects.equals(caregiver.getPatients(), "")){
@@ -175,9 +187,13 @@ public class UserService {
     @Transactional
     public void addPatientsToCaregiver(Long caregiverId, Long patientId) {
         Caregiver caregiver = caregiverRepository.findById(caregiverId)
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing caregiver id"));
 
         Patient patient = patientRepository.findById(patientId)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
         if(!caregiver.getPatients().contains(patientId.toString())){
@@ -195,6 +211,8 @@ public class UserService {
     @Transactional
     public void deletePatientsFromCaregiver(Long caregiverId, Long patientId) {
         Caregiver caregiver = caregiverRepository.findById(caregiverId)
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing caregiver id"));
 
         if(Objects.equals(caregiver.getPatients(), "")){
@@ -202,6 +220,8 @@ public class UserService {
         }
 
         Patient patient = patientRepository.findById(patientId)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
         String[] patients = (caregiver.getPatients()).split("[,]", 0);
@@ -236,13 +256,4 @@ public class UserService {
 
         patient.setCaregivers(newCaregivers);
     }
-
-
-//    public boolean checkEmailExists(String email) {
-//        boolean patient = patientRepository.findPatientByEmail(email).isPresent();
-//        boolean caregiver = caregiverRepository.findCaregiverByEmail(email).isPresent();
-//        boolean socialWorker = socialWorkerRepository.findSocialWorkerByEmail(email).isPresent();
-//        boolean admin = adminRepository.findAdminByEmail(email).isPresent();
-//        return (patient & caregiver & socialWorker & admin);
-//    }
 }

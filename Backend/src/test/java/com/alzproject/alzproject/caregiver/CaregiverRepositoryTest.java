@@ -31,10 +31,13 @@ class CaregiverRepositoryTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "personalNeed");
         underTest.save(caregiver);
         //when
-        boolean expected = underTest.findById(1L).isPresent();
+        boolean expected = underTest.findById(1L)
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj).isPresent();
         //then
         assertThat(expected).isTrue();
     }
@@ -44,7 +47,9 @@ class CaregiverRepositoryTest {
         //given
         Long id = 1L;
         //when
-        boolean expected = underTest.findById(id).isPresent();
+        boolean expected = underTest.findById(id)
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj).isPresent();
         //then
         assertThat(expected).isFalse();
     }
@@ -62,10 +67,11 @@ class CaregiverRepositoryTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "personalNeed");
         underTest.save(caregiver);
         //when
-        boolean expected = underTest.findCaregiverByEmail(email).isPresent();
+        boolean expected = underTest.findUserByEmail(email).isPresent();
         //then
         assertThat(expected).isTrue();
     }
@@ -75,7 +81,7 @@ class CaregiverRepositoryTest {
         //given
         String email = "johnsmith@gmail.com";
         //when
-        boolean expected = underTest.findCaregiverByEmail(email).isPresent();
+        boolean expected = underTest.findUserByEmail(email).isPresent();
         //then
         assertThat(expected).isFalse();
     }

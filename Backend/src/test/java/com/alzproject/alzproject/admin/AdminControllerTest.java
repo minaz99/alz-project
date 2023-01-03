@@ -32,8 +32,7 @@ class AdminControllerTest {
                 "johnsmith@gmail.com",
                 "password");
         adminService.registerAdmin(admin);
-        List<Admin> allAdmins = Arrays.asList(admin);
-        given(adminService.getAdmins()).willReturn(allAdmins);
+        given(adminService.getAdmins()).willReturn(Arrays.asList(admin));
 
         mockMvc.perform(get("/admin")
                         .contentType(MediaType.APPLICATION_JSON))

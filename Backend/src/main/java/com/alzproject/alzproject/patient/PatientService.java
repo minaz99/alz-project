@@ -1,35 +1,46 @@
 package com.alzproject.alzproject.patient;
 
+import com.alzproject.alzproject.user.User;
+import com.alzproject.alzproject.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PatientService{
 
     private final PatientRepository patientRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository, UserRepository userRepository) {
         this.patientRepository = patientRepository;
+        this.userRepository = userRepository;
     }
 
-    public List<Patient> getPatients() {
-        return patientRepository.findAll();
+    public List<User> getPatients() {
+        return patientRepository.findAll()
+                .stream()
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj)
+                .collect(Collectors.toList());
     }
 
     public Patient getPatient(Long id) {
         return patientRepository.findById(id)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
     }
 
     public void registerPatient(Patient patient) {
-        boolean patientExists = patientRepository.findPatientByEmail(patient.getEmail()).isPresent();
+        boolean patientExists = userRepository.findUserByEmail(patient.getEmail()).isPresent();
         if(patientExists){
-            throw new IllegalStateException("Existing patient");
+            throw new IllegalStateException("Existing email. Cannot register patient!");
         }
 //        String encodedPassword = bCryptPasswordEncoder
 //                .encode(patient.getPassword());
@@ -40,7 +51,9 @@ public class PatientService{
     }
 
     public void deletePatient(Long id) {
-        boolean idExists = patientRepository.findById(id).isPresent();
+        boolean idExists = patientRepository.findById(id)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj).isPresent();
         if(!idExists){
             throw new IllegalStateException("Non-existing patient id");
         }
@@ -56,11 +69,14 @@ public class PatientService{
                               LocalDate dateOfBirth,
                               String phoneNumber,
                               String addressId,
+                              String coordinates,
                               String illnessType,
                               String conditionDescription,
                               String needs) {
 
         Patient patient = patientRepository.findById(id)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
         if(firstName != null && !firstName.isEmpty() &&
@@ -73,7 +89,7 @@ public class PatientService{
             patient.setLastName(lastName);
         }
 
-        boolean emailExists = patientRepository.findPatientByEmail(email).isPresent();
+        boolean emailExists = userRepository.findUserByEmail(email).isPresent();
 
         if(email != null && !email.isEmpty() &&
                 !Objects.equals(patient.getEmail(), email) && !emailExists){
@@ -98,6 +114,11 @@ public class PatientService{
         if(addressId != null && !addressId.isEmpty() &&
                 !Objects.equals(patient.getAddressId(), addressId)){
             patient.setAddressId(addressId);
+        }
+
+        if(coordinates != null && !coordinates.isEmpty() &&
+                !Objects.equals(patient.getCoordinates(), coordinates)){
+            patient.setCoordinates(coordinates);
         }
 
         if(illnessType != null && !illnessType.isEmpty() &&

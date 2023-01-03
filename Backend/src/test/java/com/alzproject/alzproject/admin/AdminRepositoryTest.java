@@ -26,7 +26,9 @@ class AdminRepositoryTest {
                 "password");
         underTest.save(admin);
         //when
-        boolean expected = underTest.findById(1L).isPresent();
+        boolean expected = underTest.findById(1L)
+                .filter(obj -> obj instanceof Admin)
+                .map(obj -> (Admin) obj).isPresent();
         //then
         assertThat(expected).isTrue();
     }
@@ -36,7 +38,9 @@ class AdminRepositoryTest {
         //given
         Long id = 1L;
         //when
-        boolean expected = underTest.findById(id).isPresent();
+        boolean expected = underTest.findById(id)
+                .filter(obj -> obj instanceof Admin)
+                .map(obj -> (Admin) obj).isPresent();
         //then
         assertThat(expected).isFalse();
     }
@@ -52,7 +56,7 @@ class AdminRepositoryTest {
                 "password");
         underTest.save(admin);
         //when
-        boolean expected = underTest.findAdminByEmail(email).isPresent();
+        boolean expected = underTest.findUserByEmail(email).isPresent();
         //then
         assertThat(expected).isTrue();
     }
@@ -62,7 +66,7 @@ class AdminRepositoryTest {
         //given
         String email = "johnsmith@gmail.com";
         //when
-        boolean expected = underTest.findAdminByEmail(email).isPresent();
+        boolean expected = underTest.findUserByEmail(email).isPresent();
         //then
         assertThat(expected).isFalse();
     }

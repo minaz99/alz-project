@@ -2,6 +2,7 @@ package com.alzproject.alzproject.admin;
 
 import com.alzproject.alzproject.patient.Patient;
 import com.alzproject.alzproject.patient.PatientService;
+import com.alzproject.alzproject.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -18,11 +19,13 @@ import static org.mockito.Mockito.verify;
 class AdminServiceTest {
     @Mock
     private AdminRepository adminRepository;
+    @Mock
+    private UserRepository userRepository;
     private AdminService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new AdminService(adminRepository);
+        underTest = new AdminService(adminRepository, userRepository);
     }
 
     @Test

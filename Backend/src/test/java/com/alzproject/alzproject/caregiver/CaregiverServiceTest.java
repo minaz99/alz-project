@@ -1,6 +1,7 @@
 package com.alzproject.alzproject.caregiver;
 
 import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,11 +18,13 @@ import static org.mockito.Mockito.verify;
 class CaregiverServiceTest {
     @Mock
     private CaregiverRepository caregiverRepository;
+    @Mock
+    private UserRepository userRepository;
     private CaregiverService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new CaregiverService(caregiverRepository);
+        underTest = new CaregiverService(caregiverRepository, userRepository);
     }
 
     @Test
@@ -46,6 +49,7 @@ class CaregiverServiceTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "personalNeed");
         underTest.registerCaregiver(caregiver);
 

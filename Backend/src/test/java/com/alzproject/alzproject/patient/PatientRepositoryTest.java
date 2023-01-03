@@ -35,13 +35,16 @@ class PatientRepositoryTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "Early-onset",
                 "Good",
                 "Some needs",
                 RegisteredBy.PATIENT);
         underTest.save(patient);
         //when
-        boolean expected = underTest.findById(1L).isPresent();
+        boolean expected = underTest.findById(1L)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj).isPresent();
         //then
         assertThat(expected).isTrue();
     }
@@ -51,7 +54,9 @@ class PatientRepositoryTest {
         //given
         Long id = 1L;
         //when
-        boolean expected = underTest.findById(id).isPresent();
+        boolean expected = underTest.findById(id)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj).isPresent();
         //then
         assertThat(expected).isFalse();
     }
@@ -69,13 +74,16 @@ class PatientRepositoryTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "Early-onset",
                 "Good",
                 "Some needs",
                 RegisteredBy.PATIENT);
         underTest.save(patient);
         //when
-        boolean expected = underTest.findPatientByEmail(email).isPresent();
+        boolean expected = underTest.findUserByEmail(email)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj).isPresent();
         //then
         assertThat(expected).isTrue();
     }
@@ -85,7 +93,9 @@ class PatientRepositoryTest {
         //given
         String email = "johnsmith@gmail.com";
         //when
-        boolean expected = underTest.findPatientByEmail(email).isPresent();
+        boolean expected = underTest.findUserByEmail(email)
+                .filter(obj -> obj instanceof Patient)
+                .map(obj -> (Patient) obj).isPresent();
         //then
         assertThat(expected).isFalse();
     }

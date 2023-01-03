@@ -1,35 +1,46 @@
 package com.alzproject.alzproject.caregiver;
 
+import com.alzproject.alzproject.user.User;
+import com.alzproject.alzproject.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CaregiverService {
 
     private final CaregiverRepository caregiverRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CaregiverService(CaregiverRepository caregiverRepository) {
+    public CaregiverService(CaregiverRepository caregiverRepository, UserRepository userRepository) {
         this.caregiverRepository = caregiverRepository;
+        this.userRepository = userRepository;
     }
 
-    public List<Caregiver> getCaregivers() {
-        return caregiverRepository.findAll();
+    public List<User> getCaregivers() {
+        return caregiverRepository.findAll()
+                .stream()
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj)
+                .collect(Collectors.toList());
     }
 
     public Caregiver getCaregiver(Long id) {
         return caregiverRepository.findById(id)
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing caregiver id"));
     }
 
     public void registerCaregiver(Caregiver caregiver) {
-        boolean caregiverExists = caregiverRepository.findCaregiverByEmail(caregiver.getEmail()).isPresent();
+        boolean caregiverExists = userRepository.findUserByEmail(caregiver.getEmail()).isPresent();
         if(caregiverExists){
-            throw new IllegalStateException("Existing caregiver");
+            throw new IllegalStateException("Existing email. Cannot register caregiver!");
         }
 
         //encrypt password
@@ -38,7 +49,9 @@ public class CaregiverService {
     }
 
     public void deleteCaregiver(Long id) {
-        boolean idExists = caregiverRepository.findById(id).isPresent();
+        boolean idExists = caregiverRepository.findById(id)
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj).isPresent();
         if(!idExists){
             throw new IllegalStateException("Non-existing caregiver id");
         }
@@ -54,8 +67,11 @@ public class CaregiverService {
                                 LocalDate dateOfBirth,
                                 String phoneNumber,
                                 String addressId,
+                                String coordinates,
                                 String needs) {
         Caregiver caregiver = caregiverRepository.findById(id)
+                .filter(obj -> obj instanceof Caregiver)
+                .map(obj -> (Caregiver) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing caregiver id"));
 
         if(firstName != null && !firstName.isEmpty() &&
@@ -68,7 +84,7 @@ public class CaregiverService {
             caregiver.setLastName(lastName);
         }
 
-        boolean emailExists = caregiverRepository.findCaregiverByEmail(email).isPresent();
+        boolean emailExists = caregiverRepository.findUserByEmail(email).isPresent();
 
         if(email != null && !email.isEmpty() &&
                 !Objects.equals(caregiver.getEmail(), email) && !emailExists){
@@ -94,6 +110,11 @@ public class CaregiverService {
         if(addressId != null && !addressId.isEmpty() &&
                 !Objects.equals(caregiver.getAddressId(), addressId)){
             caregiver.setAddressId(addressId);
+        }
+
+        if(coordinates != null && !coordinates.isEmpty() &&
+                !Objects.equals(caregiver.getCoordinates(), coordinates)){
+            caregiver.setCoordinates(coordinates);
         }
 
         if(needs != null && !needs.isEmpty() &&

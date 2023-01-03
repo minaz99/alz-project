@@ -2,6 +2,7 @@ package com.alzproject.alzproject.patient;
 
 import com.alzproject.alzproject.registration.Gender;
 import com.alzproject.alzproject.registration.RegisteredBy;
+import com.alzproject.alzproject.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,11 +23,13 @@ import static org.mockito.Mockito.*;
 class PatientServiceTest {
     @Mock
     private PatientRepository patientRepository;
+    @Mock
+    private UserRepository userRepository;
     private PatientService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new PatientService(patientRepository);
+        underTest = new PatientService(patientRepository, userRepository);
     }
 
     @Test
@@ -85,6 +88,7 @@ class PatientServiceTest {
                 Gender.MALE,
                 "123456789",
                 "Pl. Politechniki 1, 00-661 Warszawa",
+                "lat:23-lng:14",
                 "Early-onset",
                 "Good",
                 "Some needs",
