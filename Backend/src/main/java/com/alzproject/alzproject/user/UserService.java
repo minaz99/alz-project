@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,18 +24,20 @@ public class UserService {
     private final SocialWorkerService socialWorkerService;
     private final PatientRepository patientRepository;
     private final CaregiverRepository caregiverRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserService(PatientService patientService,
                        CaregiverService caregiverService,
                        SocialWorkerService socialWorkerService,
                        PatientRepository patientRepository,
-                       CaregiverRepository caregiverRepository) {
+                       CaregiverRepository caregiverRepository, UserRepository userRepository) {
         this.patientService = patientService;
         this.caregiverService = caregiverService;
         this.socialWorkerService = socialWorkerService;
         this.patientRepository = patientRepository;
         this.caregiverRepository = caregiverRepository;
+        this.userRepository = userRepository;
     }
 
     public List<User> getAllUsers(){
@@ -256,4 +259,17 @@ public class UserService {
 
         patient.setCaregivers(newCaregivers);
     }
+
+
+    //login
+//    public List<Object> loginUsers(String email, String password) {
+//        User user = userRepository.findUserByEmail(email)
+//                .filter(obj -> obj instanceof User)
+//                .map(obj -> (User) obj)
+//                .orElseThrow(() -> new IllegalStateException("Non-existing user"));
+//        if(user.getPassword()!= password){
+//            throw new IllegalStateException("Incorrect Password");
+//        }
+//        return Arrays.asList(user.getId(), user.);
+//    }
 }
