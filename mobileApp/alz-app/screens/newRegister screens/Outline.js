@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -18,10 +18,14 @@ import {
   resetIsSuccess,
 } from "../../features/Admin/PatientRegisterSlice";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { getCords } from "../../features/Admin/mapRequestsSlice";
 const Outline = (props) => {
   const dispatch = useDispatch();
   const { patientUrl, caregiverUrl, socialworkerUrl, isSuccess, isFetching } =
     useSelector((store) => store.patientRegister);
+  const { cords, googleUrl, apiKey } = useSelector(
+    (store) => store.mapRequests
+  );
   const navigation = useNavigation();
   const {
     params: { userType, registerBy, id },
@@ -51,6 +55,7 @@ const Outline = (props) => {
   const [conditionDescription, setConditionDescription] = useState("");
   const [needs, setNeeds] = useState("");
   const [age, setAge] = useState("");
+  const [coordinates, setCoordinates] = useState(cords);
   const [registeredBy, setRegisteredBy] = useState(
     registerBy === "Patient"
       ? "PATIENT"
@@ -60,7 +65,11 @@ const Outline = (props) => {
   );
 
   const correctAddress = (street, appNo, district) => {
+    const add = `${street}/${appNo} - ${district}`;
     setAddressId(`${street}/${appNo} - ${district}`);
+    //alert(`${googleUrl}${add}${apiKey}`);
+    dispatch(getCords(`${googleUrl}${add}${apiKey}`));
+    setCoordinates(`${cords.lat},${cords.lng}`);
   };
 
   const registeredSuccessfully = () => {
@@ -131,6 +140,8 @@ const Outline = (props) => {
               setIllnessType={setIllnessType}
               conditionDescription={conditionDescription}
               setConditionDescription={setConditionDescription}
+              needs={needs}
+              setNeeds={setNeeds}
             />
           ) : userType === "Caregiver" || userType === "Socialworker" ? (
             <CaregiverExtras needs={needs} setNeeds={setNeeds} />
@@ -170,6 +181,7 @@ const Outline = (props) => {
                     conditionDescription,
                     needs,
                     registeredBy,
+                    coordinates,
                   })
                 );
               }}

@@ -32,6 +32,7 @@ function FormCard() {
   const [caregivers, setPatientCaregivers] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [illnessCount, setIllnessCount] = useState(0);
+  const [needs, setNeeds] = useState("");
   const navigate = useNavigate();
   const addDisease = (disease) => {
     let diseases = illnessType;
@@ -70,6 +71,7 @@ function FormCard() {
               setConditionDescription={setConditionDescription}
               setPatientCaregivers={setPatientCaregivers}
               illnessCount={illnessCount}
+              setNeeds={setNeeds}
             />
           )}
           <div className="flex p-8 items-center mx-auto justify-center ">

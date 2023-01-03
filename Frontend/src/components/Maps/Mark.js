@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setMarkerData } from "../../features/Admin/mapRequestsSlice";
 import MapuserData from "./MapuserData";
+import { combineReducers } from "@reduxjs/toolkit";
 function Mark(props) {
   //const handleOnLoad = (map) => {};
   const center = useMemo(() => ({ lat: 52.2594345, lng: 21.0010801 }), []);
@@ -166,9 +167,9 @@ function Mark(props) {
 
   useEffect(() => {
     setUD([]);
-    setUD(userData);
+    setUD(props.users);
   }, []);
-
+  const cordy = { lat: 52.22176679566748, lng: 20.98397434048077 };
   return (
     <div className="flex  space-x-2">
       {showData === true ? (
@@ -198,34 +199,38 @@ function Mark(props) {
         center={center}
         mapContainerStyle={{ width: "100%", height: "100vh" }}
       >
-        {UD.map((cord, index) => {
+        {UD.map((user, index) => {
+          const cordy = {
+            lat: parseFloat(user.coordinates.split(",")[0]),
+            lng: parseFloat(user.coordinates.split(",")[1]),
+          };
           return (
             <div>
               <Marker
                 key={index}
                 position={{
-                  lat: cord.cords.lat,
-                  lng: cord.cords.lng,
+                  lat: cordy.lat,
+                  lng: cordy.lng,
                 }}
                 onClick={() => {
                   setShowData(true);
                   displayUserInfo(
-                    cord.id,
-                    cord.firstName,
-                    cord.lastName,
-                    cord.age,
-                    cord.phoneNumber,
-                    cord.gender,
-                    cord.userType,
-                    cord.addressId,
-                    cord.email,
-                    cord.dateOfBirth,
-                    cord.illnessType,
-                    cord.conditionDescription,
-                    cord.needs,
-                    cord.patients,
-                    cord.caregivers,
-                    cord.registeredBy
+                    user.id,
+                    user.firstName,
+                    user.lastName,
+                    user.age,
+                    user.phoneNumber,
+                    user.gender,
+                    user.userType,
+                    user.addressId,
+                    user.email,
+                    user.dateOfBirth,
+                    user.illnessType,
+                    user.conditionDescription,
+                    user.needs,
+                    user.patients,
+                    user.caregivers,
+                    user.registeredBy
                   );
                 }}
               ></Marker>

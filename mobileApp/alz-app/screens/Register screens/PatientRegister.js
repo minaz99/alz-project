@@ -15,6 +15,7 @@ import CaregiverExtras from "./CaregiverExtras";
 import { useDispatch } from "react-redux";
 import { registerPatient } from "../../features/Admin/PatientRegisterSlice";
 import { useSelector } from "react-redux";
+import { getCords } from "../../features/Admin/mapRequestsSlice";
 const PatientRegister = (props) => {
   //const [date, setDate] = useState("09-10-2020");
   //const [selectedDate, setSelectedDate] = useState("");
@@ -22,6 +23,7 @@ const PatientRegister = (props) => {
   const { patientUrl, caregiverUrl } = useSelector(
     (store) => store.patientRegister
   );
+  const { cords } = useSelector((store) => store.mapRequests);
   const [url, setUrl] = useState(
     props.userType === "Patient" ? patientUrl : caregiverUrl
   );
@@ -42,6 +44,7 @@ const PatientRegister = (props) => {
   const [registeredBy, setRegisteredBy] = useState(
     props.userType === "Patient" ? "PATIENT" : "CAREGIVER"
   );
+  const [coordinates, setCoordinates] = useState(cords);
   const correctDateFormat = (date) => {
     const newDate = date.split("/");
     setDateOfBirth(`${newDate[0]}-${newDate[1]}-${newDate[2]}`);
@@ -153,7 +156,8 @@ const PatientRegister = (props) => {
             setIllnessType={setIllnessType}
             conditionDescription={conditionDescription}
             setConditionDescription={setConditionDescription}
-            needs = {needs} setNeeds={setNeeds}
+            needs={needs}
+            setNeeds={setNeeds}
           />
         ) : (
           <CaregiverExtras needs={needs} setNeeds={setNeeds} />
@@ -176,6 +180,9 @@ const PatientRegister = (props) => {
                 illnessType,
                 conditionDescription,
                 registeredBy,
+
+                needs,
+                coordinates,
               })
             );
           }}

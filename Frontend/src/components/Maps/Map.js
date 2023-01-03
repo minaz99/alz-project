@@ -32,7 +32,7 @@ function Map(props) {
     setUserTypes(userT);*/
   }, []);
 
-  return <Mark />;
+  return <Mark users={props.users} />;
 }
 
 export default Map;

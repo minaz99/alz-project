@@ -9,6 +9,7 @@ import managePatientsCaregiversSlice from "./features/Admin/managePatientsCaregi
 import deletePCandCPSlice from "./features/Admin/deletePCandCPSlice";
 import patientsAndCaregiversSlice from "./features/Admin/patientsAndCaregivers";
 import activateSocialworkerSlice from "./features/Admin/activateSocialworkerSlice";
+import MapRequestsSlice from "./features/Admin/mapRequestsSlice";
 export const store = configureStore({
   reducer: {
     patientRegister: patientRegisterSlice,
@@ -21,5 +22,6 @@ export const store = configureStore({
     deletePCandCP: deletePCandCPSlice,
     patientsAndCaregivers: patientsAndCaregiversSlice,
     activateSocialworker: activateSocialworkerSlice,
+    mapRequests: MapRequestsSlice,
   },
 });

@@ -12,7 +12,8 @@ const initialState = {
   password: "",
   illnessType: "",
   conditionDescription: "",
-
+  needs: "",
+  coordinates: "",
   regsiteredBy: "",
   // userType: "",
   isFetching: false,
@@ -40,9 +41,10 @@ export const registerPatient = createAsyncThunk(
       addressId,
       illnessType,
       conditionDescription,
-      //needs,
+      needs,
       //  caregivers,
       registeredBy,
+      coordinates,
       //userType,
     },
     thunkAPI
@@ -69,7 +71,8 @@ export const registerPatient = createAsyncThunk(
           conditionDescription,
           //caregivers,
           registeredBy,
-          //needs,
+          needs,
+          coordinates,
           // userType,
         }),
       });

@@ -8,7 +8,7 @@ function PatientExtras(props) {
         Illness{" "}
         {props.illnessType.split("-").map((ill) => {
           return (
-            <div className="rounded-md shadow-fuchsia-300 bg-fuchsia-100 shadow-md text-fuchsia-600 text-center border px-4 mx-2">
+            <div className="rounded-md w-fit shadow-fuchsia-300 bg-fuchsia-100 shadow-md text-fuchsia-600 text-center border px-4 mx-2">
               {ill}
             </div>
           );

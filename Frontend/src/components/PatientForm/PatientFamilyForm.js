@@ -39,7 +39,10 @@ const PatientFamilyForm = (props) => {
             </div>
 
             {showIllnessList === true ? (
-              <IllnessList addDisease = {props.addDisease} setShowIllnessList={setShowIllnessList} />
+              <IllnessList
+                addDisease={props.addDisease}
+                setShowIllnessList={setShowIllnessList}
+              />
             ) : (
               <div></div>
             )}
@@ -53,6 +56,18 @@ const PatientFamilyForm = (props) => {
               required
               onChange={(e) => {
                 props.setConditionDescription(e.target.value);
+              }}
+            />
+          </div>
+          <div className="space-x-2 p-2f flex justify-center">
+            <textarea
+              name="Needs"
+              type="text"
+              placeholder="Enter patient's needs....."
+              className="rounded-md bg-violet-200/40 p-2 w-9/12  "
+              required
+              onChange={(e) => {
+                props.setNeeds(e.target.value);
               }}
             />
           </div>

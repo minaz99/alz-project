@@ -20,7 +20,7 @@ const PatientExtras = (props) => {
     //alert(stringAsAWhole);
   };
   return (
-    <View className="p-6">
+    <View className="p-6 space-y-2">
       <TouchableOpacity
         className="flex-row items-center border-b-2 border-white"
         onPress={() => {

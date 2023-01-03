@@ -110,6 +110,7 @@ const userRequestsSlice = createSlice({
           registeredBy,
           userType,
           phoneNumber,
+          coordinates,
         } = payload[key];
 
         state.users.push({
@@ -129,6 +130,7 @@ const userRequestsSlice = createSlice({
           registeredBy,
           userType,
           phoneNumber,
+          coordinates,
         });
       }
 

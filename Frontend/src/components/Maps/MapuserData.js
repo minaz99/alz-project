@@ -53,8 +53,8 @@ function MapuserData(props) {
           <div className="text-white mx-1">{props.phoneNumber}</div>
         </div>
       </div>
-      <div className="bg-violet-100 rounded-md  p-2">
-        {props.userType === "Patient" ? (
+      <div className="bg-violet-100  rounded-md  p-2">
+        {props.userType === "PATIENT" ? (
           <div>
             <PatientExtras
               illnessType={props.illnessType}
@@ -68,7 +68,7 @@ function MapuserData(props) {
               <div className="text-indigo-400 px-4">{props.registeredBy}</div>
             </div>
           </div>
-        ) : props.userType === "Caregiver" ? (
+        ) : props.userType === "CAREGIVER" ? (
           <CaregiverExtras
             needs={props.needs}
             patients={props.patients}

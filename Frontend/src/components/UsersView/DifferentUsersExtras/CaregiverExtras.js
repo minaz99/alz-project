@@ -3,7 +3,7 @@ import CaregiversPatients from "../../UsersViewNewDesign/updateUserExtras/Caregi
 
 function CaregiverExtras(props) {
   return (
-    <div className="flex-col p-4 space-y-2 ">
+    <div className="flex-col  space-y-2 ">
       {props.mapView !== true ? (
         <div className="text-gray-400 flex">
           Phone number
