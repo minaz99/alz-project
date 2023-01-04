@@ -1,6 +1,6 @@
 package com.alzproject.alzproject.caregiver;
 
-import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.enums.Gender;
 import com.alzproject.alzproject.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package com.alzproject.alzproject.caregiver;
 
-import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.enums.Gender;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

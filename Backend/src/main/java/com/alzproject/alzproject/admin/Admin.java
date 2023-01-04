@@ -1,6 +1,6 @@
 package com.alzproject.alzproject.admin;
 
-import com.alzproject.alzproject.registration.UserType;
+import com.alzproject.alzproject.enums.UserType;
 import com.alzproject.alzproject.user.User;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +16,7 @@ public class Admin extends User {
                  String lastName,
                  String email,
                  String password) {
-        super(1L, firstName, lastName, email, password);
+        super(1L, firstName, lastName, email, password, UserType.ADMIN);
     }
 
     public UserType getUserType() {

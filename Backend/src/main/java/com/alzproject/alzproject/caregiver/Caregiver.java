@@ -1,7 +1,7 @@
 package com.alzproject.alzproject.caregiver;
 
-import com.alzproject.alzproject.registration.Gender;
-import com.alzproject.alzproject.registration.UserType;
+import com.alzproject.alzproject.enums.Gender;
+import com.alzproject.alzproject.enums.UserType;
 import com.alzproject.alzproject.user.User;
 import lombok.NoArgsConstructor;
 
@@ -37,7 +37,7 @@ public class Caregiver extends User {
                      String coordinates,
                      String needs,
                      String patients) {
-        super(id, firstName, lastName, email, password);
+        super(id, firstName, lastName, email, password, UserType.CAREGIVER);
         this.dateOfBirth = dateOfBirth;
         this.age = age;
         this.gender = gender;
@@ -58,7 +58,7 @@ public class Caregiver extends User {
                      String addressId,
                      String coordinates,
                      String needs) {
-        super(1L, firstName, lastName, email, password);
+        super(1L, firstName, lastName, email, password, UserType.CAREGIVER);
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.phoneNumber = phoneNumber;

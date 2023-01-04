@@ -1,7 +1,7 @@
 package com.alzproject.alzproject.patient;
 
-import com.alzproject.alzproject.registration.Gender;
-import com.alzproject.alzproject.registration.RegisteredBy;
+import com.alzproject.alzproject.enums.Gender;
+import com.alzproject.alzproject.enums.RegisteredBy;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;

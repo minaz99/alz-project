@@ -1,4 +1,4 @@
-package com.alzproject.alzproject.registration;
+package com.alzproject.alzproject.enums;
 
 public enum UserType {
     ADMIN,

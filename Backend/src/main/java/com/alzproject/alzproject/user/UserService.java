@@ -6,12 +6,14 @@ import com.alzproject.alzproject.caregiver.CaregiverService;
 import com.alzproject.alzproject.patient.Patient;
 import com.alzproject.alzproject.patient.PatientRepository;
 import com.alzproject.alzproject.patient.PatientService;
+import com.alzproject.alzproject.socialworker.SocialWorker;
 import com.alzproject.alzproject.socialworker.SocialWorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,18 +25,20 @@ public class UserService {
     private final SocialWorkerService socialWorkerService;
     private final PatientRepository patientRepository;
     private final CaregiverRepository caregiverRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserService(PatientService patientService,
                        CaregiverService caregiverService,
                        SocialWorkerService socialWorkerService,
                        PatientRepository patientRepository,
-                       CaregiverRepository caregiverRepository) {
+                       CaregiverRepository caregiverRepository, UserRepository userRepository) {
         this.patientService = patientService;
         this.caregiverService = caregiverService;
         this.socialWorkerService = socialWorkerService;
         this.patientRepository = patientRepository;
         this.caregiverRepository = caregiverRepository;
+        this.userRepository = userRepository;
     }
 
     public List<User> getAllUsers(){
@@ -224,6 +228,8 @@ public class UserService {
                 .map(obj -> (Patient) obj)
                 .orElseThrow(() -> new IllegalStateException("Non-existing patient id"));
 
+
+
         String[] patients = (caregiver.getPatients()).split("[,]", 0);
 
         List<Long> patientsIds = new ArrayList<>();
@@ -255,5 +261,17 @@ public class UserService {
         for(Long l : caregiverIds) newCaregivers = newCaregivers.concat(l + ",");
 
         patient.setCaregivers(newCaregivers);
+    }
+
+    public List<Object> loginUsers(String email, String password) {
+        User user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new IllegalStateException("Non-existing user"));
+        if(!Objects.equals(user.getPassword(), password)){
+            throw new IllegalStateException("Incorrect password");
+        }
+        if(user instanceof SocialWorker && !((SocialWorker)user).isActivated()){
+            throw new IllegalStateException("Not activated social worker");
+        }
+        return Arrays.asList(user.getId(), user.getUserType());
     }
 }

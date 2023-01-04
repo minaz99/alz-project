@@ -1,7 +1,7 @@
 package com.alzproject.alzproject.patient;
 
-import com.alzproject.alzproject.registration.Gender;
-import com.alzproject.alzproject.registration.RegisteredBy;
+import com.alzproject.alzproject.enums.Gender;
+import com.alzproject.alzproject.enums.RegisteredBy;
 import com.alzproject.alzproject.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,12 +11,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

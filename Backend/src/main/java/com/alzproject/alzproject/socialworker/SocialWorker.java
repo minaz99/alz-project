@@ -1,7 +1,7 @@
 package com.alzproject.alzproject.socialworker;
 
-import com.alzproject.alzproject.registration.Gender;
-import com.alzproject.alzproject.registration.UserType;
+import com.alzproject.alzproject.enums.Gender;
+import com.alzproject.alzproject.enums.UserType;
 import com.alzproject.alzproject.user.User;
 import lombok.NoArgsConstructor;
 
@@ -35,7 +35,7 @@ public class SocialWorker extends User {
                         String addressId,
                         String coordinates,
                         boolean activated) {
-        super(id, firstName, lastName, email, password);
+        super(id, firstName, lastName, email, password, UserType.SOCIAL_WORKER);
         this.dateOfBirth = dateOfBirth;
         this.age = age;
         this.gender = gender;
@@ -54,7 +54,7 @@ public class SocialWorker extends User {
                         String phoneNumber,
                         String addressId,
                         String coordinates) {
-        super(1L, firstName, lastName, email, password);
+        super(1L, firstName, lastName, email, password, UserType.SOCIAL_WORKER);
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.phoneNumber = phoneNumber;

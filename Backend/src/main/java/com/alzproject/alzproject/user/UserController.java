@@ -70,4 +70,10 @@ public class UserController {
                                @PathVariable("patientId") Long patientId){
         userService.deletePatientsFromCaregiver(caregiverId, patientId);
     }
+
+    @GetMapping(path = "login")
+    public List<Object> getPatients(@RequestParam String email,
+                                    @RequestParam String password) {
+        return userService.loginUsers(email, password);
+    }
 }

@@ -1,9 +1,8 @@
 package com.alzproject.alzproject.socialworker;
 
-import com.alzproject.alzproject.registration.Gender;
+import com.alzproject.alzproject.enums.Gender;
 import com.alzproject.alzproject.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

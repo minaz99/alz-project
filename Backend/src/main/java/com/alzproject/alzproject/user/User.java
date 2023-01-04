@@ -1,5 +1,6 @@
 package com.alzproject.alzproject.user;
 
+import com.alzproject.alzproject.enums.UserType;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -16,17 +17,20 @@ public abstract class User {
     private String lastName;
     private String email;
     private String password;
+    private UserType userType;
 
     public User(Long id,
                 String firstName,
                 String lastName,
                 String email,
-                String password) {
+                String password,
+                UserType userType) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.userType = userType;
     }
 
     public Long getId() {
@@ -69,6 +73,14 @@ public abstract class User {
         this.password = password;
     }
 
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -77,6 +89,7 @@ public abstract class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", userType=" + userType +
                 '}';
     }
 }
