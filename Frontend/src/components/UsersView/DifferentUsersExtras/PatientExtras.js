@@ -4,18 +4,18 @@ import PatientsCaregivers from "../../UsersViewNewDesign/updateUserExtras/Patien
 function PatientExtras(props) {
   return (
     <div className="flex-col p-4 items-center   space-y-2 ">
-      <div className="text-gray-400 items-center mx-1  flex">
+      <div className="text-gray-400 items-center mx-1   flex">
         Illness{" "}
         {props.illnessType.split("-").map((ill) => {
           return (
-            <div className="rounded-md w-fit shadow-fuchsia-300 bg-fuchsia-100 shadow-md text-fuchsia-600 text-center border px-4 mx-1">
+            <div className="rounded-md w-fit shadow-fuchsia-300 bg-fuchsia-100 shadow-md text-fuchsia-600 text-center border break-keep px-4 mx-1">
               {ill}
             </div>
           );
         })}
       </div>
       <div className="text-gray-400 flex">
-        Illness condition description
+        Condition description
         <div className="text-indigo-400 px-4 -mx-2">
           {props.conditionDescription}
         </div>

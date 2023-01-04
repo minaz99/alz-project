@@ -51,6 +51,7 @@ const Outline = (props) => {
   const [gender, setGender] = useState("Select gender");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [addressId, setAddressId] = useState("");
+  const [illnesses, setIllnesses] = useState([]);
   const [illnessType, setIllnessType] = useState("Select type of illness");
   const [conditionDescription, setConditionDescription] = useState("");
   const [needs, setNeeds] = useState("");
@@ -70,6 +71,26 @@ const Outline = (props) => {
     //alert(`${googleUrl}${add}${apiKey}`);
     dispatch(getCords(`${googleUrl}${add}${apiKey}`));
     setCoordinates(`${cords.lat},${cords.lng}`);
+  };
+
+  const changeIllnessToString = (ill) => {
+    let illo = [];
+    illo = illnesses;
+    illo.push(ill);
+    setIllnesses(illo);
+
+    let ilnes = "";
+    let stringAsAWhole = "";
+    let size = illnesses.length;
+    illnesses.forEach((illness) => {
+      ilnes = `${illness}`;
+      stringAsAWhole += ilnes;
+      size--;
+      if (size !== 0) stringAsAWhole += "-";
+    });
+    setIllnessType(stringAsAWhole);
+
+    //alert(stringAsAWhole);
   };
 
   const registeredSuccessfully = () => {
@@ -141,6 +162,8 @@ const Outline = (props) => {
             <PatientExtras
               illnessType={illnessType}
               setIllnessType={setIllnessType}
+              setIllnesses={setIllnesses}
+              changeIllnessToString={changeIllnessToString}
               conditionDescription={conditionDescription}
               setConditionDescription={setConditionDescription}
               needs={needs}

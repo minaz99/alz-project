@@ -28,7 +28,7 @@ const PatientExtras = (props) => {
       <TouchableOpacity
         className="flex-row items-center border-b-2 border-white"
         onPress={() => {
-          changeIllnessToString(illnesses);
+          //props.changeIllnessToString();
           setDisplayIllnessList(!displayIllnessList);
         }}
       >
@@ -42,8 +42,10 @@ const PatientExtras = (props) => {
           <TouchableOpacity
             disabled={disabled}
             onPress={() => {
-              illnesses.push("Vascular Dementia");
+              //  illnesses.push("Vascular Dementia");
               setDisabled(true);
+              //   props.setIllnesses(illnesses);
+              props.changeIllnessToString("Vascular Dementia");
               //props.setIllnessType("Vascular Dementia");
               //setDisplayIllnessList(!displayIllnessList);
             }}
@@ -53,8 +55,10 @@ const PatientExtras = (props) => {
           <TouchableOpacity
             disabled={disabled1}
             onPress={() => {
-              illnesses.push("Mixed Dementia");
+              // illnesses.push("Mixed Dementia");
               setDisabled1(true);
+              //  props.setIllnesses(illnesses);
+              props.changeIllnessToString("Mixed Dementia");
               //props.setIllnessType("Mixed Dementia");
               //setDisplayIllnessList(!displayIllnessList);
             }}
@@ -64,8 +68,10 @@ const PatientExtras = (props) => {
           <TouchableOpacity
             disabled={disabled2}
             onPress={() => {
-              illnesses.push("Parkinson Disease");
+              // illnesses.push("Parkinson Disease");
               setDisabled2(true);
+              //props.setIllnesses(illnesses);
+              props.changeIllnessToString("Parkinson Disease");
               //props.setIllnessType("Parkinson Disease");
               //setDisplayIllnessList(!displayIllnessList);
             }}
@@ -75,7 +81,10 @@ const PatientExtras = (props) => {
           <TouchableOpacity
             disabled={disabled3}
             onPress={() => {
-              props.setIllnessType("Vascular (Post Stroke)");
+              // illnesses.push("Vascular (Post Stroke)");
+              // props.setIllnesses(illnesses);
+              props.changeIllnessToString("Vascular (Post Stroke)");
+              // props.setIllnessType("Vascular (Post Stroke)");
               // setDisplayIllnessList(!displayIllnessList);
               setDisabled3(true);
             }}
@@ -85,7 +94,10 @@ const PatientExtras = (props) => {
           <TouchableOpacity
             disabled={disabled4}
             onPress={() => {
-              props.setIllnessType("Alzheimer");
+              // props.setIllnessType("Alzheimer");
+              illnesses.push("Alzheimer");
+              // props.setIllnesses(illnesses);
+              props.changeIllnessToString("Alzheimer");
               // setDisplayIllnessList(!displayIllnessList);
               setDisabled4(true);
             }}
